@@ -8,4 +8,12 @@ public class fede
 	{
 		this.nome = nome;
 	}
+	
+	@Override
+	public String toString()
+	{
+		int a = 5;
+		a++;
+		return "Ciao sono federico";
+	}
 }
