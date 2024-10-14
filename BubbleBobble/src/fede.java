@@ -7,8 +7,11 @@ public class fede
 		this.nome = nome;
 	}
 	
-	public String toString() {
-		System.out.println("ciciciiccii");
-		return "cicicicici";
+	@Override
+	public String toString()
+	{
+		int a = 5;
+		a++;
+		return "Ciao sono federico";
 	}
 }
