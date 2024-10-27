@@ -12,9 +12,9 @@ import javax.swing.JPanel;
 import control.KeyHandler;
 import model.Player;
 
-public class GamePanel extends JPanel{
-	
-	final int startingTileSize = 16;
+public class GamePanel extends JPanel
+{	
+	final int startingTileSize = 16; 
 	final int scale = 3;
 	
 	final int tileSize = startingTileSize*scale;
@@ -26,35 +26,34 @@ public class GamePanel extends JPanel{
 	
 	KeyHandler kh = new KeyHandler();
 
-	public GamePanel() {
+	public GamePanel() 
+	{
 		this.setPreferredSize(new Dimension(gameScreenWidth,gameScreenHeight));
 		this.setBackground(Color.black);
-		this.setDoubleBuffered(true);
+		this.setDoubleBuffered(true); 
 		
 		this.addKeyListener(kh);
 		this.setFocusable(true);
 	}
 	
 	
-	public void paintComponent(Graphics g) {
-		
+	public void paintComponent(Graphics g) 
+	{	
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
 		// da cambiare con gli sprite
 		g2.setColor(Color.WHITE);
 		
-		if(kh.isUp()) {  Player.setY(Player.getY() - Player.getSpeed()); }
+		if(kh.isUp()) Player.setY(Player.getY() - Player.getSpeed());
 		
-		else if(kh.isDown()){ Player.setY(Player.getY() + Player.getSpeed());  }
+		else if(kh.isDown()) Player.setY(Player.getY() + Player.getSpeed());
 		
-		else if(kh.isLeft()) { Player.setX(Player.getX() - Player.getSpeed()); }
+		else if(kh.isLeft()) Player.setX(Player.getX() - Player.getSpeed()); 
 		
-		else if(kh.isRight()) { Player.setX(Player.getX() + Player.getSpeed()); }
+		else if(kh.isRight()) Player.setX(Player.getX() + Player.getSpeed());
 		
 		g2.fillRect(Player.getX(), Player.getY(), tileSize, tileSize);
 		g2.dispose();
-	}
-	
-	
+	}	
 }

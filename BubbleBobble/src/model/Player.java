@@ -3,10 +3,11 @@ package model;
 import java.util.Observable;
 import java.util.Observer;
 
-import control.KeyHandler;
+import control.KeyHandler; 
 
 @SuppressWarnings("deprecation")
-public final class Player{
+public final class Player
+{
 	// posizione iniziale del giocatore da cambiare.
 	// probabilmente è anche sbagliato dichiarare la posizione static in quanto si dovrebbe riferire
 	// all'istanza del player
@@ -20,37 +21,20 @@ public final class Player{
 	private static Player playerInstance;
 	
 	// costruttore privato Pattern Singletone
-	private Player(String name) {
-		this.name = name;
-	}
+	private Player(String name) { this.name = name; }
 	
 	// metodo di ritorno istanza singletone del giocatore
-	public static Player getInstance(String name) {
-		
-		if(playerInstance == null) {
-			playerInstance = new Player(name);
-		}
-		
+	public static Player getInstance(String name) 
+	{
+		if(playerInstance == null) playerInstance = new Player(name);
 		return playerInstance;
 	}
 
-	public static int getSpeed() {
-		return playerSpeed;
-	}
+	public static int getSpeed() { return playerSpeed; }
 	
-	public static int getX() {
-		return x;
-	}
-	public static int getY() {
-		return y;
-	}
-
-	public static void setX(int x) {
-		Player.x = x;
-	}
-
-	public static void setY(int y) {
-		Player.y = y;
-	}
-
+	public static int getX() { return x; }
+	public static int getY() { return y; }
+	
+	public static void setX(int x) { Player.x = x; }
+	public static void setY(int y) { Player.y = y; }
 }
