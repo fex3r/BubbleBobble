@@ -4,11 +4,12 @@ import java.util.Observable;
 
 import view.GamePanel;
 
-@SuppressWarnings("deprecation")
+@SuppressWarnings("deprecation") //elimina gli avvertimenti relativi all'uso di classi deprecate
+
 public class GameEngine extends Observable implements Runnable 
 {	
 	private GamePanel gamePanel;
-	Thread gameThread;
+	Thread gameThread; 
 	int FPS = 60;
 	
 	public GameEngine(GamePanel gamePanel) { this.gamePanel = gamePanel; }
@@ -17,29 +18,28 @@ public class GameEngine extends Observable implements Runnable
 	public void run() 
 	{	
 		double drawStep = 1000000000/FPS;
-		double nextDrawTime = System.nanoTime() + drawStep;
+		double nextDrawTime = System.nanoTime() + drawStep; //calcola il tempo del prossimo aggiornamento
 		
 		while(gameThread != null) 
 		{	
-			long currentTime = System.nanoTime();
+			long currentTime = System.nanoTime(); //tempo corrente
 			
 			setChanged();
 			notifyObservers();
 			
-			gamePanel.repaint();
+			gamePanel.repaint(); //modifica l'interfaccia
 			
 			try 
 			{
-				double remainingTime = nextDrawTime - System.nanoTime();
+				double remainingTime = nextDrawTime - System.nanoTime(); //tempo fino a prossimo aggiornamento
 				
-				// conversione da nano a millisecondi per il metodo sleep
-				remainingTime = remainingTime/1000000;
+				remainingTime = remainingTime/1000000; //conversione da nano a millisecondi per il metodo sleep
 				
 				if(remainingTime < 0) remainingTime = 0;
 				
-				Thread.sleep((long) remainingTime);
+				Thread.sleep((long) remainingTime); //mette in pausa il thread
 				
-				nextDrawTime += drawStep;
+				nextDrawTime += drawStep; //aggiorna il tempo del prossimo aggiornamento
 			} 
 			catch (InterruptedException e) 
 			{
@@ -52,7 +52,7 @@ public class GameEngine extends Observable implements Runnable
 	public void startGameThread() 
 	{	
 		gameThread = new Thread(this);
-		gameThread.start();
+		gameThread.start(); //Avvio del thread
 	}
 	
 }

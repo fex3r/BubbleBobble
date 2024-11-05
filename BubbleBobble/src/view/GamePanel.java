@@ -24,26 +24,35 @@ public class GamePanel extends JPanel
 	final int gameScreenHeight = maxScreenRow*tileSize;
 	
 	
-	KeyHandler kh = new KeyHandler();
+	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
 
 	public GamePanel() 
 	{
 		this.setPreferredSize(new Dimension(gameScreenWidth,gameScreenHeight));
 		this.setBackground(Color.black);
-		this.setDoubleBuffered(true); 
+		this.setDoubleBuffered(true); //Migliora la qualità video
 		
 		this.addKeyListener(kh);
-		this.setFocusable(true);
+		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 	}
 	
-	
-	public void paintComponent(Graphics g) 
+
+	public void paintComponent(Graphics g)  //********************@Override?????****************************
 	{	
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
 		// da cambiare con gli sprite
 		g2.setColor(Color.WHITE);
+		
+		/*  **********************************Potrebbe essere versione corretta, ma bisogna levare il name (secondo me)***********************************
+		if(kh.isUp()) Player.getInstance("").setY(Player.getInstance("").getY() - Player.getInstance("").getSpeed());
+		else if (kh.isDown()) Player.getInstance("").setY(Player.getInstance("").getY() + Player.getInstance("").getSpeed());
+		else if (kh.isLeft()) Player.getInstance("").setX(Player.getInstance("").getX() - Player.getInstance("").getSpeed());
+		else if (kh.isRight()) Player.getInstance("").setX(Player.getInstance("").getX() + Player.getInstance("").getSpeed());
+	
+		g2.fillRect(Player.getInstance("").getX(), Player.getInstance("").getX(), tileSize, tileSize);
+		*/
 		
 		if(kh.isUp()) Player.setY(Player.getY() - Player.getSpeed());
 		
