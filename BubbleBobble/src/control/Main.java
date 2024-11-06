@@ -2,6 +2,7 @@ package control;
 
 import javax.swing.JFrame;
 
+import model.Player;
 import view.GamePanel;
 
 public class Main {
@@ -23,5 +24,6 @@ public class Main {
 		window.setVisible(true);
 		
 		gameEngine.startGameThread();
+		
 	}
 }

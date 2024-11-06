@@ -24,19 +24,19 @@ public class GamePanel extends JPanel
 	final int gameScreenHeight = maxScreenRow*tileSize;
 	
 	
-	KeyHandler kh = new KeyHandler();
+	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
 
 	public GamePanel() 
 	{
 		this.setPreferredSize(new Dimension(gameScreenWidth,gameScreenHeight));
 		this.setBackground(Color.black);
-		this.setDoubleBuffered(true); 
+		this.setDoubleBuffered(true); //Migliora la qualità video
 		
 		this.addKeyListener(kh);
-		this.setFocusable(true);
+		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 	}
 	
-	
+	@Override
 	public void paintComponent(Graphics g) 
 	{	
 		super.paintComponent(g);
@@ -45,15 +45,8 @@ public class GamePanel extends JPanel
 		// da cambiare con gli sprite
 		g2.setColor(Color.WHITE);
 		
-		if(kh.isUp()) Player.setY(Player.getY() - Player.getSpeed());
-		
-		else if(kh.isDown()) Player.setY(Player.getY() + Player.getSpeed());
-		
-		else if(kh.isLeft()) Player.setX(Player.getX() - Player.getSpeed()); 
-		
-		else if(kh.isRight()) Player.setX(Player.getX() + Player.getSpeed());
-		
-		g2.fillRect(Player.getX(), Player.getY(), tileSize, tileSize);
+		g2.fillRect(Player.getInstance().getX(), Player.getInstance().getY(), tileSize, tileSize);
 		g2.dispose();
-	}	
+	}
+
 }
