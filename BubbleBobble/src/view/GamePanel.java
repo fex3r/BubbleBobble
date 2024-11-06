@@ -36,8 +36,8 @@ public class GamePanel extends JPanel
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 	}
 	
-
-	public void paintComponent(Graphics g)  //********************@Override?????****************************
+	@Override
+	public void paintComponent(Graphics g) 
 	{	
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
@@ -45,24 +45,8 @@ public class GamePanel extends JPanel
 		// da cambiare con gli sprite
 		g2.setColor(Color.WHITE);
 		
-		/*  **********************************Potrebbe essere versione corretta, ma bisogna levare il name (secondo me)***********************************
-		if(kh.isUp()) Player.getInstance("").setY(Player.getInstance("").getY() - Player.getInstance("").getSpeed());
-		else if (kh.isDown()) Player.getInstance("").setY(Player.getInstance("").getY() + Player.getInstance("").getSpeed());
-		else if (kh.isLeft()) Player.getInstance("").setX(Player.getInstance("").getX() - Player.getInstance("").getSpeed());
-		else if (kh.isRight()) Player.getInstance("").setX(Player.getInstance("").getX() + Player.getInstance("").getSpeed());
-	
-		g2.fillRect(Player.getInstance("").getX(), Player.getInstance("").getX(), tileSize, tileSize);
-		*/
-		
-		if(kh.isUp()) Player.setY(Player.getY() - Player.getSpeed());
-		
-		else if(kh.isDown()) Player.setY(Player.getY() + Player.getSpeed());
-		
-		else if(kh.isLeft()) Player.setX(Player.getX() - Player.getSpeed()); 
-		
-		else if(kh.isRight()) Player.setX(Player.getX() + Player.getSpeed());
-		
-		g2.fillRect(Player.getX(), Player.getY(), tileSize, tileSize);
+		g2.fillRect(Player.getInstance().getX(), Player.getInstance().getY(), tileSize, tileSize);
 		g2.dispose();
-	}	
+	}
+
 }

@@ -4,30 +4,59 @@ import java.util.Observable;
 import java.util.Observer;
 
 import control.KeyHandler; 
+import view.GamePanel;
 
 @SuppressWarnings("deprecation")
-public final class Player extends Entity
+public final class Player extends Entity implements Observer
 {
-	// posizione iniziale del giocatore da cambiare.
-	// probabilmente è anche sbagliato dichiarare la posizione static in quanto si dovrebbe riferire
-	// all'istanza del player
-	// nel caso in cui verrà cambiata dovranno essere modificati tutti gli utilizzi all'interno del metodo
-	//paintComponent dentro GamePanel
-	//----------------------------------------------------------------------------------------------
-	//private static int x = 0;
-	//private static int y = 0;
-	//private static final int playerSpeed = 4;
-	//private String name;
-	
+	private String name;
+	private KeyHandler kh;
+	private GamePanel gp;
 	private static Player playerInstance;
 	
 	// costruttore privato Pattern Singletone
-	private Player(String name) { super(name); }
+	private Player() { }
 	
-	// metodo di ritorno istanza singletone del giocatore
-	public static Player getInstance(String name) 
+	// Singleton pattern
+	public static Player getInstance() 
 	{
-		if(playerInstance == null) playerInstance = new Player(name);
+		if(playerInstance == null) playerInstance = new Player();
 		return playerInstance;
+	}
+	
+	public static class Builder //Builder pattern
+	{
+		//Duplicazione attributi
+		private String name;
+		private KeyHandler kh;
+		private GamePanel gp;
+		
+		
+		public Builder() { } //*******************controlla con name se ci va messo******************************
+		
+		//Setter
+		public Builder setKeyHandler(KeyHandler kh) { this.kh = kh; return this; }
+		public Builder setGamePanel(GamePanel gp) { this.gp = gp; return this; }
+		public Builder setName(String name) { this.name = name; return this; }
+		
+		//Metodo build finale
+		public Player build() 
+		{ 
+			Player p = Player.getInstance();
+			p.kh = this.kh;
+			p.gp = this.gp;
+			p.name = this.name;
+			return p; 
+		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) 
+	{
+		if(kh.isUp()) y = y - entitySpeed;
+		else if(kh.isDown()) y = y - entitySpeed;
+		else if(kh.isLeft()) x = x - entitySpeed; 
+		else if(kh.isRight()) x = x - entitySpeed;
+		
 	}
 }
