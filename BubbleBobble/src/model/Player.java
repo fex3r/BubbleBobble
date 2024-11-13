@@ -32,7 +32,7 @@ public final class Player extends Entity implements Observer
 		private GamePanel gp;
 		
 		
-		public Builder() { } //*******************controlla con name se ci va messo******************************
+		public Builder() { }
 		
 		//Setter
 		public Builder setKeyHandler(KeyHandler kh) { this.kh = kh; return this; }
@@ -54,9 +54,9 @@ public final class Player extends Entity implements Observer
 	public void update(Observable o, Object arg) 
 	{
 		if(kh.isUp()) y = y - entitySpeed;
-		else if(kh.isDown()) y = y - entitySpeed;
+		else if(kh.isDown()) y = y + entitySpeed;
 		else if(kh.isLeft()) x = x - entitySpeed; 
-		else if(kh.isRight()) x = x - entitySpeed;
+		else if(kh.isRight()) x = x + entitySpeed;
 		
 	}
 }
