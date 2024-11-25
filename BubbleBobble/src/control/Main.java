@@ -17,6 +17,9 @@ public class Main {
 		GamePanel gamePanel = new GamePanel();
 		GameEngine gameEngine = new GameEngine(gamePanel);
 		
+		
+		gameEngine.addObserver(Player.getInstance());
+		
 		window.add(gamePanel);
 		window.pack();
 		

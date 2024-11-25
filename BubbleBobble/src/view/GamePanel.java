@@ -17,7 +17,7 @@ public class GamePanel extends JPanel
 	final int startingTileSize = 16; 
 	final int scale = 3;
 	
-	final int tileSize = startingTileSize*scale;
+	public final int tileSize = startingTileSize*scale;
 	final int maxScreenCol = 24;
 	final int maxScreenRow = 20;
 	final int gameScreenWidth = maxScreenCol*tileSize;
@@ -34,6 +34,9 @@ public class GamePanel extends JPanel
 		
 		this.addKeyListener(kh);
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
+		
+		Player p = new Player.Builder().setGamePanel(this).setKeyHandler(kh).setName("prova").build();
+		
 	}
 	
 	@Override
@@ -43,9 +46,10 @@ public class GamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 		
 		// da cambiare con gli sprite
-		g2.setColor(Color.WHITE);
+		//g2.setColor(Color.WHITE);
 		
-		g2.fillRect(Player.getInstance().getX(), Player.getInstance().getY(), tileSize, tileSize);
+		//g2.fillRect(Player.getInstance().getX(), Player.getInstance().getY(), tileSize, tileSize);
+		Player.getInstance().draw(g2);
 		g2.dispose();
 	}
 
