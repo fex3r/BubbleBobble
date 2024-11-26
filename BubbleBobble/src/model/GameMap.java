@@ -20,18 +20,21 @@ public class GameMap
 	
 	public GameMap()
 	{
-		try
+		this.initializeBlocks();
+		this.initializeGameMap();
+		for(int i = 0; i<map.length; i++)
 		{
-			blocks[1] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_1.png"));
+			for(int j = 0; j<map[0].length; j++)
+			{
+				System.out.print(map[i][j]);
+			}
+			System.out.println();
 		}
-		catch(IOException e)
-		{
-			e.getMessage();
-		}
-		
-		
-		
-		
+	}
+	
+	
+	public void initializeGameMap()
+	{
 		int rows = 0;
 		int cols = 0;
 		InputStream inputStream = getClass().getResourceAsStream("/GameMap.txt");
@@ -55,7 +58,17 @@ public class GameMap
 		
 		try
 		{
+			inputStream = getClass().getResourceAsStream("/GameMap.txt");
 			BufferedReader br2 = new BufferedReader(new InputStreamReader(inputStream));
+			for(int i = 0; i<rows; i++)
+			{
+				String row = br2.readLine();
+				for(int j = 0; j<cols; j++)
+				{
+					map[i][j] = Character.getNumericValue(row.charAt(j));
+				}
+			}
+			/*
 			for(int i = 0; i<rows; i++)
 			{
 				for(int j = 0; j<cols; j++)
@@ -64,147 +77,30 @@ public class GameMap
 				}
 				br2.readLine();
 			}
+			*/
 		}
 		catch (IOException e)
 		{
 			e.getMessage();
 		}
 	}
+	
 		
 		
+	public void initializeBlocks() //Istanzia la matrice di blocchi
+	{
+		try
+		{
+			blocks[1] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_1.png"));
+		}
+		catch(IOException e)
+		{
+			e.getMessage();
+		}
+	}
+	
+	public static BufferedImage getBlock(int x) { return blocks[x]; } //Restituisce un blocco
+	
+	public static int getValue(int x, int y) { return map[x][y]; }
 
-	
-	public static BufferedImage getBlock(int x) { return blocks[x]; }
-	//static File file = new File("/resources/GameMap.txt");
-	
-	//static InputStream file = GameMap.class.getResourceAsStream("/resources/GameMap.txt");
-	
-	
-	
-	
-	
-		
-	
-	
-	
-	
-	
-	
-	
-	//private static BufferedReader br = new BufferedReader(new FileReader("/resources/GameMap.txt"));
-	
-	
-	/*
-	private static int[][] map;
-	{
-		int rows = 0;
-		int cols = 0;
-		try
-		{
-			BufferedReader br = this.getBufferedReader();
-			String line;
-			while((line = br.readLine()) != null) 
-			{
-				rows++; 
-				cols = line.length();
-			}
-		}
-		catch(IOException e)
-		{
-			e.getMessage();
-		}
-		map = new int[rows][cols];
-		
-		
-		try
-		{
-			BufferedReader br2 = this.getBufferedReader(); //Ne creo uno nuovo perché non è possibile riazzerarlo
-			for(int i = 0; i<rows; i++)
-			{
-				for(int j = 0; j<cols; j++)
-				{
-					map[i][j] = br2.read();
-				}
-				br2.readLine();
-			}
-		}
-		catch (IOException e)
-		{
-			e.getMessage();
-		}
-		
-	}
-	*/
-	
-	
-	
-	
-	static private BufferedReader getBufferedReader()
-	{
-		BufferedReader br = null;
-		try
-		{
-			br = new BufferedReader(new FileReader("/resources/GameMap.txt"));
-		}
-		catch (IOException e)
-		{
-			e.getMessage();
-		}
-		return br;
-	}
-	/*
-	private static BufferedReader br;
-	{
-		try
-		{
-			br = new BufferedReader(new FileReader("/resources/GameMap.txt"));
-		}
-		catch (IOException e)
-		{
-			e.getMessage();
-		}
-	}
-	
-	public static int getValue(int x, int y)
-	{
-		try
-		{
-			for(int i = 0; i<y; i++)
-			{
-				if(br.ready() == true)
-				{
-					br.readLine();
-				}
-			}
-			return Integer.parseInt(String.valueOf(br.readLine().charAt(x)));
-		}
-		catch(IOException e)
-		{
-			return 0;
-		}
-	}
- 	*/
-	
-	/*
-	public static int getValue(int x, int y)
-	{
-		try
-		{
-			Scanner scanner = new Scanner(file);
-			for(int i = 0; i<y; i++) scanner.next();
-			return Integer.parseInt(scanner.next().split("")[x]);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return 0;
-	}
-	*/
-	
-	public static int getValue(int x, int y)
-	{
-		return map[x][y];
-	}
-	
 }

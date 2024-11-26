@@ -26,7 +26,7 @@ public class GamePanel extends JPanel
 	final int maxScreenRow = 16;
 	final int gameScreenWidth = maxScreenCol*tileSize;
 	final int gameScreenHeight = maxScreenRow*tileSize;
-	
+	GameMap map = new GameMap();
 	
 	
 	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
@@ -51,23 +51,23 @@ public class GamePanel extends JPanel
 		
 		
 		//Stampa mappa
-		for (int i = 0; i<maxScreenCol; i++) //Asse X
+		for (int i = 0; i<maxScreenRow; i++) //Asse X
 		{
-			for(int j = 0; j<maxScreenRow; j++) //Asse Y
+			for(int j = 0; j<maxScreenCol; j++) //Asse Y
 			{
-				int x = GameMap.getValue(i,j);
+				int x = map.getValue(i,j);
 				switch(x)
 				{
 					case 0:
 						g2.setColor(Color.WHITE);
 						break;
 					case 1:
-						g2.drawImage(GameMap.getBlock(x), i*tileSize, j*tileSize, tileSize, tileSize, null);
+						g2.drawImage(map.getBlock(x), j*tileSize, i*tileSize, tileSize, tileSize, null);
 						break;
 					default:
 						g2.setColor(Color.BLACK);
 				}
-				g2.fillRect(j*tileSize, i*tileSize, tileSize, tileSize);
+				//g2.fillRect(j*tileSize, i*tileSize, tileSize, tileSize);
 			}
 		}
 		
