@@ -28,6 +28,7 @@ public class GamePanel extends JPanel
 	final int gameScreenHeight = maxScreenRow*tileSize;
 	
 	
+	
 	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
 
 	public GamePanel() 
@@ -49,24 +50,10 @@ public class GamePanel extends JPanel
 		Graphics2D g2 = (Graphics2D)g;
 		
 		
-		BufferedImage block1 = null;
-		
-		try 
-		{
-            block1 = ImageIO.read(new File("C:/Users/matteo/Desktop/Progetto bubble bobble/BubbleBobble/resources/blocks/normal blocks/block_1.png"));
-        } 
-		catch (IOException e) 
-		{
-            e.printStackTrace();
-        }
-		
-		
-		//J'ho fatto sicuramente qualche impiccio co gli indici ma così funziona, pe sicurezza controlla
 		//Stampa mappa
-		
-		for (int i = 0; i<GameMap.getMap()[0].length; i++) //Asse X
+		for (int i = 0; i<maxScreenCol; i++) //Asse X
 		{
-			for(int j = 0; j<GameMap.getMap().length; j++) //Asse Y
+			for(int j = 0; j<maxScreenRow; j++) //Asse Y
 			{
 				int x = GameMap.getValue(i,j);
 				switch(x)
@@ -75,7 +62,7 @@ public class GamePanel extends JPanel
 						g2.setColor(Color.WHITE);
 						break;
 					case 1:
-						g2.drawImage(block1, i*tileSize, j*tileSize, tileSize, tileSize, null);
+						g2.drawImage(GameMap.getBlock(x), i*tileSize, j*tileSize, tileSize, tileSize, null);
 						break;
 					default:
 						g2.setColor(Color.BLACK);

@@ -53,7 +53,8 @@ public final class Player extends Entity implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(kh.isUp()) y = y - entitySpeed;
+		//if(kh.isUp()) y = y - entitySpeed;
+		if(kh.isUp()) jump();
 		else if(kh.isDown()) y = y + entitySpeed;
 		else if(kh.isLeft()) x = x - entitySpeed; 
 		else if(kh.isRight()) x = x + entitySpeed;

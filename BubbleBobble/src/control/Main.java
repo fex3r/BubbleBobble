@@ -3,13 +3,14 @@ package control;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+import model.GameMap;
 import model.Player;
 import view.GamePanel;
 
 public class Main {
 
 	public static void main(String[] args) 
-	{
+	{	
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
