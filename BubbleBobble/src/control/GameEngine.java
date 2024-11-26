@@ -19,7 +19,7 @@ public class GameEngine extends Observable implements Runnable
 	{	
 		double drawStep = 1000000000/FPS;
 		double nextDrawTime = System.nanoTime() + drawStep; //calcola il tempo del prossimo aggiornamento
-		
+		gamePanel.repaint();
 		while(gameThread != null) 
 		{	
 			long currentTime = System.nanoTime(); //tempo corrente

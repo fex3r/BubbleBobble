@@ -66,7 +66,7 @@ public final class Player extends Entity implements Observer
 		private GamePanel gp;
 		
 		
-		public Builder() { } //*******************controlla con name se ci va messo******************************
+		public Builder() { }
 		
 		//Setter
 		public Builder setKeyHandler(KeyHandler kh) { this.kh = kh; return this; }

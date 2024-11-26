@@ -2,6 +2,8 @@ package control;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class KeyHandler implements KeyListener
 {	
@@ -14,10 +16,24 @@ public class KeyHandler implements KeyListener
 	public void keyPressed(KeyEvent e) //comportamento per ogni tasto premuto
 	{
 		int code = e.getKeyCode(); //contiene il codice del tasto premuto e gli if attivano lo stato di esso
-		if( code == KeyEvent.VK_W) up = true;
-		if( code == KeyEvent.VK_S) down = true;
-		if( code == KeyEvent.VK_A) left = true;
-		if( code == KeyEvent.VK_D) right = true;	
+		if(code == KeyEvent.VK_W)
+		{
+			up = true;
+			Timer timer = new Timer();
+			TimerTask task = new TimerTask()
+			{
+				@Override
+				public void run()
+				{
+					up = false;
+					timer.cancel();
+				}
+			};
+			timer.schedule(task, 100);
+		}
+		if(code == KeyEvent.VK_S) down = true;
+		if(code == KeyEvent.VK_A) left = true;
+		if(code == KeyEvent.VK_D) right = true;	
 	}
 
 	@Override
