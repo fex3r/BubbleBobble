@@ -21,7 +21,7 @@ public class GamePanel extends JPanel
 	final int startingTileSize = 16; 
 	final int scale = 3;
 	
-	final int tileSize = startingTileSize*scale;
+	public final int tileSize = startingTileSize*scale;
 	final int maxScreenCol = 20;
 	final int maxScreenRow = 16;
 	final int gameScreenWidth = maxScreenCol*tileSize;
@@ -50,36 +50,27 @@ public class GamePanel extends JPanel
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
 		
-		// da cambiare con gli sprite
-		//g2.setColor(Color.WHITE);
 		
 		//Stampa mappa
 		for (int i = 0; i<maxScreenRow; i++) //Asse X
 		{
 			for(int j = 0; j<maxScreenCol; j++) //Asse Y
 			{
-				int x = map.getValue(i,j);
+				int x = GameMap.getValue(i,j);
 				switch(x)
 				{
 					case 0:
 						g2.setColor(Color.WHITE);
 						break;
 					case 1:
-						g2.drawImage(map.getBlock(x), j*tileSize, i*tileSize, tileSize, tileSize, null);
+						g2.drawImage(GameMap.getBlock(x), j*tileSize, i*tileSize, tileSize, tileSize, null);
 						break;
 					default:
 						g2.setColor(Color.BLACK);
 				}
-				//g2.fillRect(j*tileSize, i*tileSize, tileSize, tileSize);
 			}
 		}
-		
-		
-		// da cambiare con gli sprite (Personaggio)
-		g2.setColor(Color.BLUE);
-		g2.fillRect(Player.getInstance().getX(), Player.getInstance().getY(), tileSize, tileSize);
-		
-		
+		Player.getInstance().draw(g2);	//Stampa del personaggio
 		g2.dispose();
 	}
 }

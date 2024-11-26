@@ -181,7 +181,6 @@ public final class Player extends Entity implements Observer
 		}
 		
 
-		
 		g2.drawImage(image,x, y, gp.tileSize, gp.tileSize,null);
 	}
 }

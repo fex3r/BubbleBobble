@@ -36,18 +36,11 @@ public abstract class Entity
 			public void run()
 			{
 				for(int i = 0; i<16; i++) y++;
-				//while(freeFall()) y++;
+				
 				timer.cancel();
 			}
 		};
 		timer.schedule(task, 225);
 
 	}
-	
-	/*
-	private boolean freeFall()
-	{
-		
-	}
-	*/
 }

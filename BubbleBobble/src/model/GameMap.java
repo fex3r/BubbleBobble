@@ -68,16 +68,6 @@ public class GameMap
 					map[i][j] = Character.getNumericValue(row.charAt(j));
 				}
 			}
-			/*
-			for(int i = 0; i<rows; i++)
-			{
-				for(int j = 0; j<cols; j++)
-				{
-					map[i][j] = Character.getNumericValue(br2.read());
-				}
-				br2.readLine();
-			}
-			*/
 		}
 		catch (IOException e)
 		{
@@ -85,8 +75,7 @@ public class GameMap
 		}
 	}
 	
-		
-		
+			
 	public void initializeBlocks() //Istanzia la matrice di blocchi
 	{
 		try
