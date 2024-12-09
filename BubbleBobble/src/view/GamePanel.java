@@ -15,17 +15,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import control.KeyHandler;
 import model.Player;
+import model.WiewData;
 
 public class GamePanel extends JPanel
 {	
-	final int startingTileSize = 16; 
-	final int scale = 3;
-	
-	public final int tileSize = startingTileSize*scale;
-	final int maxScreenCol = 20;
-	final int maxScreenRow = 16;
-	final int gameScreenWidth = maxScreenCol*tileSize;
-	final int gameScreenHeight = maxScreenRow*tileSize;
+
 	GameMap map = new GameMap();
 	
 	
@@ -33,14 +27,14 @@ public class GamePanel extends JPanel
 
 	public GamePanel() 
 	{
-		this.setPreferredSize(new Dimension(gameScreenWidth,gameScreenHeight));
+		this.setPreferredSize(new Dimension(WiewData.GAME_SCREEN_WIDTH.getValue(),WiewData.GAME_SCREEM_HEIGHT.getValue()));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true); //Migliora la qualità video
 		
 		this.addKeyListener(kh);
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 		
-		Player p = new Player.Builder().setGamePanel(this).setKeyHandler(kh).setName("prova").build();
+		Player p = new Player.Builder().setKeyHandler(kh).setName("prova").build();
 		
 	}
 	
@@ -52,9 +46,9 @@ public class GamePanel extends JPanel
 		
 		
 		//Stampa mappa
-		for (int i = 0; i<maxScreenRow; i++) //Asse X
+		for (int i = 0; i<WiewData.MAX_SCREEN_ROW.getValue(); i++) //Asse X
 		{
-			for(int j = 0; j<maxScreenCol; j++) //Asse Y
+			for(int j = 0; j<WiewData.MAX_SCREEN_COL.getValue(); j++) //Asse Y
 			{
 				int x = GameMap.getValue(i,j);
 				switch(x)
@@ -63,7 +57,7 @@ public class GamePanel extends JPanel
 						g2.setColor(Color.WHITE);
 						break;
 					case 1:
-						g2.drawImage(GameMap.getBlock(x), j*tileSize, i*tileSize, tileSize, tileSize, null);
+						g2.drawImage(GameMap.getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
 						break;
 					default:
 						g2.setColor(Color.BLACK);

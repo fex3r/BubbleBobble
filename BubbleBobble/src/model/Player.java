@@ -63,14 +63,12 @@ public final class Player extends Entity implements Observer
 		//Duplicazione attributi
 		private String name;
 		private KeyHandler kh;
-		private GamePanel gp;
 		
 		
 		public Builder() { }
 		
 		//Setter
 		public Builder setKeyHandler(KeyHandler kh) { this.kh = kh; return this; }
-		public Builder setGamePanel(GamePanel gp) { this.gp = gp; return this; }
 		public Builder setName(String name) { this.name = name; return this; }
 		
 		//Metodo build finale
@@ -78,7 +76,6 @@ public final class Player extends Entity implements Observer
 		{ 
 			Player p = Player.getInstance();
 			p.kh = this.kh;
-			p.gp = this.gp;
 			p.name = this.name;
 			return p; 
 		}
@@ -181,6 +178,6 @@ public final class Player extends Entity implements Observer
 		}
 		
 
-		g2.drawImage(image,x, y, gp.tileSize, gp.tileSize,null);
+		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
 	}
 }
