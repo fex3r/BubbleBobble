@@ -19,6 +19,11 @@ public final class Player extends Entity implements Observer
 	private GamePanel gp;
 	private static Player playerInstance;
 	
+	
+	//non ne sono sicuro
+	private Shot shot;// = new Shot();
+	
+	
 	// costruttore privato Pattern Singletone
 	private Player() {
 		setDefaultValues();
@@ -32,16 +37,18 @@ public final class Player extends Entity implements Observer
 		return playerInstance;
 	}
 	
-	public void setDefaultValues(){
+	public void setDefaultValues()
+	{
 		x = 100;
 		y = 100;
 		speed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
 	}
-	public void getPlayerImage() {
-		try {
-			
+	public void getPlayerImage() 
+	{
+		try 
+		{	
 			standR1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_d_1.png"));
 			standR2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_d_2.png"));
 			standL1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_s_1.png"));
@@ -51,10 +58,10 @@ public final class Player extends Entity implements Observer
 			moveR3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_d_3.png"));
 			moveL1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_1.png"));
 			moveL2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_2.png"));
-			moveL3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_3.png"));
-			
-			
-		}catch(IOException e) {
+			moveL3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_3.png"));	
+		}
+		catch(IOException e) 
+		{
 			e.printStackTrace();
 		}
 	}
@@ -77,7 +84,7 @@ public final class Player extends Entity implements Observer
 			Player p = Player.getInstance();
 			p.kh = this.kh;
 			p.name = this.name;
-			return p; 
+			return p;
 		}
 	}
 	
@@ -86,94 +93,85 @@ public final class Player extends Entity implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(kh.isUp()) y = y - speed;
+		if(kh.isUp()) jump();
+		
 		else if(kh.isDown()) y = y + speed;
 		
 			
-		if(kh.isLeft()) {
-			
-			x = x - speed;
+		if(kh.isLeft()) 
+		{
+			x = x - speed; 
 			direction = Directions.LEFT;
-			
-		}else if(kh.isRight()) {
-			
-			x = x + speed;
+		}
+		else if(kh.isRight())
+		{
+			x = x + speed; 
 			direction = Directions.RIGHT;
-			
-		}else{
-			
+		}
+		else 
+		{
 			direction = Directions.STAND;
-			
-			}
+		}
 			
 		spriteCounter ++;
-		if(spriteCounter > 20) {
-			if(spriteNum == 1) {
-				spriteNum = 2;
+		if(spriteCounter > 20) 
+		{
+			if(spriteNum == 1) spriteNum = 2;
+			else if(spriteNum == 2) 
+			{
+				if(direction == Directions.STAND) spriteNum = 1;
+				else spriteNum = 3;
 			}
-				
-			else if(spriteNum == 2) {
-				if(direction == Directions.STAND) {
-					spriteNum = 1;
-				}else{
-					spriteNum = 3;
-					}
+			else if(spriteNum == 3) 
+			{
+				spriteNum = 1;	
 			}
-			else if(spriteNum == 3) {
-				
-				spriteNum = 1;
-				
-			}
-				spriteCounter = 0;
-			}
+			spriteCounter = 0;
+		}
 		
+		if(kh.isShooting())
+		{
+			Player.getInstance().shot();
+		}
 		
 	}
 	
-	public void draw(Graphics2D g2) {
-		
+	public void shot()
+	{
+		System.out.println("Spara");
+		new Shot();	//Creando l'oggetto, viene ricreato di nuovo nel costruttore e va in loop
+	}
+	
+	
+	public void draw(Graphics2D g2) 
+	{	
 		BufferedImage image = null;
 		
 		switch(direction) {
 		case LEFT:
-			if(spriteNum == 1) {
-				image = moveL1;
-			}
-			else if(spriteNum == 2) {
-				image = moveL2;
-			}
-			else if(spriteNum == 3) {
-				image = moveL3;
-			}
+			if(spriteNum == 1) image = moveL1;
+			else if(spriteNum == 2) image = moveL2;
+			else if(spriteNum == 3) image = moveL3;
 			oldDirection = Directions.LEFT;
 			break;
 			
 		case RIGHT:
-			if(spriteNum == 1) {
-				image = moveR1;
-			}
-			else if(spriteNum == 2) {
-				image = moveR2;
-			}
-			else if(spriteNum == 3) {
-				image = moveR3;
-			}
+			if(spriteNum == 1) image = moveR1;
+			else if(spriteNum == 2) image = moveR2;
+			else if(spriteNum == 3) image = moveR3;
 			oldDirection = Directions.RIGHT;
 			break;
 			
 		case STAND:
-			if(oldDirection == Directions.RIGHT) {
-				if(spriteNum == 1) {
-					image = standR1;
-				}else {
-					image = standR2;
-				}
-			}else if(oldDirection == Directions.LEFT) {
-				if(spriteNum == 1) {
-					image = standL1;
-				}else {
-					image = standL2;
-				}
+			if(oldDirection == Directions.RIGHT) 
+			{
+				if(spriteNum == 1) image = standR1;
+				else image = standR2;
+			}
+			else if(oldDirection == Directions.LEFT) 
+			{
+				if(spriteNum == 1) image = standL1;
+				else image = standL2;
 			}
 		}
 		

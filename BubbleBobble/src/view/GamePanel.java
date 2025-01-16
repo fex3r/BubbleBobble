@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import model.GameMap;
@@ -15,14 +16,13 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import control.KeyHandler;
 import model.Player;
+import model.Shot;
 import model.WiewData;
 
 public class GamePanel extends JPanel
 {	
 
 	GameMap map = new GameMap();
-	
-	
 	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
 
 	public GamePanel() 
@@ -64,7 +64,15 @@ public class GamePanel extends JPanel
 				}
 			}
 		}
+		
+		for(int i = 0; i<Shot.getShots().size(); i++)
+		{
+			Shot.getShots().get(i).draw(g2);
+		}
+
+		
 		Player.getInstance().draw(g2);	//Stampa del personaggio
+		
 		g2.dispose();
 	}
 }

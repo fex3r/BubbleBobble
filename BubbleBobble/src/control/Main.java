@@ -27,17 +27,6 @@ public class Main {
 		
 		window.setLocationRelativeTo(null);
 		
-		/*
-		
-		// Crea uno JScrollPane con il pannello
-        JScrollPane scrollPane = new JScrollPane(gamePanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        // Aggiungi lo JScrollPane al frame
-        window.add(scrollPane);
-        
-        */
 		
 		window.setVisible(true);
 		
