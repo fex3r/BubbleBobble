@@ -8,15 +8,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
 public class GameMap
-{ 							//0 - Vuoto     1 - Muro mappa uno		2 - Muro mappa due ect. ect.
+{ 							//0 - Vuoto     1 - Muro mappa uno		2 - Muro mappa due ect. ect.da
 	
 	public static BufferedImage[] blocks = new BufferedImage[2];
 	public static int[][] map;
+	//aggiungere a questa lista tutti i blocchi solidi
+	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1));
 	
 	public GameMap()
 	{
