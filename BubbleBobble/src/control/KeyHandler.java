@@ -19,7 +19,7 @@ public class KeyHandler implements KeyListener
 		if(code == KeyEvent.VK_W)
 		{
 			up = true;
-			Timer timer = new Timer();
+			/*Timer timer = new Timer();
 			TimerTask task = new TimerTask()
 			{
 				@Override
@@ -30,6 +30,7 @@ public class KeyHandler implements KeyListener
 				}
 			};
 			timer.schedule(task, 100);
+			*/
 		}
 		if(code == KeyEvent.VK_S) down = true;
 		if(code == KeyEvent.VK_A) left = true;

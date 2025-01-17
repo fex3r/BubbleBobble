@@ -94,35 +94,40 @@ public final class Player extends Entity implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(kh.isUp());
-		else if(kh.isDown());
-		
-			
-		if(kh.isLeft()) {
-		
-			direction = Directions.LEFT;
-			
-		}else if(kh.isRight()) {
-			
-			direction = Directions.RIGHT;
-			
-		}else{
-			
-			direction = Directions.STAND;
-			
-			}
-		
-		
 		hitBoxOn = false;
 		CollisionChecker.checkCollision(Player.getInstance());
 		
+		if(kh.isUp())
+		{
+			y = y-speed;
+		}
+		else if(kh.isDown())
+		{
+			y = y+speed;
+		}
+		else if(kh.isLeft()) 
+		{
+			direction = Directions.LEFT;
+			if(CollisionChecker.checkCollision(Player.getInstance()) == false) x = x-speed;	
+		}
+		else if(kh.isRight()) 
+		{	
+			direction = Directions.RIGHT;
+			if(CollisionChecker.checkCollision(Player.getInstance()) == false) x = x+speed;
+		}
+		else
+		{
+			direction = Directions.STAND;	
+		}
+		
+		/*
 		if(hitBoxOn == false) {
 			if(kh.isLeft()) {  x = x - speed;}
 			else if(kh.isRight()) { x = x + speed;}
 			else if(kh.isUp()) y = y - speed;
 			else if(kh.isDown()) y = y + speed;
 		}
-			
+		*/
 		spriteCounter ++;
 		if(spriteCounter > 20) {
 			if(spriteNum == 1) {

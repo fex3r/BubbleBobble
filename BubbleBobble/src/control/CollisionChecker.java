@@ -12,40 +12,45 @@ public class CollisionChecker {
 		
 	}
 	
-	public static void checkCollision(Entity entity) {
+	public static boolean checkCollision(Entity entity) 
+	{
 		
-		int leftHitX = entity.getX() + entity.getHitBox().x;
-		int rightHitX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;
-		int topHitY = entity.getY() + entity.getHitBox().y;
-		int bottomHitY = entity.getY() + entity.getHitBox().y + entity.getHitBox().height;
+		int leftTopX = entity.getX() + entity.getHitBox().x;
+		int leftTopY = entity.getY() + entity.getHitBox().y;
 		
-		int leftColHit = leftHitX/WiewData.TILE_SIZE.getValue();
-		int rightColHit = rightHitX/WiewData.TILE_SIZE.getValue();
-		int topRowHit = topHitY/WiewData.TILE_SIZE.getValue();
-		int bottomRowHit = bottomHitY/WiewData.TILE_SIZE.getValue();
+		int rightTopX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;
+		int rightTopY = entity.getY() + entity.getHitBox().y;
 		
-		int tile1,tile2;
+		int leftBottomX = entity.getX() + entity.getHitBox().x;
+		int leftBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
+		
+		int rightBottomX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;;
+		int rightBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
 		
 		
-		switch(entity.getDirection()) {
-		
-		case LEFT:
-			leftColHit = (leftHitX - entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-			tile1 = GameMap.getValue(leftColHit,topRowHit);
-			tile2 = GameMap.getValue(rightColHit,bottomRowHit);
-			if(GameMap.solidBlocks.contains(tile1) || GameMap.solidBlocks.contains(tile2) ) {
-				entity.setHitBox(true);
-			}
-		case RIGHT:
-			rightColHit = (rightHitX + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-			tile1 = GameMap.getValue(leftColHit,topRowHit);
-			tile2 = GameMap.getValue(rightColHit,bottomRowHit);
-			if(GameMap.solidBlocks.contains(tile1) || GameMap.solidBlocks.contains(tile2) ) {
-				entity.setHitBox(true);
-			}
+		switch(entity.getDirection())
+		{
+			case LEFT:
+				int leftTopXScaled = leftTopX/WiewData.TILE_SIZE.getValue();
+				int leftBottomXScaled = leftBottomX/WiewData.TILE_SIZE.getValue();
+				int leftTopYScaled = leftTopY/WiewData.TILE_SIZE.getValue();
+				int leftBottomYScaled = leftBottomY/WiewData.TILE_SIZE.getValue();
+				if(GameMap.solidBlocks.contains(GameMap.getValue(leftTopYScaled, leftTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getValue(leftBottomYScaled, leftBottomXScaled)))
+				{
+					return true;
+				}
+				break;
+			case RIGHT:
+				int rightTopXScaled = rightTopX/WiewData.TILE_SIZE.getValue();
+				int rightBottomXScaled = rightBottomX/WiewData.TILE_SIZE.getValue();
+				int rightTopYScaled = rightTopY/WiewData.TILE_SIZE.getValue();
+				int rightBottomYScaled = rightBottomY/WiewData.TILE_SIZE.getValue();
+				if(GameMap.solidBlocks.contains(GameMap.getValue(rightTopYScaled, rightTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getValue(rightBottomYScaled, rightBottomXScaled)))
+				{
+					return true;
+				}
+				break;
 		}
-		
-		
+		return false;
 	}
-	
 }
