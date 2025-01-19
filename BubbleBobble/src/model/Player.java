@@ -35,8 +35,8 @@ public final class Player extends Entity implements Observer
 	}
 	
 	public void setDefaultValues(){
-		x = 400;
-		y = 400;
+		x = 100;
+		y = 100;
 		speed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
@@ -95,6 +95,7 @@ public final class Player extends Entity implements Observer
 	public void update(Observable o, Object arg) 
 	{
 		hitBoxOn = false;
+		fallOn = true;
 		CollisionChecker.checkCollision(Player.getInstance());
 		
 		if(kh.isUp())
@@ -108,16 +109,24 @@ public final class Player extends Entity implements Observer
 		else if(kh.isLeft()) 
 		{
 			direction = Directions.LEFT;
-			if(CollisionChecker.checkCollision(Player.getInstance()) == false) x = x-speed;	
+			CollisionChecker.checkCollision(Player.getInstance());
+			if( Player.getInstance().hitBoxOn == false) x = x-speed;	
 		}
 		else if(kh.isRight()) 
 		{	
 			direction = Directions.RIGHT;
-			if(CollisionChecker.checkCollision(Player.getInstance()) == false) x = x+speed;
+			CollisionChecker.checkCollision(Player.getInstance());
+			if( Player.getInstance().hitBoxOn == false) x = x+speed;
 		}
 		else
 		{
 			direction = Directions.STAND;	
+		}
+		
+		
+		if(Player.getInstance().fallOn == true) {
+			
+			y = y+speed;
 		}
 		
 		/*

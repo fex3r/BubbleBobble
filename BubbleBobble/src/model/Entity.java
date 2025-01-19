@@ -18,6 +18,7 @@ public abstract class Entity
 	protected int spriteNum = 1;
 	protected Rectangle hitBox;
 	protected boolean hitBoxOn = false;
+	protected boolean fallOn = false;
 	
 	//Getter 
 	public int getX() { return x; }
@@ -30,6 +31,7 @@ public abstract class Entity
 	public void setX(int newX) { x = newX; }
 	public void setY(int newY) { y = newY; }
 	public void setHitBox(Boolean bool) { hitBoxOn = bool; }
+	public void setFall(Boolean bool) { fallOn = bool; }
 	
 	
 	public void jump()
