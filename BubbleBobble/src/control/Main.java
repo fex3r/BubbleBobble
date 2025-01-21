@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 
 import model.GameMap;
 import model.Player;
+import model.Shot;
 import view.GamePanel;
 
 public class Main {
@@ -22,22 +23,12 @@ public class Main {
 		
 		gameEngine.addObserver(Player.getInstance());
 		
+		
 		window.add(gamePanel);
 		window.pack();
 		
 		window.setLocationRelativeTo(null);
 		
-		/*
-		
-		// Crea uno JScrollPane con il pannello
-        JScrollPane scrollPane = new JScrollPane(gamePanel);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-
-        // Aggiungi lo JScrollPane al frame
-        window.add(scrollPane);
-        
-        */
 		
 		window.setVisible(true);
 		

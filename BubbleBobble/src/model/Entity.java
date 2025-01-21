@@ -16,10 +16,13 @@ public abstract class Entity
 	protected int spriteCounter = 0;
 	protected int spriteNum = 1;
 	
+	
 	//Getter 
 	public int getX() { return x; }
 	public int getY() { return y; }
 	public int getSpeed() { return speed; }
+	public Directions getDirection() { return direction; }
+	public Directions getOldDirection() { return oldDirection; }
 		
 	//Setter
 	public void setX(int newX) { x = newX; }
@@ -27,20 +30,24 @@ public abstract class Entity
 	
 	
 	public void jump()
-	{
-		for(int i = 0; i<16; i++) y--;
+	{	
+		for(int i = 0; i<10; i++) 
+		{
+				y--;
+		}
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask()
 		{
 			@Override
 			public void run()
 			{
-				for(int i = 0; i<16; i++) y++;
-				
+				for(int i = 0; i<10; i++) 
+				{
+					y++;
+				}
 				timer.cancel();
 			}
 		};
 		timer.schedule(task, 225);
-
 	}
 }
