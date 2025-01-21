@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;
@@ -10,6 +11,7 @@ import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
+import control.CollisionChecker;
 import control.KeyHandler; 
 import view.GamePanel;
 
@@ -41,6 +43,12 @@ public final class Player extends Entity implements Observer
 		speed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
+		hitBox = new Rectangle();
+		hitBox.x = 11;
+		hitBox.y = 5;
+		hitBox.width = 32;
+		hitBox.height = 38;
+		
 	}
 	public void getPlayerImage() 
 	{
@@ -90,28 +98,46 @@ public final class Player extends Entity implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
+		hitBoxOn = false;
+		fallOn = true;
+		CollisionChecker.checkCollision(Player.getInstance());
 		if(kh.isUp())
 		{
 			jump();
 		}
 		else if(kh.isDown()) y = y + speed;
 		
-			
-		if(kh.isLeft()) 
+		else if(kh.isLeft()) 
 		{
-			x = x - speed; 
 			direction = Directions.LEFT;
+			CollisionChecker.checkCollision(Player.getInstance());
+			if( Player.getInstance().hitBoxOn == false) x = x-speed;	
 		}
-		else if(kh.isRight())
-		{
-			x = x + speed; 
+		else if(kh.isRight()) 
+		{	
 			direction = Directions.RIGHT;
+			CollisionChecker.checkCollision(Player.getInstance());
+			if( Player.getInstance().hitBoxOn == false) x = x+speed;
 		}
-		else 
+		else
 		{
-			direction = Directions.STAND;
+			direction = Directions.STAND;	
 		}
+		
+		
+		if(Player.getInstance().fallOn == true) {
 			
+			y = y+speed;
+		}
+		
+		/*
+		if(hitBoxOn == false) {
+			if(kh.isLeft()) {  x = x - speed;}
+			else if(kh.isRight()) { x = x + speed;}
+			else if(kh.isUp()) y = y - speed;
+			else if(kh.isDown()) y = y + speed;
+		}
+		*/
 		spriteCounter ++;
 		if(spriteCounter > 20) 
 		{
