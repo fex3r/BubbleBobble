@@ -21,6 +21,8 @@ public abstract class Entity
 	public int getX() { return x; }
 	public int getY() { return y; }
 	public int getSpeed() { return speed; }
+	public Directions getDirection() { return direction; }
+	public Directions getOldDirection() { return oldDirection; }
 		
 	//Setter
 	public void setX(int newX) { x = newX; }

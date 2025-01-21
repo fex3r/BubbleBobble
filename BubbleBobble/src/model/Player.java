@@ -5,6 +5,8 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 
@@ -18,11 +20,6 @@ public final class Player extends Entity implements Observer
 	private KeyHandler kh;
 	private GamePanel gp;
 	private static Player playerInstance;
-	
-	
-	//non ne sono sicuro
-	private Shot shot;// = new Shot();
-	
 	
 	// costruttore privato Pattern Singletone
 	private Player() {
@@ -93,8 +90,10 @@ public final class Player extends Entity implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(kh.isUp()) jump();
-		
+		if(kh.isUp())
+		{
+			jump();
+		}
 		else if(kh.isDown()) y = y + speed;
 		
 			
@@ -131,17 +130,54 @@ public final class Player extends Entity implements Observer
 		
 		if(kh.isShooting())
 		{
-			Player.getInstance().shot();
+			this.shot();
 		}
 		
 	}
 	
 	public void shot()
 	{
-		System.out.println("Spara");
-		new Shot();	//Creando l'oggetto, viene ricreato di nuovo nel costruttore e va in loop
+		new Shot(setShotPosition(), this.getY(), setShotDirection());	//Creando l'oggetto, viene ricreato di nuovo nel costruttore e va in loop
 	}
 	
+	private Directions setShotDirection()
+	{
+		Directions direction;
+		switch(this.direction)
+		{
+		case LEFT:
+			return Directions.LEFT;
+		case RIGHT:
+			return Directions.RIGHT;
+		case STAND:
+			if(this.oldDirection.equals(Directions.LEFT)) return Directions.LEFT;
+		}
+		return Directions.RIGHT;
+	}
+	
+	private int setShotPosition()
+	{
+		int position = 0;
+		switch(this.direction)
+		{
+		case LEFT:
+			position = this.getX() - WiewData.TILE_SIZE.getValue(); 
+			break;
+		case RIGHT:
+			position = this.getX() + WiewData.TILE_SIZE.getValue();
+			break;
+		case STAND:
+			if(this.oldDirection.equals(Directions.LEFT))
+			{
+				position = this.getX() - WiewData.TILE_SIZE.getValue();
+			}
+			else
+			{
+				position = this.getX() + WiewData.TILE_SIZE.getValue();
+			}
+		}
+		return position;
+	}
 	
 	public void draw(Graphics2D g2) 
 	{	

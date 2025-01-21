@@ -10,8 +10,12 @@ import model.Player;
 public class KeyHandler implements KeyListener
 {	
 	private boolean up,right,left,down; //stato dei 4 tasti di direzione
-	private boolean isJumping = false;
 	private boolean shot;
+	private boolean isShooting = false;
+	
+	private boolean isJumping = false;
+	
+	
 	
 	@Override
 	public void keyTyped(KeyEvent e) { } //è più specifico e si occupa del caso in cui il tasto premuto rappresenti un carattere visibile
@@ -23,25 +27,17 @@ public class KeyHandler implements KeyListener
 		
 		if (code == KeyEvent.VK_W && isJumping == false) //***************Inserisci anche il controllo se sotto ha il pavimento*****************
 		{
-			isJumping = true;
-			Timer timer = new Timer();
-			TimerTask task = new TimerTask()
-			{
-				@Override
-				public void run()
-				{
-					isJumping = false;
-					up = false;  // Aggiungi questa riga per far scendere il personaggio
-					timer.cancel();
-				}
-			};
-			timer.schedule(task, 250);
+			up = true;
 		}
 		
 		if(code == KeyEvent.VK_S) down = true;
 		if(code == KeyEvent.VK_A) left = true;
 		if(code == KeyEvent.VK_D) right = true;
-		if(code == KeyEvent.VK_SPACE) shot = true;  
+		if(code == KeyEvent.VK_SPACE && isShooting == false)
+		{
+			shot = true;
+			isShooting = true;
+		}
 		
 	}
 
@@ -53,7 +49,11 @@ public class KeyHandler implements KeyListener
 		if( code == KeyEvent.VK_S) down = false;
 		if( code == KeyEvent.VK_A) left = false;
 		if( code == KeyEvent.VK_D) right = false;
-		if(code == KeyEvent.VK_SPACE) shot = false;
+		if(code == KeyEvent.VK_SPACE)
+		{
+			shot = false;
+			isShooting = false;
+		}
 	}
 
 	//Getter
@@ -61,7 +61,12 @@ public class KeyHandler implements KeyListener
 	public boolean isRight() { return right; }
 	public boolean isLeft() { return left; }
 	public boolean isDown() { return down; }
-	public boolean isShooting() { return shot; }
+	public boolean isShooting()
+	{
+		boolean wasShooting = shot;
+		shot = false;
+		return wasShooting; 
+	}
 	
 	//Setter
 	public void setUp(boolean x) { up = x; }

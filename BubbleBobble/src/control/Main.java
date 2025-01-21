@@ -5,6 +5,7 @@ import javax.swing.JScrollPane;
 
 import model.GameMap;
 import model.Player;
+import model.Shot;
 import view.GamePanel;
 
 public class Main {
@@ -21,6 +22,7 @@ public class Main {
 		
 		
 		gameEngine.addObserver(Player.getInstance());
+		
 		
 		window.add(gamePanel);
 		window.pack();

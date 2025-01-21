@@ -8,16 +8,21 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.imageio.ImageIO;
 
+import control.GameEngine;
 import control.KeyHandler;
 
-public class Shot
+@SuppressWarnings("deprecation")
+public class Shot implements Observer
 {
 	private int x;
 	private int y;
 	private int speed = 8;
+	private Directions direction;
 	private KeyHandler kh;
 	private static BufferedImage shotImage;
 	static
@@ -35,8 +40,16 @@ public class Shot
 	private static ArrayList<Shot> shots = new ArrayList<>();
 	
 	//Costruttori
-	public Shot() { this(10,10); }
-	public Shot(int x, int y) { shots.add(new Shot(0,0)); }
+	public Shot(int x, int y, Directions direction)
+	{
+		this.x = x;
+		this.y = y;
+		this.direction = direction;
+		shots.add(this); 
+		
+		
+		
+	}
 	
 	//Getters
 	public static ArrayList<Shot> getShots() { return shots; }
@@ -45,15 +58,14 @@ public class Shot
 	public void setX (int x) { this.x = x; }
 	public void setY (int y) { this.y = y; }
 
-	/*
-	public void update()
+	@Override
+	public void update(Observable o, Object arg) 
 	{
-		if(kh.isShooting())
-		{
-			new Shot();
-		}
+		System.out.println("ok");
+		if(this.direction.equals(Directions.LEFT)) x = x - speed;
+		else x = x + speed;
 	}
-	*/
+	
 	public void draw(Graphics2D g2) 
 	{
 		g2.drawImage(shotImage,x, y, 48, 48 ,null);
