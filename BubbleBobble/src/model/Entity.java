@@ -28,7 +28,7 @@ public abstract class Entity
 	public Directions getDirection() { return direction; }
 	public Directions getOldDirection() { return oldDirection; }
 	public Rectangle getHitBox() { return hitBox; }
-	public Directions getDirection() { return direction; }
+	public boolean getFallOn() { return fallOn; }
 		
 	//Setter
 	public void setX(int newX) { x = newX; }
@@ -38,24 +38,14 @@ public abstract class Entity
 	
 	
 	public void jump()
-	{	
-		for(int i = 0; i<10; i++) 
+	{
+		if(fallOn == false)
 		{
-				y--;
-		}
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask()
-		{
-			@Override
-			public void run()
+			for(int i = 0; i<WiewData.TILE_SIZE.getValue()*3; i++)
 			{
-				for(int i = 0; i<10; i++) 
-				{
-					y++;
-				}
-				timer.cancel();
+				y--;
 			}
-		};
-		timer.schedule(task, 225);
+		}
+		
 	}
 }

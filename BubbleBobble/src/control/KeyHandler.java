@@ -12,7 +12,6 @@ public class KeyHandler implements KeyListener
 	private boolean up,right,left,down; //stato dei 4 tasti di direzione
 	private boolean shot;
 	private boolean isShooting = false;
-	
 	private boolean isJumping = false;
 	
 	
@@ -25,11 +24,11 @@ public class KeyHandler implements KeyListener
 	{
 		int code = e.getKeyCode(); //contiene il codice del tasto premuto e gli if attivano lo stato di esso
 		
-		if (code == KeyEvent.VK_W && isJumping == false) //***************Inserisci anche il controllo se sotto ha il pavimento*****************
+		if(code == KeyEvent.VK_W && Player.getInstance().getFallOn() == false)
 		{
 			up = true;
+			isJumping = true;
 		}
-		
 		if(code == KeyEvent.VK_S) down = true;
 		if(code == KeyEvent.VK_A) left = true;
 		if(code == KeyEvent.VK_D) right = true;
@@ -45,7 +44,11 @@ public class KeyHandler implements KeyListener
 	public void keyReleased(KeyEvent e) //comportamento per ogni tasto rilasciato
 	{
 		int code = e.getKeyCode(); //contiene il codice del tasto rilasciato e gli if disattivano lo stato di esso
-		if( code == KeyEvent.VK_W) up = false; 
+		if( code == KeyEvent.VK_W)
+		{
+			up = false;
+			isJumping = false;
+		}
 		if( code == KeyEvent.VK_S) down = false;
 		if( code == KeyEvent.VK_A) left = false;
 		if( code == KeyEvent.VK_D) right = false;
@@ -57,10 +60,18 @@ public class KeyHandler implements KeyListener
 	}
 
 	//Getter
-	public boolean isUp() { return isJumping; }
+	public boolean isUp() { return up; }
 	public boolean isRight() { return right; }
 	public boolean isLeft() { return left; }
 	public boolean isDown() { return down; }
+	
+	public boolean isJumping()
+	{
+		boolean wasJumping = up;
+		up = false;
+		return wasJumping; 
+	}
+	
 	public boolean isShooting()
 	{
 		boolean wasShooting = shot;
@@ -70,4 +81,7 @@ public class KeyHandler implements KeyListener
 	
 	//Setter
 	public void setUp(boolean x) { up = x; }
+	public void setIsJumping(boolean x) { isJumping = x; }
+	public void setRight(boolean x) { right = x; }
+	public void setLeft(boolean x) { left = x; }
 }

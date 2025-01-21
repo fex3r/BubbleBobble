@@ -22,6 +22,8 @@ public final class Player extends Entity implements Observer
 	private KeyHandler kh;
 	private GamePanel gp;
 	private static Player playerInstance;
+	private boolean jump;
+	private int jumpValue = 0;
 	
 	// costruttore privato Pattern Singletone
 	private Player() {
@@ -35,6 +37,8 @@ public final class Player extends Entity implements Observer
 		if(playerInstance == null) playerInstance = new Player();
 		return playerInstance;
 	}
+	
+	public void setJump(boolean x) { jump = x; }
 	
 	public void setDefaultValues()
 	{
@@ -103,7 +107,7 @@ public final class Player extends Entity implements Observer
 		CollisionChecker.checkCollision(Player.getInstance());
 		if(kh.isUp())
 		{
-			jump();
+			Player.getInstance().setJump(true);
 		}
 		else if(kh.isDown()) y = y + speed;
 		
@@ -125,19 +129,12 @@ public final class Player extends Entity implements Observer
 		}
 		
 		
-		if(Player.getInstance().fallOn == true) {
+		if(Player.getInstance().fallOn == true && Player.getInstance().jump == false)
+		{
 			
 			y = y+speed;
 		}
 		
-		/*
-		if(hitBoxOn == false) {
-			if(kh.isLeft()) {  x = x - speed;}
-			else if(kh.isRight()) { x = x + speed;}
-			else if(kh.isUp()) y = y - speed;
-			else if(kh.isDown()) y = y + speed;
-		}
-		*/
 		spriteCounter ++;
 		if(spriteCounter > 20) 
 		{
@@ -157,6 +154,21 @@ public final class Player extends Entity implements Observer
 		if(kh.isShooting())
 		{
 			this.shot();
+		}
+		
+		if(jump && !kh.isJumping())
+		{
+			kh.setIsJumping(true);
+			if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/7)
+			{
+				y-=7;
+				jumpValue++;
+			}
+			else
+			{
+				jumpValue = 0;
+				Player.getInstance().setJump(false);
+			}
 		}
 		
 	}
