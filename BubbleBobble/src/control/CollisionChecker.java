@@ -3,18 +3,17 @@ package control;
 import model.Directions;
 import model.Entity;
 import model.GameMap;
+import model.Shot;
 import model.WiewData;
 
-public class CollisionChecker {
+public class CollisionChecker 
+{
 	
 	
-	public CollisionChecker() {
-		
-	}
+	public CollisionChecker() { }
 	
 	public static void checkCollision(Entity entity) 
 	{
-		
 		int leftTopX = entity.getX() + entity.getHitBox().x;
 		int leftTopY = entity.getY() + entity.getHitBox().y;
 		
@@ -24,7 +23,7 @@ public class CollisionChecker {
 		int leftBottomX = entity.getX() + entity.getHitBox().x;
 		int leftBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
 		
-		int rightBottomX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;;
+		int rightBottomX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;
 		int rightBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
 		
 		
@@ -51,12 +50,22 @@ public class CollisionChecker {
 				}
 				break;		
 		}
+	}
+	
+	public static void checkFall(Entity entity)
+	{
+		int leftBottomX = entity.getX() + entity.getHitBox().x;
+		int leftBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
+		
+		int rightBottomX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;
+		int rightBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
 		
 		int leftBottomXScaled = (leftBottomX + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-		int rightBottomXScaled = (rightBottomX+ entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-		int leftBottomYScaled = (leftBottomY+ entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-		int rightBottomYScaled = (rightBottomY+ entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-		if(GameMap.solidBlocks.contains(GameMap.getValue(leftBottomYScaled, leftBottomXScaled)) || GameMap.solidBlocks.contains(GameMap.getValue(rightBottomYScaled, rightBottomXScaled)))
+		int rightBottomXScaled = (rightBottomX + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
+		int leftBottomYScaled = (leftBottomY + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
+		int rightBottomYScaled = (rightBottomY + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
+		
+		if(GameMap.solidBlocks.contains((GameMap.getValue(leftBottomYScaled, leftBottomXScaled))) || GameMap.solidBlocks.contains(GameMap.getValue(rightBottomYScaled, rightBottomXScaled))) 
 		{
 			entity.setFall(false);
 		}

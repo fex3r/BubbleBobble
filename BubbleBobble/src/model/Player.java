@@ -105,6 +105,7 @@ public final class Player extends Entity implements Observer
 		hitBoxOn = false;
 		fallOn = true;
 		CollisionChecker.checkCollision(Player.getInstance());
+		CollisionChecker.checkFall(Player.getInstance());
 		if(kh.isUp())
 		{
 			Player.getInstance().setJump(true);

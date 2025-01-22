@@ -17,8 +17,8 @@ public class Main {
 		window.setResizable(false);
 		window.setTitle("BUBBLE BOBBLE");
 		
-		GamePanel gamePanel = new GamePanel();
-		GameEngine gameEngine = new GameEngine(gamePanel);
+		GamePanel gamePanel = GamePanel.getInstance();
+		GameEngine gameEngine = GameEngine.getInstance();
 		
 		
 		gameEngine.addObserver(Player.getInstance());

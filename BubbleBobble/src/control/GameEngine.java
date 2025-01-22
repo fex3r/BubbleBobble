@@ -2,6 +2,7 @@ package control;
 
 import java.util.Observable;
 
+import model.Player;
 import view.GamePanel;
 
 @SuppressWarnings("deprecation") //elimina gli avvertimenti relativi all'uso di classi deprecate
@@ -9,10 +10,19 @@ import view.GamePanel;
 public class GameEngine extends Observable implements Runnable 
 {	
 	private GamePanel gamePanel;
+	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
 	int FPS = 60;
 	
-	public GameEngine(GamePanel gamePanel) { this.gamePanel = gamePanel; }
+	private GameEngine(GamePanel gamePanel) { this.gamePanel = gamePanel; }
+	
+	// Singleton pattern
+	public static GameEngine getInstance() 
+	{
+		if(gameEngineInstance == null) gameEngineInstance = new GameEngine(GamePanel.getInstance());
+		return gameEngineInstance;
+	}
+		
 	
 	@Override
 	public void run() 

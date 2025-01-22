@@ -14,6 +14,8 @@ import model.GameMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+
+import control.GameEngine;
 import control.KeyHandler;
 import model.Player;
 import model.Shot;
@@ -23,9 +25,10 @@ public class GamePanel extends JPanel
 {	
 
 	GameMap map = new GameMap();
+	private static GamePanel gamePanelInstance;
 	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
 
-	public GamePanel() 
+	private GamePanel() 
 	{
 		this.setPreferredSize(new Dimension(WiewData.GAME_SCREEN_WIDTH.getValue(),WiewData.GAME_SCREEM_HEIGHT.getValue()));
 		this.setBackground(Color.black);
@@ -35,7 +38,12 @@ public class GamePanel extends JPanel
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 		
 		Player p = new Player.Builder().setKeyHandler(kh).setName("prova").build();
-		
+	}
+	
+	public static GamePanel getInstance() 
+	{
+		if(gamePanelInstance == null) gamePanelInstance = new GamePanel();
+		return gamePanelInstance;
 	}
 	
 	@Override
