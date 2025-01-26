@@ -26,13 +26,15 @@ public class GamePanel extends JPanel
 
 	GameMap map = new GameMap();
 	private static GamePanel gamePanelInstance;
-	KeyHandler kh = new KeyHandler(); //Gestione degli input da tastiera
+	KeyHandler kh = KeyHandler.getInstance(); //Gestione degli input da tastiera
 
 	private GamePanel() 
 	{
 		this.setPreferredSize(new Dimension(WiewData.GAME_SCREEN_WIDTH.getValue(),WiewData.GAME_SCREEM_HEIGHT.getValue()));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true); //Migliora la qualità video
+		this.setIgnoreRepaint(true);
+		
 		
 		this.addKeyListener(kh);
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera

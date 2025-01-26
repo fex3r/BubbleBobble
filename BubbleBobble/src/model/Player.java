@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import javax.imageio.ImageIO;
 
 import control.CollisionChecker;
+import control.GameEngine;
 import control.KeyHandler; 
 import view.GamePanel;
 
@@ -58,7 +59,7 @@ public final class Player extends Entity implements Observer
 	{
 		try 
 		{	
-			standR1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_d_1.png"));
+			
 			standR2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_d_2.png"));
 			standL1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_s_1.png"));
 			standL2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_s_2.png"));
@@ -102,76 +103,76 @@ public final class Player extends Entity implements Observer
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		hitBoxOn = false;
-		fallOn = true;
-		CollisionChecker.checkCollision(Player.getInstance());
-		CollisionChecker.checkFall(Player.getInstance());
-		if(kh.isUp())
-		{
-			Player.getInstance().setJump(true);
-		}
-		else if(kh.isDown()) y = y + speed;
-		
-		else if(kh.isLeft()) 
-		{
-			direction = Directions.LEFT;
+		if(GameEngine.getInstance().getGameState() == 1) {
+			hitBoxOn = false;
+			fallOn = true;
 			CollisionChecker.checkCollision(Player.getInstance());
-			if( Player.getInstance().hitBoxOn == false) x = x-speed;	
-		}
-		else if(kh.isRight()) 
-		{	
-			direction = Directions.RIGHT;
-			CollisionChecker.checkCollision(Player.getInstance());
-			if( Player.getInstance().hitBoxOn == false) x = x+speed;
-		}
-		else
-		{
-			direction = Directions.STAND;	
-		}
-		
-		
-		if(Player.getInstance().fallOn == true && Player.getInstance().jump == false)
-		{
-			
-			y = y+speed;
-		}
-		
-		spriteCounter ++;
-		if(spriteCounter > 20) 
-		{
-			if(spriteNum == 1) spriteNum = 2;
-			else if(spriteNum == 2) 
+			CollisionChecker.checkFall(Player.getInstance());
+			if(kh.isUp())
 			{
-				if(direction == Directions.STAND) spriteNum = 1;
-				else spriteNum = 3;
+				Player.getInstance().setJump(true);
 			}
-			else if(spriteNum == 3) 
+		
+			else if(kh.isLeft()) 
 			{
-				spriteNum = 1;	
+				direction = Directions.LEFT;
+				CollisionChecker.checkCollision(Player.getInstance());
+				if( Player.getInstance().hitBoxOn == false) x = x-speed;	
 			}
-			spriteCounter = 0;
-		}
-		
-		if(kh.isShooting())
-		{
-			this.shot();
-		}
-		
-		if(jump && !kh.isJumping())
-		{
-			kh.setIsJumping(true);
-			if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/7)
-			{
-				y-=7;
-				jumpValue++;
+			else if(kh.isRight()) 
+			{	
+				direction = Directions.RIGHT;
+				CollisionChecker.checkCollision(Player.getInstance());
+				if( Player.getInstance().hitBoxOn == false) x = x+speed;
 			}
 			else
 			{
-				jumpValue = 0;
-				Player.getInstance().setJump(false);
+				direction = Directions.STAND;	
+			}
+			
+			
+			if(Player.getInstance().fallOn == true && Player.getInstance().jump == false)
+			{
+				
+				y = y+speed;
+			}
+			
+			spriteCounter ++;
+			if(spriteCounter > 20) 
+			{
+				if(spriteNum == 1) spriteNum = 2;
+				else if(spriteNum == 2) 
+				{
+					if(direction == Directions.STAND) spriteNum = 1;
+					else spriteNum = 3;
+				}
+				else if(spriteNum == 3) 
+				{
+					spriteNum = 1;	
+				}
+				spriteCounter = 0;
+			}
+			
+			if(kh.isShooting())
+			{
+				this.shot();
+			}
+			
+			if(jump && !kh.isJumping())
+			{
+				kh.setIsJumping(true);
+				if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/7)
+				{
+					y-=7;
+					jumpValue++;
+				}
+				else
+				{
+					jumpValue = 0;
+					Player.getInstance().setJump(false);
+				}
 			}
 		}
-		
 	}
 	
 	public void shot()

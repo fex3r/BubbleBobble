@@ -3,23 +3,32 @@ package control;
 import java.util.Observable;
 
 import model.Player;
+import view.GameMenu;
 import view.GamePanel;
+import view.LayoutContainer;
 
 @SuppressWarnings("deprecation") //elimina gli avvertimenti relativi all'uso di classi deprecate
 
 public class GameEngine extends Observable implements Runnable 
 {	
 	private GamePanel gamePanel;
+	private GameMenu gameMenu;
 	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
-	int FPS = 60;
+	private int FPS = 60;
+	private static int gameState = 0;
+	private static final int menuState = 0;
+	private static final int playState = 1;
 	
-	private GameEngine(GamePanel gamePanel) { this.gamePanel = gamePanel; }
+	private GameEngine(GamePanel gamePanel, GameMenu gameMenu) { 
+		this.gamePanel = gamePanel;
+		this.gameMenu = gameMenu;
+	}
 	
 	// Singleton pattern
 	public static GameEngine getInstance() 
 	{
-		if(gameEngineInstance == null) gameEngineInstance = new GameEngine(GamePanel.getInstance());
+		if(gameEngineInstance == null) gameEngineInstance = new GameEngine(GamePanel.getInstance(),GameMenu.getInstance());
 		return gameEngineInstance;
 	}
 		
@@ -29,7 +38,7 @@ public class GameEngine extends Observable implements Runnable
 	{	
 		double drawStep = 1000000000/FPS;
 		double nextDrawTime = System.nanoTime() + drawStep; //calcola il tempo del prossimo aggiornamento
-		gamePanel.repaint();
+		//gameMenu.repaint();
 		while(gameThread != null) 
 		{	
 			long currentTime = System.nanoTime(); //tempo corrente
@@ -37,7 +46,17 @@ public class GameEngine extends Observable implements Runnable
 			setChanged();
 			notifyObservers();
 			
-			gamePanel.repaint(); //modifica l'interfaccia
+			if(gameState == menuState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.MENU_CARD)) {
+				LayoutContainer.getInstance().showCard(LayoutContainer.MENU_CARD);;
+				KeyHandler.getInstance().resetKeys();
+			}
+			else if(gameState == playState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.GAME_CARD)) {
+				LayoutContainer.getInstance().showCard(LayoutContainer.GAME_CARD);
+				KeyHandler.getInstance().resetKeys();
+			}
+			
+			
+			LayoutContainer.getInstance().repaint();
 			
 			try 
 			{
@@ -63,6 +82,13 @@ public class GameEngine extends Observable implements Runnable
 	{	
 		gameThread = new Thread(this);
 		gameThread.start(); //Avvio del thread
+	}
+	
+	public void setGameState(int state) {
+		gameState = state;
+	}
+	public int getGameState() {
+		return gameState;
 	}
 	
 }

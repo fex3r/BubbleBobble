@@ -6,7 +6,9 @@ import javax.swing.JScrollPane;
 import model.GameMap;
 import model.Player;
 import model.Shot;
+import view.GameMenu;
 import view.GamePanel;
+import view.LayoutContainer;
 
 public class Main {
 
@@ -17,6 +19,7 @@ public class Main {
 		window.setResizable(false);
 		window.setTitle("BUBBLE BOBBLE");
 		
+		GameMenu gameMenu = GameMenu.getInstance();
 		GamePanel gamePanel = GamePanel.getInstance();
 		GameEngine gameEngine = GameEngine.getInstance();
 		
@@ -24,7 +27,10 @@ public class Main {
 		gameEngine.addObserver(Player.getInstance());
 		
 		
-		window.add(gamePanel);
+
+		
+		window.add(LayoutContainer.getInstance());
+		
 		window.pack();
 		
 		window.setLocationRelativeTo(null);

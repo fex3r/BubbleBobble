@@ -61,7 +61,7 @@ public class CollisionChecker
 		int rightBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
 		
 		int leftBottomXScaled = (leftBottomX + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
-		int rightBottomXScaled = (rightBottomX + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
+		int rightBottomXScaled = (rightBottomX - entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 		int leftBottomYScaled = (leftBottomY + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 		int rightBottomYScaled = (rightBottomY + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 		
