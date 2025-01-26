@@ -61,7 +61,7 @@ public final class Player extends Entity implements Observer
 	{
 		try 
 		{	
-			
+			standR1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_d_1.png"));
 			standR2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_d_2.png"));
 			standL1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_s_1.png"));
 			standL2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/fermo_s_2.png"));
