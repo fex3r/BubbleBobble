@@ -75,8 +75,6 @@ public class Shot extends Entity implements Observer
 	{
 		if(shots.contains(this))
 		{
-			
-			
 			hitBox.setLocation(x + 11, y + 5);
 			
 			if(this.direction.equals(Directions.LEFT))

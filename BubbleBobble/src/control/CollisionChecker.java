@@ -34,7 +34,7 @@ public class CollisionChecker
 				int leftBottomXScaled = leftBottomX/WiewData.TILE_SIZE.getValue();
 				int leftTopYScaled = leftTopY/WiewData.TILE_SIZE.getValue();
 				int leftBottomYScaled = leftBottomY/WiewData.TILE_SIZE.getValue();
-				if(GameMap.solidBlocks.contains(GameMap.getValue(leftTopYScaled, leftTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getValue(leftBottomYScaled, leftBottomXScaled)))
+				if(GameMap.solidBlocks.contains(GameMap.getInstance().getValue(leftTopYScaled, leftTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(leftBottomYScaled, leftBottomXScaled)))
 				{
 					entity.setHitBox(true);
 				}
@@ -44,14 +44,14 @@ public class CollisionChecker
 				int rightBottomXScaled = rightBottomX/WiewData.TILE_SIZE.getValue();
 				int rightTopYScaled = rightTopY/WiewData.TILE_SIZE.getValue();
 				int rightBottomYScaled = rightBottomY/WiewData.TILE_SIZE.getValue();
-				if(GameMap.solidBlocks.contains(GameMap.getValue(rightTopYScaled, rightTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getValue(rightBottomYScaled, rightBottomXScaled)))
+				if(GameMap.solidBlocks.contains(GameMap.getInstance().getValue(rightTopYScaled, rightTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(rightBottomYScaled, rightBottomXScaled)))
 				{
 					entity.setHitBox(true);
 				}
 				break;		
 		}
 	}
-	
+
 	public static void checkFall(Entity entity)
 	{
 		int leftBottomX = entity.getX() + entity.getHitBox().x;
@@ -65,10 +65,28 @@ public class CollisionChecker
 		int leftBottomYScaled = (leftBottomY + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 		int rightBottomYScaled = (rightBottomY + entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 		
-		if(GameMap.solidBlocks.contains((GameMap.getValue(leftBottomYScaled, leftBottomXScaled))) || GameMap.solidBlocks.contains(GameMap.getValue(rightBottomYScaled, rightBottomXScaled))) 
+		if(GameMap.solidBlocks.contains((GameMap.getInstance().getValue(leftBottomYScaled, leftBottomXScaled))) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(rightBottomYScaled, rightBottomXScaled))) 
 		{
-			entity.setFall(false);
-		}
+			if(GameMap.endBlock.contains(GameMap.getInstance().getValue(leftBottomYScaled, leftBottomXScaled)) || GameMap.endBlock.contains(GameMap.getInstance().getValue(rightBottomYScaled, rightBottomXScaled))) 
+			{
+				entity.setY(0);
+			}
+			else
+			{
+				entity.setFall(false);
+			}
+		}	
+	}
+	
+	public static void checkEnd(Entity entity)
+	{
+		int leftBottomX = entity.getX() + entity.getHitBox().x;
+		int leftBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
+		
+		int rightBottomX = entity.getX() + entity.getHitBox().x + entity.getHitBox().width;
+		int rightBottomY = entity.getY() + entity.getHitBox().y + entity.getHitBox().width;
+		
+		
 		
 	}
 }

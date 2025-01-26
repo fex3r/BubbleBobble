@@ -16,16 +16,28 @@ import javax.imageio.ImageIO;
 
 public class GameMap
 { 							//0 - Vuoto     1 - Muro mappa uno		2 - Muro mappa due ect. ect.da
-	
-	public static BufferedImage[] blocks = new BufferedImage[2];
-	public static int[][] map;
+	private static GameMap gameMapInstance;
+	public static BufferedImage[] blocks = new BufferedImage[10];
+	public static int[][] bigMap;
+	public static int[][] map = new int[17][20];
+	public int indexValidMap = 0;
 	//aggiungere a questa lista tutti i blocchi solidi
-	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1));
+	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1,2,3,4,9));
+	public static List<Integer> endBlock = new ArrayList<>(List.of(9));
 	
-	public GameMap()
+	
+	//Mappa da fare singleton
+	private GameMap()
 	{
 		this.initializeBlocks();
 		this.initializeGameMap();
+		
+	}
+	
+	public static GameMap getInstance() 
+	{
+		if(gameMapInstance == null) gameMapInstance = new GameMap();
+		return gameMapInstance;
 	}
 	
 	
@@ -49,8 +61,7 @@ public class GameMap
 		{
 			e.getMessage();
 		}
-		map = new int[rows][cols];
-		
+		bigMap = new int[rows][cols];
 		
 		try
 		{
@@ -61,13 +72,37 @@ public class GameMap
 				String row = br2.readLine();
 				for(int j = 0; j<cols; j++)
 				{
-					map[i][j] = Character.getNumericValue(row.charAt(j));
+					bigMap[i][j] = Character.getNumericValue(row.charAt(j));
 				}
 			}
 		}
 		catch (IOException e)
 		{
 			e.getMessage();
+		}
+		
+		getValidMap();
+	}
+	
+	private void getValidMap()
+	{
+		for(int i = 0; i < map.length; i++)
+		{
+			for(int j = 0; j<map[0].length; j++)
+			{
+				map[i][j] = bigMap[i + indexValidMap][j];
+			}
+		}
+	}
+	
+	private void stampaMappa(int[][] matrix)
+	{
+		for(int i = 0; i<matrix.length; i++)
+		{
+			for(int j = 0; j<matrix[0].length; j++)
+			{
+				System.out.print(matrix[i][j]);
+			}
 		}
 	}
 	
@@ -77,6 +112,10 @@ public class GameMap
 		try
 		{
 			blocks[1] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_1.png"));
+			blocks[2] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_10.png"));
+			blocks[3] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_94.png"));
+			blocks[4] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_70.png"));
+			blocks[9] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_15.png"));
 		}
 		catch(IOException e)
 		{
@@ -84,8 +123,14 @@ public class GameMap
 		}
 	}
 	
-	public static BufferedImage getBlock(int x) { return blocks[x]; } //Restituisce un blocco
+	public BufferedImage getBlock(int x) { return blocks[x]; } //Restituisce un blocco
 	
-	public static int getValue(int x, int y) { return map[x][y]; }
+	public int getValue(int x, int y) { return map[x][y]; }
+	
+	public void increaseIndexValidMap() 
+	{ 
+		indexValidMap++; 
+		initializeGameMap();
+	}
 
 }

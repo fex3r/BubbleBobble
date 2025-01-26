@@ -10,21 +10,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-import model.GameMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import control.GameEngine;
 import control.KeyHandler;
+import model.GameMap;
 import model.Player;
 import model.Shot;
 import model.WiewData;
 
 public class GamePanel extends JPanel
 {	
-
-	GameMap map = new GameMap();
 	private static GamePanel gamePanelInstance;
 	KeyHandler kh = KeyHandler.getInstance(); //Gestione degli input da tastiera
 
@@ -60,14 +58,26 @@ public class GamePanel extends JPanel
 		{
 			for(int j = 0; j<WiewData.MAX_SCREEN_COL.getValue(); j++) //Asse Y
 			{
-				int x = GameMap.getValue(i,j);
+				int x = GameMap.getInstance().getValue(i,j);
 				switch(x)
 				{
 					case 0:
 						g2.setColor(Color.WHITE);
 						break;
 					case 1:
-						g2.drawImage(GameMap.getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
+						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
+						break;
+					case 2:
+						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
+						break;
+					case 3:
+						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
+						break;
+					case 4:
+						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
+						break;
+					case 9:
+						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
 						break;
 					default:
 						g2.setColor(Color.BLACK);

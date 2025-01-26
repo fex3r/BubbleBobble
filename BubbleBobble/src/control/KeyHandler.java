@@ -71,7 +71,6 @@ public class KeyHandler implements KeyListener
 			up = false;
 			isJumping = false;
 		}
-		if( code == KeyEvent.VK_S) down = false;
 		if( code == KeyEvent.VK_A) left = false;
 		if( code == KeyEvent.VK_D) right = false;
 		if(code == KeyEvent.VK_SPACE)
@@ -98,7 +97,6 @@ public class KeyHandler implements KeyListener
 		up = false;
 		return wasJumping; 
 	}
-	
 	public boolean isShooting()
 	{
 		boolean wasShooting = shot;

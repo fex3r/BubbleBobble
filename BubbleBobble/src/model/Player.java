@@ -4,6 +4,8 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -156,6 +158,7 @@ public final class Player extends Entity implements Observer
 			if(kh.isShooting())
 			{
 				this.shot();
+				GameMap.getInstance().increaseIndexValidMap();
 			}
 			
 			if(jump && !kh.isJumping())
@@ -163,7 +166,7 @@ public final class Player extends Entity implements Observer
 				kh.setIsJumping(true);
 				if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/7)
 				{
-					y-=7;
+					y-=8;
 					jumpValue++;
 				}
 				else
