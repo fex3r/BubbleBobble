@@ -1,8 +1,13 @@
 package control;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
+import model.Enemy;
+import model.Entity;
 import model.Player;
+import model.Shot;
 import view.GameMenu;
 import view.GamePanel;
 import view.LayoutContainer;
@@ -11,24 +16,27 @@ import view.LayoutContainer;
 
 public class GameEngine extends Observable implements Runnable 
 {	
-	private GamePanel gamePanel;
-	private GameMenu gameMenu;
+
 	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
 	private int FPS = 60;
 	private static int gameState = 0;
 	private static final int menuState = 0;
-	private static final int playState = 1;
+	private static final int loadState = 1;
+	private static final int playState = 2;
+	private static boolean newGameOn;
+	private List<Shot> diedShots;
+	private List<Enemy> diedEnemies;
 	
-	private GameEngine(GamePanel gamePanel, GameMenu gameMenu) { 
-		this.gamePanel = gamePanel;
-		this.gameMenu = gameMenu;
+	private GameEngine() {
+		diedShots = new ArrayList<>();
+		diedEnemies = new ArrayList<>();
 	}
 	
 	// Singleton pattern
 	public static GameEngine getInstance() 
 	{
-		if(gameEngineInstance == null) gameEngineInstance = new GameEngine(GamePanel.getInstance(),GameMenu.getInstance());
+		if(gameEngineInstance == null) gameEngineInstance = new GameEngine();
 		return gameEngineInstance;
 	}
 		
@@ -47,16 +55,47 @@ public class GameEngine extends Observable implements Runnable
 			notifyObservers();
 			
 			if(gameState == menuState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.MENU_CARD)) {
-				LayoutContainer.getInstance().showCard(LayoutContainer.MENU_CARD);;
+				LayoutContainer.getInstance().showCard(LayoutContainer.MENU_CARD);
 				KeyHandler.getInstance().resetKeys();
 			}
 			else if(gameState == playState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.GAME_CARD)) {
+				if(newGameOn == true) {
+					
+				}
 				LayoutContainer.getInstance().showCard(LayoutContainer.GAME_CARD);
 				KeyHandler.getInstance().resetKeys();
 			}
+			//else if(gameState == loadState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.LOAD_MENU_CARD))
 			
 			
 			LayoutContainer.getInstance().repaint();
+			
+			//gli shot fanno danno solo quando il bubble status è false
+			Shot.getShots().stream()
+			.forEach(shot -> Enemy.getEnemies()
+			.stream()
+			.forEach(enemy -> {
+				if(CollisionChecker.checkHit(shot, enemy) && enemy.getBubbleStatus() == false) {
+			
+				diedShots.add(shot);
+				diedEnemies.add(enemy);
+			
+				}
+			}));
+			//il personaggio fa danno quando il bubblestatus è true
+			Enemy.getEnemies().forEach(enemy -> {
+				if(CollisionChecker.checkHit(Player.getInstance(), enemy) && enemy.getBubbleStatus() == true) {
+					diedEnemies.add(enemy);
+				}
+			});
+			
+			diedShots.forEach(Shot::die);
+			diedEnemies.forEach(Enemy::die);
+			
+			diedShots.clear();
+			diedEnemies.clear();
+			//controllo se i proiettili colpiscono qualcosa
+			
 			
 			try 
 			{
@@ -86,6 +125,9 @@ public class GameEngine extends Observable implements Runnable
 	
 	public void setGameState(int state) {
 		gameState = state;
+	}
+	public void setNewGameOn(boolean bool) {
+		newGameOn = bool;
 	}
 	public int getGameState() {
 		return gameState;

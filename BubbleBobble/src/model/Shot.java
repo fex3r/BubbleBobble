@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -20,8 +21,6 @@ import control.KeyHandler;
 @SuppressWarnings("deprecation")
 public class Shot extends Entity implements Observer
 {
-	private int x;
-	private int y;
 	private int speed = 6;
 	private Directions direction;
 	private boolean hitBlock = false;
@@ -40,7 +39,7 @@ public class Shot extends Entity implements Observer
 		}
 	};
 	//Array contenente i shot in vita
-	private static ArrayList<Shot> shots = new ArrayList<>();
+	protected static ArrayList<Shot> shots = new ArrayList<>();
 	
 	//Costruttori
 	public Shot(int x, int y, Directions direction)
@@ -52,10 +51,13 @@ public class Shot extends Entity implements Observer
 		GameEngine.getInstance().addObserver(this);
 		
 		hitBox = new Rectangle();
-		hitBox.x = 11;
-		hitBox.y = 5;
-		hitBox.width = 32;
-		hitBox.height = 38;
+		hitBoxDefaultX = 11;
+		hitBoxDefaultY = 5;
+				
+		hitBox.x = hitBoxDefaultX;
+		hitBox.y = hitBoxDefaultY;
+		hitBox.width = 23;
+		hitBox.height = 23;
 	}
 	
 	//Getters
@@ -68,6 +70,7 @@ public class Shot extends Entity implements Observer
 	//Setters
 	public void setX (int x) { this.x = x; }
 	public void setY (int y) { this.y = y; }
+
 	public void setHitBlock(boolean x) { hitBlock = x; }
 
 	@Override
@@ -75,19 +78,20 @@ public class Shot extends Entity implements Observer
 	{
 		if(shots.contains(this))
 		{
-			hitBox.setLocation(x + 11, y + 5);
+			//ma perchè dio banana 
+			//hitBox.setLocation(x + 11, y + 5);
 			
 			if(this.direction.equals(Directions.LEFT))
 			{
 				x = x - speed;
 				CollisionChecker.checkCollision(this);
-				if( this.hitBoxOn == true) shots.remove(this);
+				if( this.hitBoxOn == true) this.die();
 			}
 			else
 			{
 				x = x + speed;
 				CollisionChecker.checkCollision(this);
-				if( this.hitBoxOn == true) shots.remove(this);
+				if( this.hitBoxOn == true) this.die();
 			}
 		}
 	}
@@ -95,5 +99,15 @@ public class Shot extends Entity implements Observer
 	public void draw(Graphics2D g2) 
 	{
 		g2.drawImage(shotImage,x, y, 48, 48 ,null);
+		
+	}
+
+	@Override
+	public void die() {
+		
+		 if(shots.contains(this)) {
+	            shots.remove(this);
+	            GameEngine.getInstance().deleteObserver(this);
+	        }
 	}
 }

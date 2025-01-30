@@ -9,6 +9,7 @@ public class LayoutContainer extends JPanel {
 	private static LayoutContainer layoutContainerInstance;
 	private CardLayout cardLayout;
 	public static final String MENU_CARD = "Menu";
+	public static final String LOAD_MENU_CARD = "Load";
     public static final String GAME_CARD = "Game";
     private String cardName  = "";
     

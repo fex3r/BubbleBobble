@@ -124,6 +124,10 @@ public class GameMenu extends JPanel {
 		
 		if(kh.getEnter()) {
 			if(commandId == 0) {
+				GameEngine.getInstance().setNewGameOn(true);
+				GameEngine.getInstance().setGameState(2);
+			}else if(commandId == 1){
+				GameEngine.getInstance().setNewGameOn(false);
 				GameEngine.getInstance().setGameState(1);
 			}else if(commandId == 2) {
 				System.exit(0);

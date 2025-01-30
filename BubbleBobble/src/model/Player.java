@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,7 @@ import control.KeyHandler;
 import view.GamePanel;
 
 @SuppressWarnings("deprecation")
-public final class Player extends Entity implements Observer
+public final class Player extends Entity
 {
 	private String name;
 	private KeyHandler kh;
@@ -27,6 +28,7 @@ public final class Player extends Entity implements Observer
 	private static Player playerInstance;
 	private boolean jump;
 	private int jumpValue = 0;
+	protected BufferedImage standR1,standR2,standL1,standL2,moveR1,moveR2,moveR3,moveL1,moveL2,moveL3;
 	
 	// costruttore privato Pattern Singletone
 	private Player() {
@@ -108,8 +110,8 @@ public final class Player extends Entity implements Observer
 		if(GameEngine.getInstance().getGameState() == 1) {
 			hitBoxOn = false;
 			fallOn = true;
-			CollisionChecker.checkCollision(Player.getInstance());
-			CollisionChecker.checkFall(Player.getInstance());
+			CollisionChecker.checkCollision(this);
+			CollisionChecker.checkFall(this);
 			if(kh.isUp())
 			{
 				Player.getInstance().setJump(true);
@@ -158,7 +160,7 @@ public final class Player extends Entity implements Observer
 			if(kh.isShooting())
 			{
 				this.shot();
-				GameMap.getInstance().increaseIndexValidMap();
+				//GameMap.getInstance().increaseIndexValidMap();
 			}
 			
 			if(jump && !kh.isJumping())
@@ -222,6 +224,7 @@ public final class Player extends Entity implements Observer
 		return position;
 	}
 	
+	@Override
 	public void draw(Graphics2D g2) 
 	{	
 		BufferedImage image = null;
@@ -256,5 +259,15 @@ public final class Player extends Entity implements Observer
 		
 
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
+		
+//      stampa dell'hitbox
+//		g2.setColor(Color.RED);
+//	    g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
+	}
+
+	@Override
+	public void die() {
+		// TODO Auto-generated method stub
+		
 	}
 }

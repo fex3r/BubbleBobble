@@ -6,6 +6,7 @@ import javax.swing.JScrollPane;
 import model.GameMap;
 import model.Player;
 import model.Shot;
+import model.TornadoDemon;
 import view.GameMenu;
 import view.GamePanel;
 import view.LayoutContainer;
@@ -19,13 +20,16 @@ public class Main {
 		window.setResizable(false);
 		window.setTitle("BUBBLE BOBBLE");
 		
-		GameMenu gameMenu = GameMenu.getInstance();
+		//gamePanel andrà fatto sparire da qua
 		GamePanel gamePanel = GamePanel.getInstance();
 		GameEngine gameEngine = GameEngine.getInstance();
 		
 		
 		gameEngine.addObserver(Player.getInstance());
 		
+		//da togliere
+		TornadoDemon demon = new TornadoDemon();
+		gamePanel.setDemon(demon);
 		
 
 		
