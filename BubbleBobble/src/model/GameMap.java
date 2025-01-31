@@ -20,9 +20,9 @@ public class GameMap
 	public static BufferedImage[] blocks = new BufferedImage[10];
 	public static int[][] bigMap;
 	public static int[][] map = new int[17][20];
-	public int indexValidMap = 0;
+	public int indexValidMap = 0;	//+19
 	//aggiungere a questa lista tutti i blocchi solidi
-	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1,2,3,4,9));
+	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1,2,3,4,5,6,7,8,9));
 	public static List<Integer> endBlock = new ArrayList<>(List.of(9));
 	
 	
@@ -115,6 +115,10 @@ public class GameMap
 			blocks[2] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_10.png"));
 			blocks[3] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_94.png"));
 			blocks[4] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_70.png"));
+			blocks[5] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_38.png"));
+			blocks[6] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_100.png"));
+			blocks[7] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_85.png"));
+			blocks[8] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_55.png"));
 			blocks[9] = ImageIO.read(getClass().getResourceAsStream("/blocks/normal blocks/block_15.png"));
 		}
 		catch(IOException e)

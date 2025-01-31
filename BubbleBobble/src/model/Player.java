@@ -44,6 +44,7 @@ public final class Player extends Entity
 	}
 	
 	public void setJump(boolean x) { jump = x; }
+	public boolean getJump() { return jump; }
 	
 	public void setDefaultValues()
 	{
@@ -112,10 +113,14 @@ public final class Player extends Entity
 		if(GameEngine.getInstance().getGameState() == 2) {
 			hitBoxOn = false;
 			fallOn = true;
-			CollisionChecker.checkCollision(this);
-			CollisionChecker.checkFall(this);
+			if(!this.jump)
+			{
+				CollisionChecker.checkCollision(Player.getInstance());
+				CollisionChecker.checkFall(Player.getInstance());
+			}
 			if(kh.isUp())
 			{
+				
 				Player.getInstance().setJump(true);
 			}
 		
@@ -168,9 +173,9 @@ public final class Player extends Entity
 			if(jump && !kh.isJumping())
 			{
 				kh.setIsJumping(true);
-				if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/7)
+				if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/9)
 				{
-					y-=8;
+					y-=7;
 					jumpValue++;
 				}
 				else

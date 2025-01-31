@@ -58,30 +58,7 @@ public class GamePanel extends JPanel
 		{
 			for(int j = 0; j<WiewData.MAX_SCREEN_COL.getValue(); j++) //Asse Y
 			{
-				int x = GameMap.getInstance().getValue(i,j);
-				switch(x)
-				{
-					case 0:
-						g2.setColor(Color.WHITE);
-						break;
-					case 1:
-						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
-						break;
-					case 2:
-						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
-						break;
-					case 3:
-						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
-						break;
-					case 4:
-						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
-						break;
-					case 9:
-						g2.drawImage(GameMap.getInstance().getBlock(x), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
-						break;
-					default:
-						g2.setColor(Color.BLACK);
-				}
+				g2.drawImage(GameMap.getInstance().getBlock(GameMap.getInstance().getValue(i,j)), j*WiewData.TILE_SIZE.getValue(), i*WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), WiewData.TILE_SIZE.getValue(), null);
 			}
 		}
 		
