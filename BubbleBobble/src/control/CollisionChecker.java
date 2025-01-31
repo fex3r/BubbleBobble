@@ -32,8 +32,8 @@ public class CollisionChecker
 		switch(entity.getDirection())
 		{
 			case LEFT:
-				int leftTopXScaled = leftTopX/WiewData.TILE_SIZE.getValue();
-				int leftBottomXScaled = leftBottomX/WiewData.TILE_SIZE.getValue();
+				int leftTopXScaled = (leftTopX-entity.getSpeed())/WiewData.TILE_SIZE.getValue();
+				int leftBottomXScaled = (leftBottomX-entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 				int leftTopYScaled = leftTopY/WiewData.TILE_SIZE.getValue();
 				int leftBottomYScaled = leftBottomY/WiewData.TILE_SIZE.getValue();
 				if(GameMap.solidBlocks.contains(GameMap.getInstance().getValue(leftTopYScaled, leftTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(leftBottomYScaled, leftBottomXScaled)))
@@ -42,8 +42,8 @@ public class CollisionChecker
 				}
 				break;
 			case RIGHT:
-				int rightTopXScaled = rightTopX/WiewData.TILE_SIZE.getValue();
-				int rightBottomXScaled = rightBottomX/WiewData.TILE_SIZE.getValue();
+				int rightTopXScaled = (rightTopX+entity.getSpeed())/WiewData.TILE_SIZE.getValue();
+				int rightBottomXScaled = (rightBottomX+entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 				int rightTopYScaled = rightTopY/WiewData.TILE_SIZE.getValue();
 				int rightBottomYScaled = rightBottomY/WiewData.TILE_SIZE.getValue();
 				if(GameMap.solidBlocks.contains(GameMap.getInstance().getValue(rightTopYScaled, rightTopXScaled)) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(rightBottomYScaled, rightBottomXScaled)))

@@ -26,8 +26,6 @@ import model.WiewData;
 public class GamePanel extends JPanel
 {	
 	private static GamePanel gamePanelInstance;
-	KeyHandler kh = KeyHandler.getInstance(); //Gestione degli input da tastiera
-	TornadoDemon demon;
 	
 	private GamePanel() 
 	{
@@ -37,17 +35,10 @@ public class GamePanel extends JPanel
 		this.setIgnoreRepaint(true);
 		
 		
-		this.addKeyListener(kh);
+		this.addKeyListener(KeyHandler.getInstance());
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
-		
-		Player p = new Player.Builder().setKeyHandler(kh).setName("prova").build();
+	}
 
-	}
-	
-	//classe da cancellare per test
-	public void setDemon(TornadoDemon demon) {
-		this.demon = demon;
-	}
 	
 	public static GamePanel getInstance() 
 	{
@@ -94,16 +85,22 @@ public class GamePanel extends JPanel
 			}
 		}
 		
-		for(int i = 0; i<Shot.getShots().size(); i++)
-		{
-			Shot.getShots().get(i).draw(g2);
+		if(!GameEngine.getInstance().getGamePause()) {
+			//stampa dei proiettili
+			for(int i = 0; i<Shot.getShots().size(); i++)
+			{
+				Shot.getShots().get(i).draw(g2);
+			}
+			
+			//stampa dei nemici
+			for(int j = 0; j<Enemy.getEnemies().size(); j++) {
+				Enemy.getEnemies().get(j).draw(g2);
+			}
 		}
-
+		
 		
 		Player.getInstance().draw(g2);	//Stampa del personaggio
-		if(Enemy.getEnemies().contains(demon)) {
-			demon.draw(g2);
-		}
+
 		
 		g2.dispose();
 	}

@@ -77,10 +77,7 @@ public class Shot extends Entity implements Observer
 	public void update(Observable o, Object arg) 
 	{
 		if(shots.contains(this))
-		{
-			//ma perchè dio banana 
-			//hitBox.setLocation(x + 11, y + 5);
-			
+		{	
 			if(this.direction.equals(Directions.LEFT))
 			{
 				x = x - speed;

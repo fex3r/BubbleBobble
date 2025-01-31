@@ -21,6 +21,7 @@ public class TornadoDemon extends Enemy{
 	protected BufferedImage aliSuD,aliDietroD,aliMezzoD,aliBasse1D,aliBasse2D,aliSuS,aliDietroS,aliMezzoS,aliBasse1S,aliBasse2S,bolla1,bolla2;
 	
 	public TornadoDemon() {
+		
 		setDefaultValues();
 		getDemonImage();
 		GameEngine.getInstance().addObserver(this);
@@ -73,8 +74,8 @@ public class TornadoDemon extends Enemy{
 	
 	@Override
 	public void update(Observable o, Object arg) {
-		
-		if(GameEngine.getInstance().getGameState() == 1) {
+
+		if(GameEngine.getInstance().getGameState() == 2) {
 			hitBoxOn = false;
 			fallOn = true;
 			hitUp = false;

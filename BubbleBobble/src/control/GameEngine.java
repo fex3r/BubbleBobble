@@ -6,6 +6,7 @@ import java.util.Observable;
 
 import model.Enemy;
 import model.Entity;
+import model.LevelManager;
 import model.Player;
 import model.Shot;
 import view.GameMenu;
@@ -24,7 +25,9 @@ public class GameEngine extends Observable implements Runnable
 	private static final int menuState = 0;
 	private static final int loadState = 1;
 	private static final int playState = 2;
+	private static final int pauseState = 3;
 	private static boolean newGameOn;
+	private static boolean gamePause = false;
 	private List<Shot> diedShots;
 	private List<Enemy> diedEnemies;
 	
@@ -46,27 +49,38 @@ public class GameEngine extends Observable implements Runnable
 	{	
 		double drawStep = 1000000000/FPS;
 		double nextDrawTime = System.nanoTime() + drawStep; //calcola il tempo del prossimo aggiornamento
-		//gameMenu.repaint();
+
 		while(gameThread != null) 
 		{	
-			long currentTime = System.nanoTime(); //tempo corrente
 			
-			setChanged();
-			notifyObservers();
+			long currentTime = System.nanoTime(); //tempo corrente
+
+			if(gamePause == false) {
+				setChanged();
+				notifyObservers();
+			}
+			
 			
 			if(gameState == menuState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.MENU_CARD)) {
 				LayoutContainer.getInstance().showCard(LayoutContainer.MENU_CARD);
 				KeyHandler.getInstance().resetKeys();
 			}
 			else if(gameState == playState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.GAME_CARD)) {
-				if(newGameOn == true) {
-					
-				}
+				LevelManager.getInstance().initLevel();
 				LayoutContainer.getInstance().showCard(LayoutContainer.GAME_CARD);
+				KeyHandler.getInstance().resetKeys();
+				
+			}else if(gameState == pauseState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.PAUSE_CARD)) {
+				LayoutContainer.getInstance().showCard(LayoutContainer.PAUSE_CARD);
 				KeyHandler.getInstance().resetKeys();
 			}
 			//else if(gameState == loadState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.LOAD_MENU_CARD))
 			
+			if(gameState == playState && LevelManager.getInstance().levelEnded()) {
+				
+				LevelManager.getInstance().nextLevelAnimation();
+				
+			}
 			
 			LayoutContainer.getInstance().repaint();
 			
@@ -82,6 +96,7 @@ public class GameEngine extends Observable implements Runnable
 			
 				}
 			}));
+			
 			//il personaggio fa danno quando il bubblestatus è true
 			Enemy.getEnemies().forEach(enemy -> {
 				if(CollisionChecker.checkHit(Player.getInstance(), enemy) && enemy.getBubbleStatus() == true) {
@@ -123,14 +138,13 @@ public class GameEngine extends Observable implements Runnable
 		gameThread.start(); //Avvio del thread
 	}
 	
-	public void setGameState(int state) {
-		gameState = state;
-	}
-	public void setNewGameOn(boolean bool) {
-		newGameOn = bool;
-	}
-	public int getGameState() {
-		return gameState;
-	}
+	public void setGameState(int state) {gameState = state;}
+	public void setNewGameOn(boolean bool) {newGameOn = bool;}
+	public void setGamePause(boolean bool) { gamePause = bool;}
+	
+	public int getGameState() {return gameState;}
+	public boolean getNewGameOn() {return newGameOn;}
+	public boolean getGamePause() {return gamePause;}
+	
 	
 }

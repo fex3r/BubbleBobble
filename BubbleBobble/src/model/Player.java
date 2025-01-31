@@ -23,7 +23,7 @@ import view.GamePanel;
 public final class Player extends Entity
 {
 	private String name;
-	private KeyHandler kh;
+	private KeyHandler kh = KeyHandler.getInstance();
 	private GamePanel gp;
 	private static Player playerInstance;
 	private boolean jump;
@@ -52,9 +52,11 @@ public final class Player extends Entity
 		speed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
+		hitBoxDefaultX = 11;
+		hitBoxDefaultY = 5;
 		hitBox = new Rectangle();
-		hitBox.x = 11;
-		hitBox.y = 5;
+		hitBox.x = hitBoxDefaultX;
+		hitBox.y = hitBoxDefaultY;
 		hitBox.width = 32;
 		hitBox.height = 38;
 		
@@ -107,7 +109,7 @@ public final class Player extends Entity
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(GameEngine.getInstance().getGameState() == 1) {
+		if(GameEngine.getInstance().getGameState() == 2) {
 			hitBoxOn = false;
 			fallOn = true;
 			CollisionChecker.checkCollision(this);
@@ -260,9 +262,7 @@ public final class Player extends Entity
 
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
 		
-//      stampa dell'hitbox
-//		g2.setColor(Color.RED);
-//	    g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
+    
 	}
 
 	@Override

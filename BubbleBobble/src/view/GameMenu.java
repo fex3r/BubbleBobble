@@ -22,7 +22,6 @@ import model.WiewData;
 public class GameMenu extends JPanel {
 	
 	private static GameMenu gameMenuInstance;
-	KeyHandler kh = KeyHandler.getInstance();
 	private String newGame = "New Game";
 	private String loadGame = "Load Game";
 	private String quit = "Quit";
@@ -46,7 +45,7 @@ public class GameMenu extends JPanel {
 		this.setDoubleBuffered(true); //Migliora la qualità video
 		this.setIgnoreRepaint(true);
 		
-		this.addKeyListener(kh);
+		this.addKeyListener(KeyHandler.getInstance());
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 	}
 	
@@ -102,16 +101,16 @@ public class GameMenu extends JPanel {
 		g2.drawString(loadGame, 350, 590);
 		g2.drawString(quit, 350, 640);
 		
-		if(kh.isDown()) {
+		if(KeyHandler.getInstance().isDown()) {
 			if(commandId == 2)commandId = 0;
 			else commandId++;
-			kh.setDown(false);
+			KeyHandler.getInstance().setDown(false);
 		}
 		
-		if(kh.isUp()) {
+		if(KeyHandler.getInstance().isUp()) {
 			if(commandId == 0) commandId = 2;
 			else commandId --;
-			kh.setUp(false);
+			KeyHandler.getInstance().setUp(false);
 		}
 		
 		if(commandId == 0) {
@@ -122,7 +121,7 @@ public class GameMenu extends JPanel {
 			g2.drawImage(bubble, 310,610,35,35,null);
 		}
 		
-		if(kh.getEnter()) {
+		if(KeyHandler.getInstance().getEnter()) {
 			if(commandId == 0) {
 				GameEngine.getInstance().setNewGameOn(true);
 				GameEngine.getInstance().setGameState(2);

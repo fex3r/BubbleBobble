@@ -127,6 +127,10 @@ public class GameMap
 	
 	public int getValue(int x, int y) { return map[x][y]; }
 	
+	public int getIndexValidMap() { return indexValidMap; }
+	
+	public void setIndexValidMap(int x) { indexValidMap = x;}
+	
 	public void increaseIndexValidMap() 
 	{ 
 		indexValidMap++; 

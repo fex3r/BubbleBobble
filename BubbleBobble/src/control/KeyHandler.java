@@ -37,7 +37,7 @@ public class KeyHandler implements KeyListener
 	{
 		int code = e.getKeyCode(); //contiene il codice del tasto premuto e gli if attivano lo stato di esso
 		
-		if(GameEngine.getInstance().getGameState() == 1 && code == KeyEvent.VK_W && !Player.getInstance().getFallOn())
+		if(GameEngine.getInstance().getGameState() == 2 && code == KeyEvent.VK_W && !Player.getInstance().getFallOn())
 		{
 			up = true;
 			isJumping = true;

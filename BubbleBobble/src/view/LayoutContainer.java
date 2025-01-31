@@ -11,6 +11,7 @@ public class LayoutContainer extends JPanel {
 	public static final String MENU_CARD = "Menu";
 	public static final String LOAD_MENU_CARD = "Load";
     public static final String GAME_CARD = "Game";
+    public static final String PAUSE_CARD = "Pause";
     private String cardName  = "";
     
 	private LayoutContainer() {
@@ -21,6 +22,7 @@ public class LayoutContainer extends JPanel {
 		
 		add(GameMenu.getInstance(), MENU_CARD);
         add(GamePanel.getInstance(), GAME_CARD);
+        add(PauseMenu.getInstance(),PAUSE_CARD);
 	}
 	
 	public static LayoutContainer getInstance() {
@@ -36,6 +38,8 @@ public class LayoutContainer extends JPanel {
         	GameMenu.getInstance().requestFocusInWindow();
         }else if(cardName.equals(GAME_CARD)) {
         	GamePanel.getInstance().requestFocusInWindow();
+        }else if(cardName.equals(PAUSE_CARD)){
+        	PauseMenu.getInstance().requestFocusInWindow();
         }
         
         this.cardName = cardName;

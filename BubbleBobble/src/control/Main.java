@@ -20,18 +20,13 @@ public class Main {
 		window.setResizable(false);
 		window.setTitle("BUBBLE BOBBLE");
 		
-		//gamePanel andrà fatto sparire da qua
-		GamePanel gamePanel = GamePanel.getInstance();
+		
 		GameEngine gameEngine = GameEngine.getInstance();
 		
 		
 		gameEngine.addObserver(Player.getInstance());
 		
-		//da togliere
-		TornadoDemon demon = new TornadoDemon();
-		gamePanel.setDemon(demon);
 		
-
 		
 		window.add(LayoutContainer.getInstance());
 		
