@@ -47,6 +47,8 @@ public class GameMenu extends JPanel {
 		
 		this.addKeyListener(KeyHandler.getInstance());
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
+		
+		getAssets();
 	}
 	
 	public static GameMenu getInstance() 
@@ -55,12 +57,7 @@ public class GameMenu extends JPanel {
 		return gameMenuInstance;
 	}
 	
-	@Override
-	public void paintComponent(Graphics g) {
-		
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D)g;
-
+	private void getAssets() {
 		try {
 			title = ImageIO.read(getClass().getResourceAsStream("/sprites/misc/image_21.png"));
 			bubble = ImageIO.read(getClass().getResourceAsStream("/sprites/misc/image_263.png"));
@@ -69,6 +66,15 @@ public class GameMenu extends JPanel {
 			
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void paintComponent(Graphics g) {
+		
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D)g;
+
+		
 
 		frames++;
 		if(frames > 5) {

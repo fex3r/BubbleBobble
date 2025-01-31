@@ -21,7 +21,7 @@ public class GameEngine extends Observable implements Runnable
 	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
 	private int FPS = 60;
-	private static int gameState = 0;
+	private static int gameState = 3;
 	private static final int menuState = 0;
 	private static final int loadState = 1;
 	private static final int playState = 2;

@@ -6,8 +6,10 @@ import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import control.KeyHandler;
@@ -19,8 +21,9 @@ public class PauseMenu extends JPanel{
 	private String pause = "PAUSED";
 	private String resume = "resume";
 	private String save = "save";
+	private String quit = "quit";
 	private Font font;
-	
+	private BufferedImage bubble;
 	private PauseMenu() {
 		this.setPreferredSize(new Dimension(WiewData.GAME_SCREEN_WIDTH.getValue(),WiewData.GAME_SCREEM_HEIGHT.getValue()));
 		this.setBackground(Color.black);
@@ -42,6 +45,7 @@ public class PauseMenu extends JPanel{
 		
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/BubblegumSans-Regular.ttf")).deriveFont(100f);
+			bubble = ImageIO.read(getClass().getResourceAsStream("/sprites/misc/image_263.png"));
 		} catch (FontFormatException | IOException e) {
 			e.printStackTrace();
 		}
@@ -62,7 +66,11 @@ public class PauseMenu extends JPanel{
 		font = font.deriveFont(50f);
 		
 		g2.setColor(Color.MAGENTA);
-		g2.drawString(resume,380,360);
+		g2.drawString(resume,375,360);
+		g2.drawString(save, 375, 430);
+		g2.drawString(quit, 375,500);
+		
+		
 		
 	}
 }

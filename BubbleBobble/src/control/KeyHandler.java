@@ -43,7 +43,7 @@ public class KeyHandler implements KeyListener
 			isJumping = true;
 		}
 		
-		if(GameEngine.getInstance().getGameState() == 0) {
+		if(GameEngine.getInstance().getGameState() == 0 || GameEngine.getInstance().getGameState() == 3) {
 			if(code == KeyEvent.VK_S) down = true ;
 			if(code == KeyEvent.VK_W) up = true;
 		}
