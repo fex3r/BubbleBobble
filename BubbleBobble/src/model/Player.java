@@ -144,7 +144,6 @@ public final class Player extends Entity
 			
 			if(Player.getInstance().fallOn == true && Player.getInstance().jump == false)
 			{
-				
 				y = y+speed;
 			}
 			
