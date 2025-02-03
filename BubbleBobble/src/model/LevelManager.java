@@ -8,6 +8,9 @@ public class LevelManager {
 	
 	private static LevelManager levelManagerInstance;
 	protected int currentLevel;
+	protected int currentPoints = 0;
+	protected boolean gameEnded = false;
+	private int lastLevel = 1;
 	protected Level level;
 	
 	private LevelManager() {}
@@ -17,6 +20,10 @@ public class LevelManager {
 		return levelManagerInstance;
 		
 	}
+	
+	public boolean getGameEnded() {return gameEnded;}
+	public int getCurrentLevel() {return currentLevel;}
+	public void setCurrentLevel(int x) { currentLevel = x;}
 	
 	public void initLevel() {
 		
@@ -29,7 +36,7 @@ public class LevelManager {
 			switch(currentLevel) {
 			case 0:
 				level = new Level(currentLevel,0);
-				level.setEnemySpawn(new TornadoDemon(), 200, 200);
+				level.setEnemySpawn(new TornadoDemon(), 700, 200);
 				GameMap.getInstance().setIndexValidMap(0);
 				break;
 			}	
@@ -54,4 +61,5 @@ public class LevelManager {
 		}
 		return false;
 	}
+
 }

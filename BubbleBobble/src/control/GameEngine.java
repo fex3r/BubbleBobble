@@ -21,12 +21,13 @@ public class GameEngine extends Observable implements Runnable
 	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
 	private int FPS = 60;
-	private static int gameState = 3;
+	private static int gameState = 0;
 	private static final int menuState = 0;
 	private static final int loadState = 1;
 	private static final int playState = 2;
 	private static final int pauseState = 3;
 	private static boolean newGameOn;
+	private static boolean workingOnProfiles = false;
 	private static boolean gamePause = false;
 	private List<Shot> diedShots;
 	private List<Enemy> diedEnemies;
@@ -66,15 +67,17 @@ public class GameEngine extends Observable implements Runnable
 				KeyHandler.getInstance().resetKeys();
 			}
 			else if(gameState == playState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.GAME_CARD)) {
-				LevelManager.getInstance().initLevel();
 				LayoutContainer.getInstance().showCard(LayoutContainer.GAME_CARD);
 				KeyHandler.getInstance().resetKeys();
 				
 			}else if(gameState == pauseState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.PAUSE_CARD)) {
 				LayoutContainer.getInstance().showCard(LayoutContainer.PAUSE_CARD);
 				KeyHandler.getInstance().resetKeys();
+				
+			}else if(gameState == loadState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.LOAD_MENU_CARD)) {
+				LayoutContainer.getInstance().showCard(LayoutContainer.LOAD_MENU_CARD);
+				KeyHandler.getInstance().resetKeys();
 			}
-			//else if(gameState == loadState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.LOAD_MENU_CARD))
 			
 			if(gameState == playState && LevelManager.getInstance().levelEnded()) {
 				
@@ -82,7 +85,10 @@ public class GameEngine extends Observable implements Runnable
 				
 			}
 			
-			LayoutContainer.getInstance().repaint();
+			if(!workingOnProfiles) {
+				LayoutContainer.getInstance().repaint();
+			}
+			
 			
 			//gli shot fanno danno solo quando il bubble status è false
 			Shot.getShots().stream()
@@ -141,6 +147,7 @@ public class GameEngine extends Observable implements Runnable
 	public void setGameState(int state) {gameState = state;}
 	public void setNewGameOn(boolean bool) {newGameOn = bool;}
 	public void setGamePause(boolean bool) { gamePause = bool;}
+	public void setWorkingOnProfiles(boolean bool) { workingOnProfiles = bool;}
 	
 	public int getGameState() {return gameState;}
 	public boolean getNewGameOn() {return newGameOn;}

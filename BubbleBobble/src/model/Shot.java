@@ -19,12 +19,11 @@ import control.GameEngine;
 import control.KeyHandler;
 
 @SuppressWarnings("deprecation")
-public class Shot extends Entity implements Observer
+public class Shot extends Entity
 {
-	private int speed = 6;
 	private Directions direction;
 	private boolean hitBlock = false;
-	
+	//adesso è singleton keyHandler quindi va cambiato tutto con KeyHandle.getInstance
 	private KeyHandler kh;
 	private static BufferedImage shotImage;
 	static
@@ -47,6 +46,7 @@ public class Shot extends Entity implements Observer
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
+		speed = 6;
 		shots.add(this); 
 		GameEngine.getInstance().addObserver(this);
 		

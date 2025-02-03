@@ -13,6 +13,7 @@ public class KeyHandler implements KeyListener
 	private boolean up,right,left,down; //stato dei 4 tasti di direzione
 	private boolean space,enter; //tasti per invio nel menu 
 	private boolean shot;
+	private boolean pause;
 	private boolean isShooting = false;
 	private boolean isJumping = false;
 	
@@ -59,6 +60,7 @@ public class KeyHandler implements KeyListener
 		if(code == KeyEvent.VK_ENTER) {
 			enter = true;
 		}
+		if(code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_P) {pause = true;}
 		
 	}
 
@@ -82,6 +84,8 @@ public class KeyHandler implements KeyListener
 		if(code == KeyEvent.VK_ENTER) {
 			enter = false;
 		}
+		
+		if(code == KeyEvent.VK_ESCAPE || code == KeyEvent.VK_P) { pause = false; }
 	}
 
 	//Getter
@@ -110,4 +114,9 @@ public class KeyHandler implements KeyListener
 	public void setRight(boolean x) { right = x; }
 	public void setLeft(boolean x) { left = x; }
 	public void setDown(boolean x) { down = x; }
+	public void setEnter(boolean x) {
+		enter = x;
+		space = x;
+	}
+	public boolean getpause() {return pause;}
 }

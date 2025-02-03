@@ -12,7 +12,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import control.GameEngine;
 import control.KeyHandler;
+import model.ProfileManager;
 import model.WiewData;
 
 public class PauseMenu extends JPanel{
@@ -22,6 +24,7 @@ public class PauseMenu extends JPanel{
 	private String resume = "resume";
 	private String save = "save";
 	private String quit = "quit";
+	private int commandId = 0;
 	private Font font;
 	private BufferedImage bubble;
 	private PauseMenu() {
@@ -70,7 +73,39 @@ public class PauseMenu extends JPanel{
 		g2.drawString(save, 375, 430);
 		g2.drawString(quit, 375,500);
 		
+		if(KeyHandler.getInstance().isDown()) {
+			if(commandId == 2)commandId = 0;
+			else commandId++;
+			KeyHandler.getInstance().setDown(false);
+		}
 		
+		if(KeyHandler.getInstance().isUp()) {
+			if(commandId == 0) commandId = 2;
+			else commandId --;
+			KeyHandler.getInstance().setUp(false);
+		}
 		
+		if(commandId == 0) {
+			g2.drawImage(bubble, 320,335,35,35,null);
+		}else if(commandId == 1) {
+			g2.drawImage(bubble, 320,405,35,35,null);
+		}else if(commandId == 2) {
+			g2.drawImage(bubble, 320,475,35,35,null);
+		}
+		
+		if(KeyHandler.getInstance().getEnter()) {
+			if(commandId == 0) {
+					GameEngine.getInstance().setGameState(2);
+					GameEngine.getInstance().setGamePause(false);
+			}else if(commandId == 1){
+				GameEngine.getInstance().setWorkingOnProfiles(true);
+				ProfileManager.getInstance().save();
+				KeyHandler.getInstance().setEnter(false);
+				GameEngine.getInstance().setWorkingOnProfiles(false);
+				
+			}else if(commandId == 2) {
+				System.exit(0);
+			}
+		}
 	}
 }
