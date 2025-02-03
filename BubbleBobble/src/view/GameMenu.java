@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 
 import control.GameEngine;
 import control.KeyHandler;
+import model.LevelManager;
+import model.ProfileManager;
 import model.WiewData;
 
 public class GameMenu extends JPanel {
@@ -77,28 +79,33 @@ public class GameMenu extends JPanel {
 		
 
 		frames++;
+		
 		if(frames > 5) {
+			Color oldColor = currentColor;
 			  currentColor = Arrays.stream(colors)
 					.skip(new Random().nextInt(colors.length))
 					.findFirst()
 					.orElse(colors[0]);
 			frames = 0;
+
 		}
+		
+		BufferedImage tempImage = new BufferedImage(title.getWidth(), title.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		
 		for (int x = 0; x < title.getWidth(); x++) {
             for (int y = 0; y < title.getHeight(); y++) {
                 int pixel = title.getRGB(x, y);
                 
                 Color color = new Color(pixel);
-                
+  
                 if (color.getRed() > 200 && color.getGreen() > 200 && color.getBlue() < 100) {
-                	title.setRGB(x, y, currentColor.getRGB());
+                	tempImage.setRGB(x, y, currentColor.getRGB());
                 	
-                }else { title.setRGB(x, y, pixel); }
+                }else { tempImage.setRGB(x, y, pixel); }
             }
 		}
 		
-		g2.drawImage(title, 270,50,400,400,null);
+		g2.drawImage(tempImage, 270,50,400,400,null);
 		
 		
 		g2.setFont(font);
@@ -129,11 +136,30 @@ public class GameMenu extends JPanel {
 		
 		if(KeyHandler.getInstance().getEnter()) {
 			if(commandId == 0) {
-				GameEngine.getInstance().setNewGameOn(true);
-				GameEngine.getInstance().setGameState(2);
+				
+				GameEngine.getInstance().setWorkingOnProfiles(true);
+				
+				if(ProfileManager.getInstance().newProfile()) {
+					GameEngine.getInstance().setWorkingOnProfiles(false);
+					GameEngine.getInstance().setNewGameOn(true);
+					LevelManager.getInstance().initLevel();
+					GameEngine.getInstance().setGameState(2);
+				}
+				KeyHandler.getInstance().setEnter(false);
+				GameEngine.getInstance().setWorkingOnProfiles(false);
+				
 			}else if(commandId == 1){
-				GameEngine.getInstance().setNewGameOn(false);
-				GameEngine.getInstance().setGameState(1);
+				
+				GameEngine.getInstance().setWorkingOnProfiles(true);
+				
+				if(ProfileManager.getInstance().loadProfile()) {
+					GameEngine.getInstance().setWorkingOnProfiles(false);
+					GameEngine.getInstance().setNewGameOn(false);
+					LevelManager.getInstance().initLevel();
+					GameEngine.getInstance().setGameState(2);
+				}
+				KeyHandler.getInstance().setEnter(false);
+				GameEngine.getInstance().setWorkingOnProfiles(false);
 			}else if(commandId == 2) {
 				System.exit(0);
 			}

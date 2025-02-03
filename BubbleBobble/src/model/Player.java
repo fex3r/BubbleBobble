@@ -27,8 +27,9 @@ public final class Player extends Entity
 	private GamePanel gp;
 	private static Player playerInstance;
 	private boolean jump;
+	private boolean spriteSparo = false;
 	private int jumpValue = 0;
-	protected BufferedImage standR1,standR2,standL1,standL2,moveR1,moveR2,moveR3,moveL1,moveL2,moveL3;
+	protected BufferedImage standR1,standR2,standL1,standL2,moveR1,moveR2,moveR3,moveL1,moveL2,moveL3,sparoS,sparoD;
 	
 	// costruttore privato Pattern Singletone
 	private Player() {
@@ -75,7 +76,9 @@ public final class Player extends Entity
 			moveR3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_d_3.png"));
 			moveL1 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_1.png"));
 			moveL2 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_2.png"));
-			moveL3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_3.png"));	
+			moveL3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_3.png"));
+			sparoS = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/sparoS.png"));
+			sparoD = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/sparoD.png"));
 		}
 		catch(IOException e) 
 		{
@@ -159,12 +162,16 @@ public final class Player extends Entity
 				else if(spriteNum == 3) 
 				{
 					spriteNum = 1;	
+					
 				}
 				spriteCounter = 0;
+				spriteSparo = false;
 			}
 			
 			if(kh.isShooting())
 			{
+				spriteSparo = true;
+				spriteCounter = 10;
 				this.shot();
 				//GameMap.getInstance().increaseIndexValidMap();
 			}
@@ -237,14 +244,16 @@ public final class Player extends Entity
 		
 		switch(direction) {
 		case LEFT:
-			if(spriteNum == 1) image = moveL1;
+			if(spriteSparo == true) {image = sparoS;}
+			else if(spriteNum == 1) image = moveL1;
 			else if(spriteNum == 2) image = moveL2;
 			else if(spriteNum == 3) image = moveL3;
 			oldDirection = Directions.LEFT;
 			break;
 			
 		case RIGHT:
-			if(spriteNum == 1) image = moveR1;
+			if(spriteSparo == true) {image = sparoD;}
+			else if(spriteNum == 1) image = moveR1;
 			else if(spriteNum == 2) image = moveR2;
 			else if(spriteNum == 3) image = moveR3;
 			oldDirection = Directions.RIGHT;
@@ -253,12 +262,14 @@ public final class Player extends Entity
 		case STAND:
 			if(oldDirection == Directions.RIGHT) 
 			{
-				if(spriteNum == 1) image = standR1;
+				if(spriteSparo == true) {image = sparoD;}
+				else if(spriteNum == 1) image = standR1;
 				else image = standR2;
 			}
 			else if(oldDirection == Directions.LEFT) 
 			{
-				if(spriteNum == 1) image = standL1;
+				if(spriteSparo == true) {image = sparoS;}
+				else if(spriteNum == 1) image = standL1;
 				else image = standL2;
 			}
 		}
