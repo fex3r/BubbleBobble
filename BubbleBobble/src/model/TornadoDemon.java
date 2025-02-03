@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 import control.CollisionChecker;
 import control.GameEngine;
 
-public class TornadoDemon extends Enemy{
-	
+public class TornadoDemon extends Enemy
+{	
 	protected Directions directionForImage = Directions.LEFT;
 	protected int movement = 1;
 	protected int frame = 0;
@@ -75,7 +75,8 @@ public class TornadoDemon extends Enemy{
 	@Override
 	public void update(Observable o, Object arg) {
 
-		if(GameEngine.getInstance().getGameState() == 2) {
+		if(GameEngine.getInstance().getGameState() == 2) 
+		{
 			hitBoxOn = false;
 			fallOn = true;
 			hitUp = false;
@@ -182,6 +183,9 @@ public class TornadoDemon extends Enemy{
 				
 				spriteCounter = 0;
 			}
+			
+			
+			
 		
 		}
 	}

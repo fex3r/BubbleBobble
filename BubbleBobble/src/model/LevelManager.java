@@ -30,6 +30,8 @@ public class LevelManager {
 			case 0:
 				level = new Level(currentLevel,0);
 				level.setEnemySpawn(new TornadoDemon(), 200, 200);
+				level.setEnemySpawn(new Invader(), 500, 480);
+				level.setEnemySpawn(new Banebou(), 150, 150);
 				GameMap.getInstance().setIndexValidMap(0);
 				break;
 			}	
