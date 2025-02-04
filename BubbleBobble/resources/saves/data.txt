@@ -42,5 +42,14 @@ asdbjjj 0 0 0 41
 dgsdgfqwqeqwe 0 0 0 42
 qweqwe 0 0 0 43
 bgg 0 0 0 44
+<<<<<<< Updated upstream
 Luca 0 0 0 45
 prova 0 0 0 46
+=======
+asdadasd 0 0 0 45
+bcxvbc 0 0 0 46
+qq 0 0 0 47
+asdasdg 0 0 0 48
+ggggg 0 0 0 49
+asdasdadsdadad 0 0 0 50
+>>>>>>> Stashed changes

@@ -198,8 +198,8 @@ public class FlyBomb extends Enemy{
 			GameEngine.getInstance().deleteObserver(this);
 		}else {
 			esplosionAnimation = true;
-			this.x = this.x-15;
-			this.y = this.y-15;
+			this.x = this.x-30;
+			this.y = this.y-30;
 			
 			hitBox.x = 0;
 			hitBox.y = 0;
@@ -298,7 +298,7 @@ public class FlyBomb extends Enemy{
 	
 		if(!esplosionAnimation) {
 			g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
-		}else g2.drawImage(image,x+10, y+10, WiewData.TILE_SIZE.getValue()+75,WiewData.TILE_SIZE.getValue()+75,null);
+		}else g2.drawImage(image,x+5, y+5, WiewData.TILE_SIZE.getValue()+75,WiewData.TILE_SIZE.getValue()+75,null);
 		
 	}
 	
