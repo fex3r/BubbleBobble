@@ -21,6 +21,7 @@ public class GameEngine extends Observable implements Runnable
 	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
 	private int FPS = 60;
+	private int animationFrame = 0;
 	private static int gameState = 0;
 	private static final int menuState = 0;
 	private static final int loadState = 1;
@@ -79,9 +80,13 @@ public class GameEngine extends Observable implements Runnable
 				KeyHandler.getInstance().resetKeys();
 			}
 			
-			if(gameState == playState && LevelManager.getInstance().levelEnded()) {
+			if(gameState == playState && LevelManager.getInstance().levelEnded() && LayoutContainer.getInstance().getCardName().equals(LayoutContainer.GAME_CARD)) {
+				animationFrame++;
+				if(animationFrame >5) {
+					LevelManager.getInstance().nextLevelAnimation();
+					animationFrame = 0;
+				}
 				
-				LevelManager.getInstance().nextLevelAnimation();
 				
 			}
 			
@@ -90,6 +95,7 @@ public class GameEngine extends Observable implements Runnable
 			}
 			
 			
+			//controllo se i proiettili colpiscono qualcosa
 			//gli shot fanno danno solo quando il bubble status è false
 			Shot.getShots().stream()
 			.forEach(shot -> Enemy.getEnemies()
@@ -107,6 +113,8 @@ public class GameEngine extends Observable implements Runnable
 			Enemy.getEnemies().forEach(enemy -> {
 				if(CollisionChecker.checkHit(Player.getInstance(), enemy) && enemy.getBubbleStatus() == true) {
 					diedEnemies.add(enemy);
+				}else if(CollisionChecker.checkHit(Player.getInstance(), enemy)) {
+					Player.getInstance().die();
 				}
 			});
 			
@@ -115,7 +123,6 @@ public class GameEngine extends Observable implements Runnable
 			
 			diedShots.clear();
 			diedEnemies.clear();
-			//controllo se i proiettili colpiscono qualcosa
 			
 			
 			try 
@@ -137,6 +144,7 @@ public class GameEngine extends Observable implements Runnable
 			}
 		}
 	}
+	
 	
 	public void startGameThread() 
 	{	

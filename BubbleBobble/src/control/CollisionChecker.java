@@ -98,6 +98,7 @@ public class CollisionChecker
 		}	
 	}
 	
+	//ma che è sto metodo?
 	public static void checkEnd(Entity entity)
 	{
 		int leftBottomX = entity.getX() + entity.getHitBox().x;

@@ -173,7 +173,6 @@ public final class Player extends Entity
 				spriteSparo = true;
 				spriteCounter = 10;
 				this.shot();
-				//GameMap.getInstance().increaseIndexValidMap();
 			}
 			
 			if(jump && !kh.isJumping())

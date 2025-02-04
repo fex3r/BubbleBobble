@@ -131,6 +131,7 @@ public class GamePanel extends JPanel
 			for(int t = 0; t<TornadoShot.getTornadoShots().size(); t++) {
 				TornadoShot.getTornadoShots().get(t).draw(g2);
 			}
+			
 		}
 		
 		if(KeyHandler.getInstance().getpause()) {

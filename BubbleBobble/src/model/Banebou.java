@@ -279,9 +279,9 @@ public class Banebou extends Enemy
 		}
 		
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
-		
-		g2.setColor(Color.RED);
-		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
+		//stampa dell'hitbox
+//		g2.setColor(Color.RED);
+//		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
 		
 	}
 
