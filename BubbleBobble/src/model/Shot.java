@@ -19,6 +19,9 @@ import control.GameEngine;
 import control.KeyHandler;
 
 @SuppressWarnings("deprecation")
+/**
+ * La classe rappresenta i colpi sparati da Player
+ */
 public class Shot extends Entity
 {
 	private Directions direction;
@@ -40,7 +43,12 @@ public class Shot extends Entity
 	//Array contenente i shot in vita
 	protected static ArrayList<Shot> shots = new ArrayList<>();
 	
-	//Costruttori
+	/**
+	 * Costruttore della classe Shot
+	 * @param x posizione nell'asse x di Shot
+	 * @param y posizione nell'asse y di Shot
+	 * @param direction direzione che ha lo sparo
+	 */
 	public Shot(int x, int y, Directions direction)
 	{
 		this.x = x;
@@ -61,21 +69,49 @@ public class Shot extends Entity
 	}
 	
 	//Getters
+	/**
+	 * Restituisce la lista dei colpi sparati, ancora attivi
+	 * @return la lista dei colpi sparati
+	 */
 	public static ArrayList<Shot> getShots() { return shots; }
+	
+	/**
+	 * Restituisce la hit block
+	 * @return hitBlock
+	 */
 	public boolean getHitBlock() { return hitBlock; }
 	
+	
 	@Override
+	/**
+	 * Restituisce la direzione dello sparo
+	 * @return direzione sparo	 
+	 */
 	public Directions getDirection() { return this.direction; }
 	
-	//Setters
+	/**
+	 * Assegna un nuovo valora alla x 
+	 * @param x posizione sull'asse delle x di Shot
+	 */
 	public void setX (int x) { this.x = x; }
+	
+	/**
+	 * Assegna un nuovo valore alla y
+	 * @param y posizione sull'asse y di Shot
+	 */
 	public void setY (int y) { this.y = y; }
 
+	/**
+	 * Assegna un nuovo valore alla hitBlock di Shot
+	 * @param x valore booleano che indica se Shot colpisce un blocco
+	 */
 	public void setHitBlock(boolean x) { hitBlock = x; }
 
+	
 	@Override
 	public void update(Observable o, Object arg) 
 	{
+		//Se il colpo è ancora attivo, in base alla direzione si sposta
 		if(shots.contains(this))
 		{	
 			if(this.direction.equals(Directions.LEFT))
@@ -93,18 +129,24 @@ public class Shot extends Entity
 		}
 	}
 	
+	/**
+	 * Metodo di disegno del colpo
+	 */
 	public void draw(Graphics2D g2) 
 	{
-		g2.drawImage(shotImage,x, y, 48, 48 ,null);
-		
+		g2.drawImage(shotImage,x, y, 48, 48 ,null);	
 	}
 
+	/**
+	 * Gestisce la sparizione del colpo
+	 */
 	@Override
-	public void die() {
-		
-		 if(shots.contains(this)) {
-	            shots.remove(this);
-	            GameEngine.getInstance().deleteObserver(this);
-	        }
+	public void die() 
+	{
+		if(shots.contains(this)) 
+		{
+			shots.remove(this);
+			GameEngine.getInstance().deleteObserver(this);
+		}
 	}
 }

@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.Color;
+
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,10 @@ import control.GameEngine;
 import control.KeyHandler; 
 import view.GamePanel;
 
+/**
+ * Questa classe rappresenta il giocatore, comandato dall'utente.
+ */
+
 @SuppressWarnings("deprecation")
 public final class Player extends Entity
 {
@@ -31,22 +36,37 @@ public final class Player extends Entity
 	private int jumpValue = 0;
 	protected BufferedImage standR1,standR2,standL1,standL2,moveR1,moveR2,moveR3,moveL1,moveL2,moveL3,sparoS,sparoD;
 	
-	// costruttore privato Pattern Singletone
+	// costruttore privato Pattern Singleton
 	private Player() {
 		setDefaultValues();
 		getPlayerImage();
 	}
 	
-	// Singleton pattern
+	/**
+	 * Restituisce l'istanza di Player se già creata, altrimenti la crea.
+	 * @return istanza di Player
+	 */
 	public static Player getInstance() 
 	{
 		if(playerInstance == null) playerInstance = new Player();
 		return playerInstance;
 	}
 	
+	/**
+	 * Definisce un nuovo valore al parametro jump
+	 * @param x valora da settare
+	 */
 	public void setJump(boolean x) { jump = x; }
+	
+	/**
+	 * Restituisce il valore di jump
+	 * @return valore di jump
+	 */
 	public boolean getJump() { return jump; }
 	
+	/**
+	 * Assegna dei valori all'istanza di Player nel momento in cui viene creato
+	 */
 	public void setDefaultValues()
 	{
 		x = 100;
@@ -63,6 +83,9 @@ public final class Player extends Entity
 		hitBox.height = 38;
 		
 	}
+	/**
+	 * Definisce le immagini che verranno utilizzate per rappresentare il Player
+	 */
 	public void getPlayerImage() 
 	{
 		try 
@@ -192,11 +215,18 @@ public final class Player extends Entity
 		}
 	}
 	
+	/**
+	 * Attiva lo sparo di Player, creando un'istanza di Shot
+	 */
 	public void shot()
 	{
 		new Shot(setShotPosition(), this.getY(), setShotDirection());	//Creando l'oggetto, viene ricreato di nuovo nel costruttore e va in loop
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	private Directions setShotDirection()
 	{
 		Directions direction;

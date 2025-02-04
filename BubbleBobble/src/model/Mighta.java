@@ -13,11 +13,8 @@ import javax.imageio.ImageIO;
 import control.CollisionChecker;
 import control.GameEngine;
 
-/**
- * Banebou si comporta come un personaggio normale nello spostamento 
- * Non spara ma se ti colpisce muori 
- */
-public class Banebou extends Enemy
+
+public class Mighta extends Enemy
 {
 	protected BufferedImage muovi_s_1, muovi_s_2, muovi_s_3, muovi_d_1, muovi_d_2, muovi_d_3, bolla1, bolla2, bolla3;
 	
@@ -26,10 +23,9 @@ public class Banebou extends Enemy
 	private int frameSalto = 0;
 	private int jumpValue = 0;
 	private boolean jump = false;
-	private boolean jumpAction = false;
 	
 	
-	public Banebou()
+	public Mighta()
 	{
 		setDefaultValues();
 		setImage();
@@ -40,7 +36,7 @@ public class Banebou extends Enemy
 	public void setDefaultValues()
 	{
 		fallOn = true;
-
+		
 		speed = 2;
 		x = 250;
 		y = 250;
@@ -61,16 +57,16 @@ public class Banebou extends Enemy
 	{
 		try 
 		{
-			muovi_s_1 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/muovi_s_1.png"));
-			muovi_s_2 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/muovi_s_2.png"));
-			muovi_s_3 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/muovi_s_3.png"));
-			muovi_d_1 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/muovi_d_1.png"));
-			muovi_d_2 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/muovi_d_2.png"));
-			muovi_d_3 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/muovi_d_3.png"));
+			muovi_s_1 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/muovi_s_1.png"));
+			muovi_s_2 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/muovi_s_2.png"));
+			muovi_s_3 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/muovi_s_3.png"));
+			muovi_d_1 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/muovi_d_1.png"));
+			muovi_d_2 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/muovi_d_2.png"));
+			muovi_d_3 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/muovi_d_3.png"));
 			
-			bolla1 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/bolla1.png"));
-			bolla2 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/bolla2.png"));
-			bolla3 = ImageIO.read(getClass().getResourceAsStream("/sprites/banebou/Banebou arancione/bolla3.png"));
+			bolla1 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/bolla1.png"));
+			bolla2 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/bolla2.png"));
+			bolla3 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/bolla3.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -277,9 +273,9 @@ public class Banebou extends Enemy
 		}
 		
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
-		//stampa dell'hitbox
-//		g2.setColor(Color.RED);
-//		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
+		
+		g2.setColor(Color.RED);
+		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
 		
 	}
 

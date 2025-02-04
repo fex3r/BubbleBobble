@@ -17,10 +17,10 @@ public class LevelManager {
 	
 	private LevelManager() {}
 	
-	public static LevelManager getInstance() {
+	public static LevelManager getInstance() 
+	{
 		if(levelManagerInstance == null) levelManagerInstance = new LevelManager();
 		return levelManagerInstance;
-		
 	}
 	
 	public boolean getGameEnded() {return gameEnded;}
@@ -29,13 +29,15 @@ public class LevelManager {
 	
 	public void initLevel() {
 		
-		if(GameEngine.getInstance().getNewGameOn()) {
+		if(GameEngine.getInstance().getNewGameOn()) 
+		{
 			currentLevel = 0;
 			GameEngine.getInstance().setNewGameOn(false);
 		}
 
 		
-			switch(currentLevel) {
+		switch(currentLevel) 
+		{
 			case 0:
 				GameMap.getInstance().setIndexValidMap(0);
 				level = new Level(currentLevel,0);
@@ -55,7 +57,8 @@ public class LevelManager {
 	
 	public void setNextLevel() {currentLevel++;}
 	
-	public void nextLevelAnimation() {
+	public void nextLevelAnimation() 
+	{
 		GameEngine.getInstance().setGamePause(true);
 		animationGoing = true;
 		if(endedLevel == currentLevel) {

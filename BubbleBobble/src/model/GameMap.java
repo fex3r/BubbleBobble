@@ -14,6 +14,9 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Questa classe rappresenta e gestisce la mappa di gioco
+ */
 public class GameMap
 { 							//0 - Vuoto     1 - Muro mappa uno		2 - Muro mappa due ect. ect.da
 	private static GameMap gameMapInstance;
@@ -21,12 +24,11 @@ public class GameMap
 	public static int[][] bigMap;
 	public static int[][] map = new int[17][20];
 	public int indexValidMap = 0;	//+19
-	//aggiungere a questa lista tutti i blocchi solidi
 	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1,2,3,4,5,6,7,8,9));
 	public static List<Integer> endBlock = new ArrayList<>(List.of(9));
 	
 	
-	//Mappa da fare singleton
+	//Costruttore privato per pattern Singleton
 	private GameMap()
 	{
 		this.initializeBlocks();
@@ -34,13 +36,19 @@ public class GameMap
 		
 	}
 	
+	/**
+	 * Restituisce l'istanza di GameMap, se non vi è viene creata
+	 * @return istanza di GameMap
+	 */
 	public static GameMap getInstance() 
 	{
 		if(gameMapInstance == null) gameMapInstance = new GameMap();
 		return gameMapInstance;
 	}
 	
-	
+	/**
+	 * Inizializza la mappa da file, quando viene creata l'istanza di GameMap
+	 */
 	public void initializeGameMap()
 	{
 		int rows = 0;
@@ -84,6 +92,9 @@ public class GameMap
 		getValidMap();
 	}
 	
+	/**
+	 * In base al valore di indexValidMap, trascrive su map la mappa che verrà visualizzata dall'utente
+	 */
 	private void getValidMap()
 	{
 		for(int i = 0; i < map.length; i++)
@@ -95,18 +106,9 @@ public class GameMap
 		}
 	}
 	
-	private void stampaMappa(int[][] matrix)
-	{
-		for(int i = 0; i<matrix.length; i++)
-		{
-			for(int j = 0; j<matrix[0].length; j++)
-			{
-				System.out.print(matrix[i][j]);
-			}
-		}
-	}
-	
-			
+	/**
+	 * Assegna le immagini alle correte variabili
+	 */
 	public void initializeBlocks() //Istanzia la matrice di blocchi
 	{
 		try
@@ -127,14 +129,38 @@ public class GameMap
 		}
 	}
 	
-	public BufferedImage getBlock(int x) { return blocks[x]; } //Restituisce un blocco
+	/**
+	 * Restituisce un blocco dalla lista di blocchui
+	 * @param x indice del blocco da restituire
+	 * @return blocco
+	 */
+	public BufferedImage getBlock(int x) { return blocks[x]; } 
 	
+	/**
+	 * Restituisce il valore della mappa
+	 * @param x riferimento asse x del valore sulla mappa
+	 * @param y riferimento asse y del valore sulla mappa
+	 * @return il valore della mappa
+	 */
 	public int getValue(int x, int y) { return map[x][y]; }
 	
+	/**
+	 * Restituisce l'indice da cui parte la validMap, ovvero la mappa che viene visualizzata dall'utente
+	 * @return indice di validMap
+	 */
 	public int getIndexValidMap() { return indexValidMap; }
 	
+	/**
+	 * Assegna un nuovo valore a indexValidMap
+	 * ovvero l'indice da cui inizia la mappa che verrà visualizzata dall'utente
+	 * @param x indice da settare 
+	 */
 	public void setIndexValidMap(int x) { indexValidMap = x;}
 	
+	/**
+	 * Incrementa il valore di indexValidMap
+	 * Ovvero l'indice da cui inizia la mappa che verrà visualizzata dall'utente
+	 */
 	public void increaseIndexValidMap() 
 	{ 
 		indexValidMap++; 

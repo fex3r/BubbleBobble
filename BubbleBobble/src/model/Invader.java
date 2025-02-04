@@ -13,9 +13,10 @@ import javax.imageio.ImageIO;
 import control.CollisionChecker;
 import control.GameEngine;
 
-/*
- * Invader è il personaggio che si muove solamente per orizzontale ma con velocità maggiore. 
- * Non spara ma se ti colpisce muori 
+/**
+ * Classe che rappresenta il nemico Invader
+ * Invader è un personaggio che si muove solo orizzontalmente 
+ * Non spara ma se colpisce il personaggio, ti uccide
  */
 
 public class Invader extends Enemy
@@ -24,6 +25,9 @@ public class Invader extends Enemy
 	private int countSprite = 0;
 	private int frame = 0;
 	
+	/**
+	 * Costruttore della classe Invader
+	 */
 	public Invader()
 	{
 		setDefaultValues();
@@ -32,6 +36,9 @@ public class Invader extends Enemy
 		enemies.add(this);
 	}
 	
+	/**
+	 * Inizializza i valori di Invader alla chiamata del costruttore
+	 */
 	public void setDefaultValues()
 	{
 		speed = 2;
@@ -50,6 +57,9 @@ public class Invader extends Enemy
 		hitBox.height = 38;
 	}
 	
+	/**
+	 * Assegna le immagini ai diversi movimenti di Invader
+	 */
 	public void setImage()
 	{
 		try 
@@ -67,10 +77,14 @@ public class Invader extends Enemy
 		}
 	}
 	
+	
 	@Override
+	/**
+	 * Metodo di aggiornamento di Invader
+	 */
 	public void update(Observable o, Object arg) 
 	{
-		if(GameEngine.getInstance().getGameState() == 2) 
+		if(GameEngine.getInstance().getGameState() == 2) //Solamente se ci troviamo in playState
 		{
 			changeDirection = false;
 			hitBoxOn = false;
@@ -78,6 +92,7 @@ public class Invader extends Enemy
 			CollisionChecker.checkCollision(this);
 			CollisionChecker.checkFall(this);
 			
+			//Ogni 30 frame, vi sono 2/5 di probabilità che Invader cambi direzione
 			Random rand = new Random();
 			frame++;
 			if(frame > 30) 
@@ -86,11 +101,13 @@ public class Invader extends Enemy
 				frame = 0;
 			}
 			
+			//Se Invader colpisce un muro, cambia direzione
 			if(hitBoxOn == true)
 			{
 				changeDirection = true;
 			}
 			
+			//Gestisce il cambio di direzione di Invader
 			if(changeDirection == true)
 			{
 				switch(this.getDirection())
@@ -104,13 +121,14 @@ public class Invader extends Enemy
 				}
 			}
 			
+			//Gestisce la caduta libera di Invader
 			if(this.fallOn == true)
 			{
 				y += speed;
 			}
 			
 			
-		
+			//Gestisce il movimento di Invader
 			switch(this.getDirection())
 			{
 			case LEFT:
@@ -121,7 +139,8 @@ public class Invader extends Enemy
 				break;
 			}
 			
-			if(bubbleStatus == false)
+			//Assegna le sprite corrette a Invader (Se vivo o sottoforma di bolla)
+			if(bubbleStatus == false) //Se vivo
 			{
 				if(spriteNum == 1 && countSprite > 20) 
 				{
@@ -138,7 +157,7 @@ public class Invader extends Enemy
 					countSprite++;
 				}
 			}
-			else
+			else //Se sotto forma di bolla
 			{
 				if(spriteNum == 1 && countSprite > 20) 
 				{
@@ -165,6 +184,9 @@ public class Invader extends Enemy
 	}
 
 	@Override
+	/**
+	 * Gestisce la morte di Invader
+	 */
 	public void die() 
 	{
 		if(bubbleStatus == true) 
@@ -178,6 +200,9 @@ public class Invader extends Enemy
 	}
 
 	@Override
+	/**
+	 * Metodo di disegno di Invader 
+	 */
 	public void draw(Graphics2D g2) 
 	{
 		BufferedImage image = null;
@@ -195,8 +220,5 @@ public class Invader extends Enemy
 		}
 		
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
-		
-
 	}
-
 }
