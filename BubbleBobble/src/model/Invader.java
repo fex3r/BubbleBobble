@@ -37,7 +37,7 @@ public class Invader extends Enemy
 	}
 	
 	/**
-	 * Inizializza i valori di Invader alla chiamata del costruttore
+	 * Inizializza i valori di Invader
 	 */
 	public void setDefaultValues()
 	{
@@ -58,7 +58,7 @@ public class Invader extends Enemy
 	}
 	
 	/**
-	 * Assegna le immagini ai diversi movimenti di Invader
+	 * Inizializza le immagini che rappresenteranno Invader
 	 */
 	public void setImage()
 	{
@@ -84,7 +84,7 @@ public class Invader extends Enemy
 	 */
 	public void update(Observable o, Object arg) 
 	{
-		if(GameEngine.getInstance().getGameState() == 2) //Solamente se ci troviamo in playState
+		if(GameEngine.getInstance().getGameState() == 2) //Solo se siamo in play state
 		{
 			changeDirection = false;
 			hitBoxOn = false;

@@ -25,23 +25,9 @@ import control.KeyHandler;
 public class Shot extends Entity
 {
 	private Directions direction;
+	protected Entity owner;		//Chi ha sparato il colpo
 	private boolean hitBlock = false;
-	//adesso è singleton keyHandler quindi va cambiato tutto con KeyHandle.getInstance
-	private KeyHandler kh;
-	private static BufferedImage shotImage;
-	static
-	{	
-		try 
-		{
-			shotImage = ImageIO.read(Shot.class.getResourceAsStream("/sprites/misc/image_271.png"));
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-	};
-	//Array contenente i shot in vita
-	protected static ArrayList<Shot> shots = new ArrayList<>();
+	protected static ArrayList<Shot> shots = new ArrayList<>();	//Array contenente i colpi presenti in mappa
 	
 	/**
 	 * Costruttore della classe Shot
@@ -49,8 +35,10 @@ public class Shot extends Entity
 	 * @param y posizione nell'asse y di Shot
 	 * @param direction direzione che ha lo sparo
 	 */
-	public Shot(int x, int y, Directions direction)
+	public Shot(int x, int y, Directions direction, Entity entity)
 	{
+		owner = entity;
+		shotImage = entity.getShotImage();
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
@@ -70,22 +58,25 @@ public class Shot extends Entity
 	
 	//Getters
 	/**
-	 * Restituisce la lista dei colpi sparati, ancora attivi
-	 * @return la lista dei colpi sparati
+	 * @return la lista dei colpi sparati, che sono ancora attivi
 	 */
 	public static ArrayList<Shot> getShots() { return shots; }
 	
 	/**
-	 * Restituisce la hit block
 	 * @return hitBlock
 	 */
 	public boolean getHitBlock() { return hitBlock; }
 	
 	
+	/**
+	 * Restituisce l'istanza di chi ha sparato il colpo
+	 * @return l'istanza di chi ha sparato il colpo
+	 */
+	public Entity getOwner() { return owner; }
+	
 	@Override
 	/**
-	 * Restituisce la direzione dello sparo
-	 * @return direzione sparo	 
+	 * @return la direzione dello sparo	 
 	 */
 	public Directions getDirection() { return this.direction; }
 	
@@ -129,17 +120,13 @@ public class Shot extends Entity
 		}
 	}
 	
-	/**
-	 * Metodo di disegno del colpo
-	 */
+	@Override
 	public void draw(Graphics2D g2) 
 	{
 		g2.drawImage(shotImage,x, y, 48, 48 ,null);	
 	}
 
-	/**
-	 * Gestisce la sparizione del colpo
-	 */
+	
 	@Override
 	public void die() 
 	{

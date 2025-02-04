@@ -13,18 +13,25 @@ import javax.imageio.ImageIO;
 import control.CollisionChecker;
 import control.GameEngine;
 
-
+/**
+ * La classe rappresenta Mighta.
+ * Questo nemico si può spostare in qualsiasi direzione e può saltare
+ * Spara bolle blu per uccidere i nemici
+ */
 public class Mighta extends Enemy
 {
 	protected BufferedImage muovi_s_1, muovi_s_2, muovi_s_3, muovi_d_1, muovi_d_2, muovi_d_3, bolla1, bolla2, bolla3;
-	
+
 	private int countSprite = 0;
 	private int frameDirezione = 0;
 	private int frameSalto = 0;
+	private int frameShot = 0;
 	private int jumpValue = 0;
 	private boolean jump = false;
 	
-	
+	/**
+	 * Costruttore di Mighta
+	 */
 	public Mighta()
 	{
 		setDefaultValues();
@@ -33,6 +40,9 @@ public class Mighta extends Enemy
 		enemies.add(this);
 	}
 	
+	/**
+	 * Inizializza gli attributi di Mighta
+	 */
 	public void setDefaultValues()
 	{
 		fallOn = true;
@@ -53,6 +63,9 @@ public class Mighta extends Enemy
 		hitBox.height = 38;
 	}
 	
+	/**
+	 * Inizializza le immagini che rappresentano Mighta 
+	 */
 	public void setImage()
 	{
 		try 
@@ -67,6 +80,8 @@ public class Mighta extends Enemy
 			bolla1 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/bolla1.png"));
 			bolla2 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/bolla2.png"));
 			bolla3 = ImageIO.read(getClass().getResourceAsStream("/sprites/mighta/Mighta blu/bolla3.png"));
+			
+			shotImage = ImageIO.read(getClass().getResourceAsStream("/sprites/misc/image_262.png"));
 		} 
 		catch (IOException e) 
 		{
@@ -75,12 +90,10 @@ public class Mighta extends Enemy
 	}
 	
 	
-	
-	
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(GameEngine.getInstance().getGameState() == 2)
+		if(GameEngine.getInstance().getGameState() == 2) //Solamente se in game state
 		{
 			fallOn = true;
 			changeDirection = false;
@@ -88,6 +101,7 @@ public class Mighta extends Enemy
 			CollisionChecker.checkCollision(this);
 			CollisionChecker.checkFall(this);
 			
+			//Sceglie se cambiare la direzione 
 			Random rand = new Random();
 			frameDirezione++;
 			if(frameDirezione > 30) 
@@ -96,6 +110,7 @@ public class Mighta extends Enemy
 				frameDirezione = 0;
 			}
 			
+			//Sceglie se saltare
 			frameSalto++;
 			if(frameSalto > 30 && !fallOn)
 			{
@@ -107,6 +122,15 @@ public class Mighta extends Enemy
 				frameSalto = 0;
 			}
 			
+			//Sceglie se saltare
+			if(frameShot > 90 && bubbleStatus == false)
+			{
+				this.shot();
+				frameShot = 0;
+			}
+			else frameShot++;
+			
+			//Applica il salto
 			if(jumpValue != 0)
 			{
 				y -= speed;
@@ -115,22 +139,19 @@ public class Mighta extends Enemy
 			}
 			else jump = false;
 			
+			//Caduta libera
 			if(fallOn)
 			{
 				y += speed;
 			}
 			
-			
-			System.out.println("FallOn: " + fallOn);
-			System.out.println("Jump: " + jump);
-			System.out.println("Jump value: " + jumpValue);
-			System.out.println("---------------------");
-
+			//Se colpisce un muro, cambia direzione
 			if(hitBoxOn == true)
 			{
 				changeDirection = true;
 			}
 			
+			//Gestisce il cambio di direzione
 			if(changeDirection == true)
 			{
 				switch(this.getDirection())
@@ -146,7 +167,7 @@ public class Mighta extends Enemy
 				}
 			}
 			
-		
+			//Gestisce il movimento
 			switch(this.getDirection())
 			{
 			case LEFT:
@@ -157,7 +178,7 @@ public class Mighta extends Enemy
 				break;
 			}
 			
-
+			//Decide le sprite che rappresenteranno il nemico
 			if(bubbleStatus == false)
 			{
 				if(spriteNum == 1 && countSprite > 20) 
@@ -218,8 +239,6 @@ public class Mighta extends Enemy
 				}
 			}
 			
-			
-			
 		}
 		
 	}
@@ -241,6 +260,7 @@ public class Mighta extends Enemy
 	{
 		BufferedImage image = null;
 		
+		//Assegna le immagini 
 		if(bubbleStatus == false) 
 		{
 			switch(spriteNum)
@@ -272,11 +292,8 @@ public class Mighta extends Enemy
 			else image = bolla3;
 		}
 		
+		//Disegna
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
-		
-		g2.setColor(Color.RED);
-		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
-		
 	}
 
 }

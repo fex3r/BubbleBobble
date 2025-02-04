@@ -27,9 +27,6 @@ import view.GamePanel;
 @SuppressWarnings("deprecation")
 public final class Player extends Entity
 {
-	private String name;
-	private KeyHandler kh = KeyHandler.getInstance();
-	private GamePanel gp;
 	private static Player playerInstance;
 	private boolean jump;
 	private boolean spriteSparo = false;
@@ -37,7 +34,8 @@ public final class Player extends Entity
 	protected BufferedImage standR1,standR2,standL1,standL2,moveR1,moveR2,moveR3,moveL1,moveL2,moveL3,sparoS,sparoD;
 	
 	// costruttore privato Pattern Singleton
-	private Player() {
+	private Player() 
+	{
 		setDefaultValues();
 		getPlayerImage();
 	}
@@ -102,77 +100,66 @@ public final class Player extends Entity
 			moveL3 = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/muovi_s_3.png"));
 			sparoS = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/sparoS.png"));
 			sparoD = ImageIO.read(getClass().getResourceAsStream("/sprites/bubblun/protagonista/sparoD.png"));
+			shotImage = ImageIO.read(getClass().getResourceAsStream("/sprites/misc/image_271.png"));
 		}
 		catch(IOException e) 
 		{
 			e.printStackTrace();
 		}
-	}
-	public static class Builder //Builder pattern
-	{
-		//Duplicazione attributi
-		private String name;
-		private KeyHandler kh;
-		
-		
-		public Builder() { }
-		
-		//Setter
-		public Builder setKeyHandler(KeyHandler kh) { this.kh = kh; return this; }
-		public Builder setName(String name) { this.name = name; return this; }
-		
-		//Metodo build finale
-		public Player build() 
-		{ 
-			Player p = Player.getInstance();
-			p.kh = this.kh;
-			p.name = this.name;
-			return p;
-		}
-	}
-	
-	
+	}	
 
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(GameEngine.getInstance().getGameState() == 2) {
+		if(GameEngine.getInstance().getGameState() == 2) //Esegue solamente se siamo in game state
+		{
 			hitBoxOn = false;
 			fallOn = true;
+			
+			//Controllo delle collisioni
 			if(!this.jump)
 			{
 				CollisionChecker.checkCollision(Player.getInstance());
 				CollisionChecker.checkFall(Player.getInstance());
 			}
-			if(kh.isUp())
+			
+			//Salto
+			if(KeyHandler.getInstance().isUp())
 			{
 				
 				Player.getInstance().setJump(true);
 			}
-		
-			else if(kh.isLeft()) 
+			
+			//Spostamento a sinistra
+			else if(KeyHandler.getInstance().isLeft()) 
 			{
 				direction = Directions.LEFT;
 				CollisionChecker.checkCollision(Player.getInstance());
 				if( Player.getInstance().hitBoxOn == false) x = x-speed;	
 			}
-			else if(kh.isRight()) 
+			
+			//Spostamento a destra
+			else if(KeyHandler.getInstance().isRight()) 
 			{	
 				direction = Directions.RIGHT;
 				CollisionChecker.checkCollision(Player.getInstance());
 				if( Player.getInstance().hitBoxOn == false) x = x+speed;
 			}
+			
+			//Posizione normale
 			else
 			{
 				direction = Directions.STAND;	
 			}
 			
 			
+			//Caduta libera
 			if(Player.getInstance().fallOn == true && Player.getInstance().jump == false)
 			{
 				y = y+speed;
 			}
 			
+			//Aggiornamento delle sprite
 			spriteCounter ++;
 			if(spriteCounter > 20) 
 			{
@@ -191,16 +178,18 @@ public final class Player extends Entity
 				spriteSparo = false;
 			}
 			
-			if(kh.isShooting())
+			//Sparo del personaggio
+			if(KeyHandler.getInstance().isShooting())
 			{
 				spriteSparo = true;
 				spriteCounter = 10;
 				this.shot();
 			}
 			
-			if(jump && !kh.isJumping())
+			//Salto del personaggio
+			if(jump && !KeyHandler.getInstance().isJumping())
 			{
-				kh.setIsJumping(true);
+				KeyHandler.getInstance().setIsJumping(true);
 				if(jumpValue < ((WiewData.TILE_SIZE.getValue()+2)*3)/9)
 				{
 					y-=7;
@@ -215,62 +204,14 @@ public final class Player extends Entity
 		}
 	}
 	
-	/**
-	 * Attiva lo sparo di Player, creando un'istanza di Shot
-	 */
-	public void shot()
-	{
-		new Shot(setShotPosition(), this.getY(), setShotDirection());	//Creando l'oggetto, viene ricreato di nuovo nel costruttore e va in loop
-	}
 	
-	/**
-	 * 
-	 * @return
-	 */
-	private Directions setShotDirection()
-	{
-		Directions direction;
-		switch(this.direction)
-		{
-		case LEFT:
-			return Directions.LEFT;
-		case RIGHT:
-			return Directions.RIGHT;
-		case STAND:
-			if(this.oldDirection.equals(Directions.LEFT)) return Directions.LEFT;
-		}
-		return Directions.RIGHT;
-	}
-	
-	private int setShotPosition()
-	{
-		int position = 0;
-		switch(this.direction)
-		{
-		case LEFT:
-			position = this.getX() - WiewData.TILE_SIZE.getValue(); 
-			break;
-		case RIGHT:
-			position = this.getX() + WiewData.TILE_SIZE.getValue();
-			break;
-		case STAND:
-			if(this.oldDirection.equals(Directions.LEFT))
-			{
-				position = this.getX() - WiewData.TILE_SIZE.getValue();
-			}
-			else
-			{
-				position = this.getX() + WiewData.TILE_SIZE.getValue();
-			}
-		}
-		return position;
-	}
 	
 	@Override
 	public void draw(Graphics2D g2) 
 	{	
 		BufferedImage image = null;
 		
+		//Assegnazione delle sprite
 		switch(direction) {
 		case LEFT:
 			if(spriteSparo == true) {image = sparoS;}
@@ -303,14 +244,15 @@ public final class Player extends Entity
 			}
 		}
 		
-
+		//Stampa
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
 		
     
 	}
 
 	@Override
-	public void die() {
+	public void die() 
+	{
 		// TODO Auto-generated method stub
 		
 	}

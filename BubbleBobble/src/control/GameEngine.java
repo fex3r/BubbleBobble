@@ -16,8 +16,7 @@ import view.LayoutContainer;
 @SuppressWarnings("deprecation") //elimina gli avvertimenti relativi all'uso di classi deprecate
 
 public class GameEngine extends Observable implements Runnable 
-{	
-
+{
 	private static GameEngine gameEngineInstance;
 	Thread gameThread; 
 	private int FPS = 60;
@@ -101,7 +100,7 @@ public class GameEngine extends Observable implements Runnable
 			.forEach(shot -> Enemy.getEnemies()
 			.stream()
 			.forEach(enemy -> {
-				if(CollisionChecker.checkHit(shot, enemy) && enemy.getBubbleStatus() == false) {
+				if(CollisionChecker.checkHit(shot, enemy) && enemy.getBubbleStatus() == false && shot.getOwner().equals(Player.getInstance())) {
 			
 				diedShots.add(shot);
 				diedEnemies.add(enemy);

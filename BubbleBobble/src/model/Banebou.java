@@ -14,7 +14,8 @@ import control.CollisionChecker;
 import control.GameEngine;
 
 /**
- * Banebou si comporta come un personaggio normale nello spostamento 
+ * Questa classe rappresenta Banebou
+ * Banebou si comporta come il Player nello spostamento 
  * Non spara ma se ti colpisce muori 
  */
 public class Banebou extends Enemy
@@ -28,7 +29,9 @@ public class Banebou extends Enemy
 	private boolean jump = false;
 	private boolean jumpAction = false;
 	
-	
+	/**
+	 * Costruttore di Banebou
+	 */
 	public Banebou()
 	{
 		setDefaultValues();
@@ -37,6 +40,9 @@ public class Banebou extends Enemy
 		enemies.add(this);
 	}
 	
+	/**
+	 * Inizializza gli attributi di Banebou
+	 */
 	public void setDefaultValues()
 	{
 		fallOn = true;
@@ -57,6 +63,9 @@ public class Banebou extends Enemy
 		hitBox.height = 38;
 	}
 	
+	/**
+	 * Inizializza le immagini che rappresenteranno Banebou 
+	 */
 	public void setImage()
 	{
 		try 
@@ -84,14 +93,17 @@ public class Banebou extends Enemy
 	@Override
 	public void update(Observable o, Object arg) 
 	{
-		if(GameEngine.getInstance().getGameState() == 2)
+		if(GameEngine.getInstance().getGameState() == 2) //Solo se in game state
 		{
 			fallOn = true;
 			changeDirection = false;
 			hitBoxOn = false;
+			
+			//Check delle collisioni
 			CollisionChecker.checkCollision(this);
 			CollisionChecker.checkFall(this);
 			
+			//Gestisce la scelta di cambiare la direzione
 			Random rand = new Random();
 			frameDirezione++;
 			if(frameDirezione > 30) 
@@ -100,6 +112,7 @@ public class Banebou extends Enemy
 				frameDirezione = 0;
 			}
 			
+			//Gestisce la scelta di saltare
 			frameSalto++;
 			if(frameSalto > 30 && !fallOn)
 			{
@@ -111,6 +124,7 @@ public class Banebou extends Enemy
 				frameSalto = 0;
 			}
 			
+			//Applica il salto
 			if(jumpValue != 0)
 			{
 				y -= speed;
@@ -119,22 +133,19 @@ public class Banebou extends Enemy
 			}
 			else jump = false;
 			
+			//Caduta libera
 			if(fallOn)
 			{
 				y += speed;
 			}
 			
-			
-			System.out.println("FallOn: " + fallOn);
-			System.out.println("Jump: " + jump);
-			System.out.println("Jump value: " + jumpValue);
-			System.out.println("---------------------");
-
+			//Cambia direzione se colpisce un muro
 			if(hitBoxOn == true)
 			{
 				changeDirection = true;
 			}
 			
+			//Gestisce il cambio di direzione
 			if(changeDirection == true)
 			{
 				switch(this.getDirection())
@@ -150,7 +161,7 @@ public class Banebou extends Enemy
 				}
 			}
 			
-		
+			//Gestisceil movimento
 			switch(this.getDirection())
 			{
 			case LEFT:
@@ -161,7 +172,7 @@ public class Banebou extends Enemy
 				break;
 			}
 			
-
+			//Decide le sprite che verranno utilizzate
 			if(bubbleStatus == false)
 			{
 				if(spriteNum == 1 && countSprite > 20) 
@@ -245,6 +256,7 @@ public class Banebou extends Enemy
 	{
 		BufferedImage image = null;
 		
+		//Applicazione delle sprite
 		if(bubbleStatus == false) 
 		{
 			switch(spriteNum)
@@ -276,11 +288,7 @@ public class Banebou extends Enemy
 			else image = bolla3;
 		}
 		
+		//Disegna
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
-		//stampa dell'hitbox
-//		g2.setColor(Color.RED);
-//		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
-		
 	}
-
 }

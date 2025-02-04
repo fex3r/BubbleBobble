@@ -116,10 +116,10 @@ public class CollisionChecker
 	}
 	
 	/**
-	 * 
-	 * @param entity
-	 * @param target
-	 * @return
+	 * Verifica la collisione tra due entità
+	 * @param entity prima entità
+	 * @param target seconda entità
+	 * @return true se le entità entrano in contrasto
 	 */
 	public static boolean checkHit(Entity entity,Entity target) {
 		
@@ -153,6 +153,4 @@ public class CollisionChecker
 			}
 			return result;
 		}
-		
-
 }

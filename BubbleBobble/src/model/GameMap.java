@@ -18,7 +18,7 @@ import javax.imageio.ImageIO;
  * Questa classe rappresenta e gestisce la mappa di gioco
  */
 public class GameMap
-{ 							//0 - Vuoto     1 - Muro mappa uno		2 - Muro mappa due ect. ect.da
+{ 
 	private static GameMap gameMapInstance;
 	public static BufferedImage[] blocks = new BufferedImage[10];
 	public static int[][] bigMap;
@@ -37,8 +37,7 @@ public class GameMap
 	}
 	
 	/**
-	 * Restituisce l'istanza di GameMap, se non vi è viene creata
-	 * @return istanza di GameMap
+	 * @return l'istanza di GameMap, altrimenti ne viene creata una
 	 */
 	public static GameMap getInstance() 
 	{
@@ -47,10 +46,11 @@ public class GameMap
 	}
 	
 	/**
-	 * Inizializza la mappa da file, quando viene creata l'istanza di GameMap
+	 * Trascrive la mappa dal file, a una matrice
 	 */
 	public void initializeGameMap()
 	{
+		//Creazione matrice
 		int rows = 0;
 		int cols = 0;
 		InputStream inputStream = getClass().getResourceAsStream("/GameMap.txt");
@@ -71,6 +71,7 @@ public class GameMap
 		}
 		bigMap = new int[rows][cols];
 		
+		//Scrittura matrice
 		try
 		{
 			inputStream = getClass().getResourceAsStream("/GameMap.txt");
@@ -93,7 +94,7 @@ public class GameMap
 	}
 	
 	/**
-	 * In base al valore di indexValidMap, trascrive su map la mappa che verrà visualizzata dall'utente
+	 * Definisce la mappa che verrà mostrata all'utente
 	 */
 	private void getValidMap()
 	{
@@ -107,9 +108,9 @@ public class GameMap
 	}
 	
 	/**
-	 * Assegna le immagini alle correte variabili
+	 * Inizializza le immagini dei blocchi
 	 */
-	public void initializeBlocks() //Istanzia la matrice di blocchi
+	public void initializeBlocks()
 	{
 		try
 		{
@@ -130,23 +131,20 @@ public class GameMap
 	}
 	
 	/**
-	 * Restituisce un blocco dalla lista di blocchui
 	 * @param x indice del blocco da restituire
-	 * @return blocco
+	 * @return Il blocco all'indice x nella lista dei blocchi
 	 */
 	public BufferedImage getBlock(int x) { return blocks[x]; } 
 	
 	/**
-	 * Restituisce il valore della mappa
 	 * @param x riferimento asse x del valore sulla mappa
 	 * @param y riferimento asse y del valore sulla mappa
-	 * @return il valore della mappa
+	 * @return il valore della mappa nelle coordinate (x,y)
 	 */
 	public int getValue(int x, int y) { return map[x][y]; }
 	
 	/**
-	 * Restituisce l'indice da cui parte la validMap, ovvero la mappa che viene visualizzata dall'utente
-	 * @return indice di validMap
+	 * @return l'indice utilizzato per calcolare la mappa ch verrà mostrata all'utente
 	 */
 	public int getIndexValidMap() { return indexValidMap; }
 	

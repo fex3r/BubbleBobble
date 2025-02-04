@@ -33,7 +33,8 @@ public class TornadoDemon extends Enemy
 	}
 	
 	
-	public void setDefaultValues() {
+	public void setDefaultValues() 
+	{
 		x = 200;
 		y = 200;
 		speed = 2;

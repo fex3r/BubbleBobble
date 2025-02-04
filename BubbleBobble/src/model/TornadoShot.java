@@ -65,7 +65,7 @@ public class TornadoShot extends Entity{
 	
 	}
 	private boolean isOnTarget() {
-		if(x <= targetX+speed && x>= targetX-speed && y <= targetY+speed && y >= targetY-speed) {
+		if(x <= targetX+speed && x >= targetX-speed && y <= targetY+speed && y >= targetY-speed) {
 			return true;
 		}
 		return false;

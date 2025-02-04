@@ -22,6 +22,7 @@ public abstract class Entity implements Observer
 	protected boolean hitBoxOn = false;
 	protected boolean fallOn = false;
 	protected boolean hitUp = false;
+	protected BufferedImage shotImage;
 	
 	
 	//Getter 
@@ -34,6 +35,7 @@ public abstract class Entity implements Observer
 	public boolean getFallOn() { return fallOn; }
 	public int getHitboxDefaultX() { return hitBoxDefaultX;} 
 	public int getHitboxDefaultY() { return hitBoxDefaultY;} 
+	public BufferedImage getShotImage() { return shotImage; }
 		
 	//Setter
 	public void setX(int newX) { x = newX; }
@@ -57,6 +59,53 @@ public abstract class Entity implements Observer
 		}
 		
 	}
+	
+	public void shot()
+	{
+		new Shot(getShotPosition(), this.getY(), getShotDirection(), this);
+	}
+	
+	private Directions getShotDirection()
+	{
+		Directions direction;
+		switch(this.direction)
+		{
+		case LEFT:
+			return Directions.LEFT;
+		case RIGHT:
+			return Directions.RIGHT;
+		case STAND:
+			if(this.oldDirection.equals(Directions.LEFT)) return Directions.LEFT;
+		}
+		return Directions.RIGHT;
+	}
+	
+	private int getShotPosition()
+	{
+		int position = 0;
+		switch(this.direction)
+		{
+		case LEFT:
+			position = this.getX() - WiewData.TILE_SIZE.getValue(); 
+			break;
+		case RIGHT:
+			position = this.getX() + WiewData.TILE_SIZE.getValue();
+			break;
+		case STAND:
+			if(this.oldDirection.equals(Directions.LEFT))
+			{
+				position = this.getX() - WiewData.TILE_SIZE.getValue();
+			}
+			else
+			{
+				position = this.getX() + WiewData.TILE_SIZE.getValue();
+			}
+		}
+		return position;
+	}
+	
+	
+	
 	public abstract void draw(Graphics2D g2);
 	
 }

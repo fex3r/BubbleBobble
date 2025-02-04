@@ -4,8 +4,8 @@ import java.util.Map;
 
 import control.GameEngine;
 
-public class LevelManager {
-	
+public class LevelManager
+{	
 	private static LevelManager levelManagerInstance;
 	protected int currentLevel;
 	protected int endedLevel;
@@ -42,6 +42,7 @@ public class LevelManager {
 				GameMap.getInstance().setIndexValidMap(0);
 				level = new Level(currentLevel,0);
 				level.setEnemySpawn(new TornadoDemon(),200,200);
+				level.setEnemySpawn(new Mighta(), 300, 300);
 				level.setEnemySpawn(new Invader(),500,480);
 				break;
 			case 1:

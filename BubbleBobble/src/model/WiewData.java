@@ -1,7 +1,9 @@
 package model;
-
-public enum WiewData {
-	
+/**
+ * Questa enumerazione contiene tutti i dati riguardante lo schermo di gioco
+ */
+public enum WiewData 
+{
 	STARTING_TILE_SIZE(16),
 	SCALE(3),
 	TILE_SIZE(STARTING_TILE_SIZE.value*SCALE.value),
