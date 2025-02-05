@@ -105,7 +105,6 @@ public class CollisionChecker
 		{
 			if(GameMap.endBlock.contains(GameMap.getInstance().getValue(leftBottomYScaled, leftBottomXScaled)) || GameMap.endBlock.contains(GameMap.getInstance().getValue(rightBottomYScaled, rightBottomXScaled))) 
 			{
-				//questo andrà cambiato con un setY(getY della current map)
 				entity.setY(0);
 			}
 			else

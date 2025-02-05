@@ -250,9 +250,13 @@ public class Mighta extends Enemy
 		{
 			enemies.remove(this);
 			GameEngine.getInstance().deleteObserver(this);
+			
 		}
-		else bubbleStatus = true;
-		
+		else 
+		{
+			bubbleStatus = true;
+			new PowerUp(x,y);
+		}
 	}
 
 	@Override

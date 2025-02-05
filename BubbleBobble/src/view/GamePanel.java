@@ -22,6 +22,7 @@ import model.Enemy;
 import model.GameMap;
 import model.LevelManager;
 import model.Player;
+import model.PowerUp;
 import model.ProfileManager;
 import model.Shot;
 import model.TornadoDemon;
@@ -116,7 +117,8 @@ public class GamePanel extends JPanel
 		}
 		
 		
-		if(!GameEngine.getInstance().getGamePause()) {
+		if(!GameEngine.getInstance().getGamePause()) 
+		{
 			//stampa dei proiettili
 			for(int i = 0; i<Shot.getShots().size(); i++)
 			{
@@ -131,6 +133,13 @@ public class GamePanel extends JPanel
 			for(int t = 0; t<TornadoShot.getTornadoShots().size(); t++) {
 				TornadoShot.getTornadoShots().get(t).draw(g2);
 			}
+			
+			//Stampa power up
+			for(int z = 0; z < PowerUp.getPowerUpList().size(); z++)
+			{
+				PowerUp.getPowerUpList().get(z).draw(g2);
+			}
+			
 			
 		}
 		
