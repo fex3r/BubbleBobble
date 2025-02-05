@@ -17,8 +17,6 @@ public class TornadoShot extends Entity{
 	
 	private int targetX;
 	private int targetY;
-	private int spriteCount = 0;
-	private int spriteNum = 0;
 	protected static ArrayList<TornadoShot> tornadoShots = new ArrayList<>();
 	private BufferedImage tornado1,tornado2,tornado3,tornado4,tornado5;
 	
@@ -86,14 +84,14 @@ public class TornadoShot extends Entity{
 		if(targetY > y) { y = y+speed; }
 		else y = y-speed;
 		
-		spriteCount++;
-		if(spriteCount > 30) {
+		spriteCounter++;
+		if(spriteCounter > 30) {
 			if(spriteNum == 1) spriteNum = 2;
 			else if(spriteNum == 2) spriteNum = 3;
 			else if(spriteNum == 3) spriteNum = 4;
 			else if(spriteNum == 4) spriteNum = 5;
 			else spriteNum = 1;
-			spriteCount = 0;
+			spriteCounter = 0;
 		}
 	}
 

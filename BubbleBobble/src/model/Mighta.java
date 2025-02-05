@@ -48,9 +48,6 @@ public class Mighta extends Enemy
 		fallOn = true;
 		
 		speed = 2;
-		x = 250;
-		y = 250;
-
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
 		

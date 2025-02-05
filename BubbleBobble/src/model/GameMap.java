@@ -23,7 +23,7 @@ public class GameMap
 	public static BufferedImage[] blocks = new BufferedImage[10];
 	public static int[][] bigMap;
 	public static int[][] map = new int[17][20];
-	public int indexValidMap = 0;	//+19
+	public int indexValidMap = 2;	//+19
 	public static List<Integer> solidBlocks = new ArrayList<>(List.of(1,2,3,4,5,6,7,8,9));
 	public static List<Integer> endBlock = new ArrayList<>(List.of(9));
 	

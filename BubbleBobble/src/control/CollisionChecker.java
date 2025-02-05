@@ -6,6 +6,7 @@ import model.Directions;
 import model.Entity;
 import model.GameMap;
 import model.Shot;
+import model.TornadoDemon;
 import model.WiewData;
 
 /**
@@ -80,7 +81,10 @@ public class CollisionChecker
 		
 		if(GameMap.solidBlocks.contains((GameMap.getInstance().getValue(rightTopYScaled, rightTopXScaled))) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(leftTopYScaled, leftTopXScaled)))
 		{
-			entity.setHitUp(true);
+			if(GameMap.endBlock.contains(GameMap.getInstance().getValue(rightTopYScaled, rightTopXScaled)) || GameMap.endBlock.contains(GameMap.getInstance().getValue(leftTopYScaled, leftTopXScaled))) 
+			{
+				//non lo so 
+			}else entity.setHitUp(true);
 		}
 	}
 	

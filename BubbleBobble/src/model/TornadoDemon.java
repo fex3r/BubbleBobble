@@ -130,7 +130,7 @@ public class TornadoDemon extends Enemy
 				frame++;
 				if(frame > 30) {
 					if(aux <= 25) {
-						changeDirection = true;
+						//changeDirection = true;
 					}
 					frame = 0;
 				}
@@ -264,7 +264,7 @@ public class TornadoDemon extends Enemy
 
 		BufferedImage image = null;
 		
-		if(bubbleStatus == false) {
+		if(!bubbleStatus) {
 			if(shootAnimation > 3) {
 				switch(directionForImage) {
 					case LEFT:

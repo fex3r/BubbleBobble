@@ -39,14 +39,15 @@ public class LevelManager
 		switch(currentLevel) 
 		{
 			case 0:
-				GameMap.getInstance().setIndexValidMap(0);
+				GameMap.getInstance().setIndexValidMap(2);
 				level = new Level(currentLevel,0);
-				level.setEnemySpawn(new TornadoDemon(),200,200);
+				level.setEnemySpawn(new TornadoDemon(),180,200);
 				level.setEnemySpawn(new Mighta(), 300, 300);
 				level.setEnemySpawn(new Invader(),500,480);
+				//level.setEnemySpawn(new Hidegons(), 590, 470);
 				break;
 			case 1:
-				level = new Level(currentLevel,19);
+				level = new Level(currentLevel,20);
 				if(!GameEngine.getInstance().getGamePause()) {
 					level.setEnemySpawn(new Banebou(),GameMap.getInstance().indexValidMap+ 150, GameMap.getInstance().indexValidMap+150);
 					level.setEnemySpawn(new FlyBomb(),GameMap.getInstance().indexValidMap+600,GameMap.getInstance().indexValidMap+100);
