@@ -61,8 +61,6 @@ public class GamePanel extends JPanel
 		this.addKeyListener(KeyHandler.getInstance());
 		this.setFocusable(true); //Permette di ricevere eventi da tastiera
 		
-		
-		
 	}
 
 	/**
@@ -160,8 +158,6 @@ public class GamePanel extends JPanel
 			{
 				PowerUp.getPowerUpList().get(z).draw(g2);
 			}
-			
-			
 		}
 		
 		if(KeyHandler.getInstance().getpause()) {
