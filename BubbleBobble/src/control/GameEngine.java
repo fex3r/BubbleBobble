@@ -117,6 +117,9 @@ public class GameEngine extends Observable implements Runnable
 				}
 			});
 			
+			
+			
+			
 			diedShots.forEach(Shot::die);
 			diedEnemies.forEach(Enemy::die);
 			
