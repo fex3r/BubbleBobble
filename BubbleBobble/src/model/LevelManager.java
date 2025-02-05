@@ -4,6 +4,9 @@ import java.util.Map;
 
 import control.GameEngine;
 
+/**
+ * Questa classe gestisce i diversi livelli, e lo scrollamento della mappa al termine di un livello
+ */
 public class LevelManager
 {	
 	private static LevelManager levelManagerInstance;
@@ -15,18 +18,37 @@ public class LevelManager
 	private int lastLevel = 1;
 	protected Level level;
 	
+	/**
+	 * Costruttore private
+	 */
 	private LevelManager() {}
 	
+	/**
+	 * @return un istanza di LevelManager, altrimenti ne crea una
+	 */
 	public static LevelManager getInstance() 
 	{
 		if(levelManagerInstance == null) levelManagerInstance = new LevelManager();
 		return levelManagerInstance;
 	}
 	
+	/**
+	 * @return true se il gioco è finito
+	 */
 	public boolean getGameEnded() {return gameEnded;}
+	/**
+	 * @return il livello corrente
+	 */
 	public int getCurrentLevel() {return currentLevel;}
+	/**
+	 * Modifica il livello corrente
+	 * @param x nuovo livello
+	 */
 	public void setCurrentLevel(int x) { currentLevel = x;}
 	
+	/**
+	 * Inizializza il livello in cui ci troviamo
+	 */
 	public void initLevel() {
 		
 		if(GameEngine.getInstance().getNewGameOn()) 
@@ -57,8 +79,14 @@ public class LevelManager
 			}	
 		}
 	
+	/**
+	 * Incrementa il livello corrente, per passare al successivo
+	 */
 	public void setNextLevel() {currentLevel++;}
 	
+	/**
+	 * Permette lo scrollamento al livello successivo
+	 */
 	public void nextLevelAnimation() 
 	{
 		GameEngine.getInstance().setGamePause(true);
@@ -80,6 +108,10 @@ public class LevelManager
 			}
 	}
 	
+	/**
+	 * Verifica la conclusione del livello
+	 * @return true se non vi sono più nemici nella mappa
+	 */
 	public boolean levelEnded() {
 		if(Enemy.getEnemies().isEmpty()) {
 			if(!animationGoing) endedLevel = currentLevel;

@@ -28,16 +28,32 @@ public class ProfileManager {
 	private Pattern regexProfileName = Pattern.compile("^[A-Za-z]+$");
 	private Matcher matcher;
 	
+	/**
+	 * Costruttore privato di ProfileManager
+	 */
 	private ProfileManager() {};
 	
+	/**
+	 * @return l'istanza di ProfileManager, altrimenti ne crea una
+	 */
 	public static ProfileManager getInstance() {
 		if(profileManagerInstance == null) profileManagerInstance = new ProfileManager();
 		return profileManagerInstance;
 	}
 	
+	/**
+	 * @return il punteggio corrente del profilo
+	 */
 	public int getCurrentPoints() {return currentPoints;}
+	/**
+	 * @return il nome corrente del profilo
+	 */
 	public String getCurrentProfileName() {return currentProfileName;}
 	
+	/**
+	 * Salva i dati all'interno del file contenente tutti i dati
+	 * @return true se il salvataggio ha avuto successo
+	 */
 	public boolean save() {
 		String lineToChange = String.format("%s %d %d %d %d%n", currentProfileName,profilePoints,profileWins,LevelManager.getInstance().getCurrentLevel(),idProfile);
 		File data = new File("resources/saves/data.txt");
@@ -72,6 +88,11 @@ public class ProfileManager {
 		
 	
 	}
+	
+	/**
+	 * Carica il profilo in base al nome inserito nel box
+	 * @return true se il caricamento è andato a buon fine
+	 */
 	public boolean loadProfile() {
 		File data = new File("resources/saves/data.txt");
 		if(!data.exists()) {
@@ -130,6 +151,11 @@ public class ProfileManager {
 		idProfile = Integer.parseInt(auxIdProfile);
 		return true;
 	}
+	
+	/**
+	 * Permette la creazione di un nuovo profilo inserendo un nome non presente nel file con tutte le informazioni
+	 * @return true se la creazione del profilo ha avuto successo
+	 */
 	public boolean newProfile() {
 		
 		boolean error = true;

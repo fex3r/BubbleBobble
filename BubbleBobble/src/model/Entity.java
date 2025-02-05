@@ -7,11 +7,15 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * La classe rappresenta le entità all'interno del gioco, ovvero personaggi e spari
+ * La classe è resa astratta, infatti non possiamo creare istanze di Entity ma solamente delle sue sottoclassi
+ */
 public abstract class Entity implements Observer
 {
-	protected int x; //Posizione dell' entità nella coordinata x
-	protected int y; //Posizione dell' entità nella coordinata y
-	protected int speed ; //Velocità dell'entità
+	protected int x; 
+	protected int y; 
+	protected int speed ; 
 	Directions direction;
 	Directions oldDirection;
 	protected int spriteCounter = 0;
@@ -25,46 +29,103 @@ public abstract class Entity implements Observer
 	protected BufferedImage shotImage;
 	
 	
-	//Getter 
+	/**
+	 * @return la posizione dell'entità sull'asse x
+	 */
 	public int getX() { return x; }
+	/**
+	 * @return la posizione dell'entità sull'asse y
+	 */
 	public int getY() { return y; }
+	/**
+	 * @return la velocità dell'entità
+	 */
 	public int getSpeed() { return speed; }
+	/**
+	 * @return la direzione dell'entità
+	 */
 	public Directions getDirection() { return direction; }
+	/**
+	 * @return la vecchia direzione dell'entità
+	 */
 	public Directions getOldDirection() { return oldDirection; }
+	/**
+	 * @return la hitBox dell'entità (ovvero il rettangolo che lo circonda)
+	 */
 	public Rectangle getHitBox() { return hitBox; }
+	/**
+	 * @return true se l'entità ha il vuoto sotto
+	 */
 	public boolean getFallOn() { return fallOn; }
+	/**
+	 * @return restituisce la distanza di x tra l'entità e la sua hitbox
+	 */
 	public int getHitboxDefaultX() { return hitBoxDefaultX;} 
+	/**
+	 * @return restituisce la distanza y tra l'entità e la sua hitbox
+	 */
 	public int getHitboxDefaultY() { return hitBoxDefaultY;} 
+	/**
+	 * @return restituisce l'immagine del colpo che spara questa entità
+	 */
 	public BufferedImage getShotImage() { return shotImage; }
 		
-	//Setter
+	/**
+	 * Assegna un nuovo valore a x
+	 * @param newX nuova x
+	 */
 	public void setX(int newX) { x = newX; }
+	/**
+	 * Assegna un nuovo valore a y
+	 * @param newY nuova y
+	 */
 	public void setY(int newY) { y = newY; }
+	/**
+	 * Assegna un nuovo valore a hitBox
+	 * @param bool parametro che indica se colpisce 
+	 */
 	public void setHitBox(Boolean bool) { hitBoxOn = bool; }
+	/**
+	 * Assegna un nuovo valore alla x della hitbox
+	 * @param x nuova x
+	 */
 	public void setHitboxX(int x) { hitBox.x = x; }
+	/**
+	 * Assegna un nuovo valore alla y della hitbox
+	 * @param y nuova y
+	 */
 	public void setHitboxY(int y) { hitBox.y = y; }
+	/**
+	 * Assegna un nuovo valore a fallOn
+	 * @param bool nuovo valore di fallOn
+	 */
 	public void setFall(Boolean bool) { fallOn = bool; }
+	/*
+	 * Assegna un nuovo valore a hitUp
+	 */
 	public void setHitUp(Boolean bool) { hitUp = bool;}
+	/**
+	 * Assegna una nuova direzione
+	 * @param dir
+	 */
+	public void setDirection(Directions dir) { direction = dir; }
 	
+	/**
+	 * Metodo astratto che per i comportamenti di Entity quando muore
+	 */
 	public abstract void die();
 	
-	public void jump()
-	{
-		if(fallOn == false)
-		{
-			for(int i = 0; i<WiewData.TILE_SIZE.getValue()*3; i++)
-			{
-				y--;
-			}
-		}
-		
-	}
-	
+	/**
+	 * Metodo per far sparare le entità
+	 */
 	public void shot()
 	{
 		new Shot(getShotPosition(), this.getY(), getShotDirection(), this);
 	}
 	
+	/**
+	 * @return la direzione del colpo sparato
+	 */
 	private Directions getShotDirection()
 	{
 		Directions direction;
@@ -80,6 +141,9 @@ public abstract class Entity implements Observer
 		return Directions.RIGHT;
 	}
 	
+	/**
+	 * @return la posizione da cui partirà il colpo
+	 */
 	private int getShotPosition()
 	{
 		int position = 0;
@@ -105,7 +169,9 @@ public abstract class Entity implements Observer
 	}
 	
 	
-	
+	/**
+	 * Disegno dell'entità
+	 */
 	public abstract void draw(Graphics2D g2);
 	
 }

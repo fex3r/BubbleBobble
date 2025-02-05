@@ -13,6 +13,9 @@ import javax.imageio.ImageIO;
 import control.CollisionChecker;
 import control.GameEngine;
 
+/**
+ * La classe TornadoShot rappresenta i colpi sparati dal nemico TornadoDemon
+ */
 public class TornadoShot extends Entity{
 	
 	private int targetX;
@@ -20,6 +23,14 @@ public class TornadoShot extends Entity{
 	protected static ArrayList<TornadoShot> tornadoShots = new ArrayList<>();
 	private BufferedImage tornado1,tornado2,tornado3,tornado4,tornado5;
 	
+	/**
+	 * Costruttore di TornadoShot
+	 * @param x posizione sull'asse x
+	 * @param y posizione sull'asse y
+	 * @param targetX posizione del target da raggiungere sull'asse delle x
+	 * @param targetY posizione del target da raggiungere sull'asse delle y
+	 * @param direction direzione del colpo
+	 */
 	public TornadoShot(int x, int y,int targetX,int targetY,Directions direction) {
 		this.x = x;
 		this.y = y;
@@ -32,6 +43,9 @@ public class TornadoShot extends Entity{
 		getTornadoImage();
 	}
 	
+	/**
+	 * Inizializza i valori iniziali di TornadoShot
+	 */
 	private void getDefaultValues() {
 		fallOn = true;
 		speed = 4;
@@ -46,8 +60,14 @@ public class TornadoShot extends Entity{
 		hitBox.height = 23;
 	}
 	
+	/**
+	 * @return ritorna la lista di tutti i tornado shot ancora attivi
+	 */
 	public static ArrayList<TornadoShot> getTornadoShots(){ return tornadoShots;}
 	
+	/**
+	 * Inizializza le immagini che rappresentano i tornado shot
+	 */
 	private void getTornadoImage() {
 		try {
 			
@@ -62,12 +82,20 @@ public class TornadoShot extends Entity{
 		}
 	
 	}
+	
+	/**
+	 * @return true se il target da colpire è nel raggio del colpo
+	 */
 	private boolean isOnTarget() {
 		if(x <= targetX+speed && x >= targetX-speed && y <= targetY+speed && y >= targetY-speed) {
 			return true;
 		}
 		return false;
 	}
+	
+	/**
+	 * Aggiornamento del posizionamento del colpo e delle sprite utilizzate per rappresentarlo
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 	
@@ -95,6 +123,10 @@ public class TornadoShot extends Entity{
 		}
 	}
 
+	
+	/**
+	 * Gestione della fine di un tornado shot
+	 */
 	@Override
 	public void die() {	
 
@@ -105,6 +137,10 @@ public class TornadoShot extends Entity{
 	
 	}
 
+	
+	/**
+	 * Disegno di un tornado shot
+	 */
 	@Override
 	public void draw(Graphics2D g2) {
 		BufferedImage image = null;

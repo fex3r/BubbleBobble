@@ -29,12 +29,18 @@ import model.TornadoDemon;
 import model.TornadoShot;
 import model.WiewData;
 
+/**
+ * GamePanel gestisce il pannello di gioco, contenente mappa, personaggi, spari e tutte le componenti di gioco
+ */
 public class GamePanel extends JPanel
 {	
 	private static GamePanel gamePanelInstance;
 	private JPanel pointsPanel;
 	private Font font;
 	
+	/**
+	 * Costruttore privato
+	 */
 	private GamePanel() 
 	{
 		this.setLayout(null);
@@ -59,12 +65,17 @@ public class GamePanel extends JPanel
 		
 	}
 
-	
+	/**
+	 * @return l'istanza di GamePanel altrimenti ne crea una
+	 */
 	public static GamePanel getInstance() 
 	{
 		if(gamePanelInstance == null) gamePanelInstance = new GamePanel();
 		return gamePanelInstance;
 	}
+	/**
+	 * Carica la riga con il punteggio e il livello sopra la mappa
+	 */
 	private void getAssets() {
 		try {
 			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResourceAsStream("/fonts/BubblegumSans-Regular.ttf")).deriveFont(30f);
@@ -73,8 +84,15 @@ public class GamePanel extends JPanel
 			e.printStackTrace();
 		}
 	}
-	
-	private class PointsPanel extends JPanel {
+	/**
+	 * Rappresenta il pannello dove inseriamo il punteggio della partita corrente
+	 * e il livello in cui ci troviamo in quel determinato momento
+	 */
+	private class PointsPanel extends JPanel 
+	{
+		/**
+		 * Stampa delle componenti per rappresentare il pannello
+		 */
         @Override
         protected void paintComponent(Graphics g) {
   
@@ -97,6 +115,9 @@ public class GamePanel extends JPanel
         }
     }
 	
+	/**
+	 * Stampa del pannello di gioco
+	 */
 	@Override
 	public void paintComponent(Graphics g) 
 	{	

@@ -17,6 +17,9 @@ import control.KeyHandler;
 import model.ProfileManager;
 import model.WiewData;
 
+/**
+ * Pause menu gestisce il menu di pausa del gioco
+ */
 public class PauseMenu extends JPanel{
 	
 	private static PauseMenu pauseMenuInstance;
@@ -27,7 +30,12 @@ public class PauseMenu extends JPanel{
 	private int commandId = 0;
 	private Font font;
 	private BufferedImage bubble;
-	private PauseMenu() {
+	
+	/**
+	 * Costruttore privato di PauseMenu
+	 */
+	private PauseMenu() 
+	{
 		this.setPreferredSize(new Dimension(WiewData.GAME_SCREEN_WIDTH.getValue(),WiewData.GAME_SCREEM_HEIGHT.getValue()));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true); //Migliora la qualità video
@@ -39,11 +47,17 @@ public class PauseMenu extends JPanel{
 		getAssets();
 	}
 	
+	/**
+	 * @return l'istanza di PauseMenu, altrimenti ne crea una
+	 */
 	public static PauseMenu getInstance() {
 		if(pauseMenuInstance == null) pauseMenuInstance = new PauseMenu();
 		return pauseMenuInstance;
 	}
 	
+	/**
+	 * Carica le immagini utilizzate nel menù di pausa
+	 */
 	private void getAssets() {
 		
 		try {
@@ -54,6 +68,9 @@ public class PauseMenu extends JPanel{
 		}
 	}
 	
+	/**
+	 * Stampa delle componenti utilizzate per rappresentare il menù di pausa
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		

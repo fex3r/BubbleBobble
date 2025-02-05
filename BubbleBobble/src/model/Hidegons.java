@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
 import control.CollisionChecker;
 import control.GameEngine;
 
-public class Hidegons extends Enemy{
+public class Hidegons extends Enemy
+{
 	
 	protected BufferedImage bolla1, bolla2, bolla3,caduta,cadutaS,muovi1,muovi1S,muovi2,muovi2S,muovi3,muovi3S,sparo;
 

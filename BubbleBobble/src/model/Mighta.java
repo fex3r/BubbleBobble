@@ -61,7 +61,7 @@ public class Mighta extends Enemy
 	}
 	
 	/**
-	 * Inizializza le immagini che rappresentano Mighta 
+	 * Inizializza le immagini che rappresentano Mighta
 	 */
 	public void setImage()
 	{
@@ -86,7 +86,9 @@ public class Mighta extends Enemy
 		}
 	}
 	
-	
+	/**
+	 * Aggiornamenti di Mighta per spostamento, salto, sparo e scelta delle sprite
+	 */
 	@Override
 	public void update(Observable o, Object arg) 
 	{
@@ -240,6 +242,9 @@ public class Mighta extends Enemy
 		
 	}
 
+	/**
+	 * Metodo per la gestione della morte di Mighta
+	 */
 	@Override
 	public void die() 
 	{
@@ -256,6 +261,9 @@ public class Mighta extends Enemy
 		}
 	}
 
+	/**
+	 * Disegno di Mighta
+	 */
 	@Override
 	public void draw(Graphics2D g2) 
 	{

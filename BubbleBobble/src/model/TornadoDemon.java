@@ -24,6 +24,9 @@ public class TornadoDemon extends Enemy
 	private int shootAnimation = 5;
 	private int shootAnimationSpriteCounter = 0;
 	
+	/**
+	 * Costruttore di TornadoDemon
+	 */
 	public TornadoDemon() {
 		
 		setDefaultValues();
@@ -32,13 +35,15 @@ public class TornadoDemon extends Enemy
 		enemies.add(this);
 	}
 	
-	
+	/**
+	 * Assegna i valori iniziali di TornadoDemon
+	 */
 	public void setDefaultValues() 
 	{
 		x = 200;
 		y = 200;
 		speed = 2;
-		direction = Directions.LEFT;
+		direction = Directions.UP;
 		oldDirection = Directions.LEFT;
 		hitBoxDefaultX = 16;
 		hitBoxDefaultY = 11;
@@ -50,6 +55,9 @@ public class TornadoDemon extends Enemy
 		hitBox.height = 38;
 	}
 	
+	/**
+	 * Carica le giuste sprite per rappresentare TornadoDemon
+	 */
 	private void getDemonImage() {
 		try {
 			
@@ -84,6 +92,9 @@ public class TornadoDemon extends Enemy
 	
 	}
 	
+	/**
+	 * Verifica se Player è nel raggio di tiro di TornadoPlayer
+	 */
 	private boolean isPlayerInRange() {
 		int xDistance = Math.abs(Player.getInstance().x-x);
 		int yDistance = Math.abs(Player.getInstance().y-y);
@@ -100,6 +111,9 @@ public class TornadoDemon extends Enemy
 		return false;
 	}
 	
+	/**
+	 * Aggiornamento di TornadoPlayer per posizione, sparo, aggiornamento sprite per rappresentazione
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 
@@ -238,6 +252,9 @@ public class TornadoDemon extends Enemy
 		}
 	}
 
+	/**
+	 * Sparo del tornado
+	 */
 	private void shootTornado(int targetX,int targetY) {
 		if(directionForImage == Directions.LEFT) {
 			new TornadoShot(x,y,targetX,targetY,directionForImage);
@@ -245,7 +262,9 @@ public class TornadoDemon extends Enemy
 		
 	}
 
-
+	/**
+	 * Gestione della morte di TornadoPlayer
+	 */
 	@Override
 	public void die() {
 		
@@ -258,7 +277,9 @@ public class TornadoDemon extends Enemy
 		
 	}
 
-
+	/**
+	 * Disegno di TornadoPlayer
+	 */
 	@Override
 	public void draw(Graphics2D g2) {
 

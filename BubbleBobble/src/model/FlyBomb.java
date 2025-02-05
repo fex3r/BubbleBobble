@@ -23,6 +23,9 @@ public class FlyBomb extends Enemy{
 	private int spriteCounter = 0;
 	private boolean esplosionAnimation = false;
 	
+	/**
+	 * Costruttor di FlyBomb
+	 */
 	public FlyBomb() {
 
 		setDefaultValues();
@@ -31,6 +34,9 @@ public class FlyBomb extends Enemy{
 		enemies.add(this);
 	}
 	
+	/**
+	 * Assegnazione dei valori iniziali di FlyBomb
+	 */
 	private void setDefaultValues() {
 		speed = 2;
 		direction = Directions.LEFT;
@@ -44,6 +50,9 @@ public class FlyBomb extends Enemy{
 		hitBox.height = 38;
 	}
 
+	/**
+	 * Inizializzazione delle immagini che rappresenteranno FlyBomb
+	 */
 	private void getImage() {
 		try {
 			bomb1 = ImageIO.read(getClass().getResourceAsStream("/sprites/towerfall/flyBomb/bomb1.png"));
@@ -75,6 +84,9 @@ public class FlyBomb extends Enemy{
 		
 	}
 
+	/**
+	 * Aggiornamento di FlyBomb, per spostamento, volo, sparo e aggiornamento immagini
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		
@@ -189,7 +201,9 @@ public class FlyBomb extends Enemy{
 		}
 		
 		
-
+	/**
+	 * Metodo per la morte di FlyBomb, quando viene colpito esplode e viene allargata la sia hitbox
+	 */
 	@Override
 	public void die() {
 		
@@ -215,6 +229,9 @@ public class FlyBomb extends Enemy{
 		
 	}
 
+	/**
+	 * Disegno di FlyBomb
+	 */
 	@Override
 	public void draw(Graphics2D g2) {
 		

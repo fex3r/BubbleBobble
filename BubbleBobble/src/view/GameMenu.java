@@ -21,6 +21,11 @@ import model.LevelManager;
 import model.ProfileManager;
 import model.WiewData;
 
+/**
+ * GameMenu ha lo scopo di rappresentare la schermata iniziale di gioco, 
+ * dove è possibile iniziare una nuova partita o caricarne una già iniziata.
+ * Oppure uscire dal gioco
+ */
 public class GameMenu extends JPanel {
 	
 	private static GameMenu gameMenuInstance;
@@ -41,6 +46,9 @@ public class GameMenu extends JPanel {
 		        new Color(244, 164, 96)
 		    };
 	 
+	/**
+	 * Costruttore privato di GameMenu
+	 */
 	private GameMenu() {
 		this.setPreferredSize(new Dimension(WiewData.GAME_SCREEN_WIDTH.getValue(),WiewData.GAME_SCREEM_HEIGHT.getValue()));
 		this.setBackground(Color.black);
@@ -53,12 +61,18 @@ public class GameMenu extends JPanel {
 		getAssets();
 	}
 	
+	/**
+	 * @return l'istanza di GameMenu, altrimenti ne crea una
+	 */
 	public static GameMenu getInstance() 
 	{
 		if(gameMenuInstance == null) gameMenuInstance = new GameMenu();
 		return gameMenuInstance;
 	}
 	
+	/**
+	 * Carica le immagini utilizzate nella schermata iniziale
+	 */
 	private void getAssets() {
 		try {
 			title = ImageIO.read(getClass().getResourceAsStream("/sprites/misc/image_21.png"));
@@ -70,6 +84,9 @@ public class GameMenu extends JPanel {
 		}
 	}
 	
+	/**
+	 * Stampa delle componenti nella schermata iniziale del gioco
+	 */
 	@Override
 	public void paintComponent(Graphics g) {
 		

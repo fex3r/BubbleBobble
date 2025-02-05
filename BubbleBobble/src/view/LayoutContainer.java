@@ -4,8 +4,11 @@ import java.awt.CardLayout;
 
 import javax.swing.JPanel;
 
-public class LayoutContainer extends JPanel {
-	
+/**
+ * 
+ */
+public class LayoutContainer extends JPanel 
+{
 	private static LayoutContainer layoutContainerInstance;
 	private CardLayout cardLayout;
 	public static final String MENU_CARD = "Menu";
@@ -14,6 +17,9 @@ public class LayoutContainer extends JPanel {
     public static final String PAUSE_CARD = "Pause";
     private String cardName  = "";
     
+    /**
+     * Csotruttore privato di LayoutContainer
+     */
 	private LayoutContainer() {
 		cardLayout = new CardLayout();
 		setLayout(cardLayout);
@@ -24,7 +30,9 @@ public class LayoutContainer extends JPanel {
         add(GamePanel.getInstance(), GAME_CARD);
         add(PauseMenu.getInstance(),PAUSE_CARD);
 	}
-	
+	/**
+	 * @return l'istanza di LayoutContainer altrimenti ne crea una
+	 */
 	public static LayoutContainer getInstance() {
 		if(layoutContainerInstance == null) layoutContainerInstance = new LayoutContainer();
 		return layoutContainerInstance;
