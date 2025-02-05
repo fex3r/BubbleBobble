@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Level 
 {	
 	protected int levelNum;
-	protected int levelMapX;
+	public int levelMapX;
 	protected ArrayList<EnemySpawn> enemySpawn;
 	
 	/**

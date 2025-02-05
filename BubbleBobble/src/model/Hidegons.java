@@ -16,7 +16,7 @@ public class Hidegons extends Enemy
 {
 	
 	protected BufferedImage bolla1, bolla2, bolla3,caduta,cadutaS,muovi1,muovi1S,muovi2,muovi2S,muovi3,muovi3S,sparo;
-
+	
 	private int frameDirezione = 0;
 	private int frameSalto = 0;
 	private int frameShot = 0;
@@ -27,6 +27,7 @@ public class Hidegons extends Enemy
 		
 		setDefaultValues();
 		setImage();
+		shotImage = sparo;
 		GameEngine.getInstance().addObserver(this);
 		enemies.add(this);
 		
@@ -62,6 +63,7 @@ public class Hidegons extends Enemy
 		fallOn = true;
 		shotImage = sparo;
 		speed = 2;
+		shotSpeed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
 		
@@ -199,7 +201,18 @@ public class Hidegons extends Enemy
 
 	@Override
 	public void die() {
-		// TODO Auto-generated method stub
+		if(bubbleStatus == true) 
+		{
+			enemies.remove(this);
+			GameEngine.getInstance().deleteObserver(this);
+			
+		}
+		else 
+		{
+			new PowerUp(x,y);
+			bubbleStatus = true;
+			
+		}
 		
 	}
 

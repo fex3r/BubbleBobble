@@ -13,10 +13,11 @@ import javax.imageio.ImageIO;
 
 import control.CollisionChecker;
 import control.GameEngine;
+import control.ProfileManager;
 
 public class PowerUp extends Entity
 {
-	private Random rand = new Random();
+	
 	protected int value;
 	public static List<Integer> powerUpList = new ArrayList<>(List.of(1,2,3,4,5,6,7,8,9,10,11,12));
 	public static ArrayList<PowerUp> powerUp = new ArrayList<PowerUp>();
@@ -26,7 +27,7 @@ public class PowerUp extends Entity
 	{
 		this.x = x;
 		this.y = y;
-		value = rand.nextInt(12) + 1;
+		
 		setImage();
 		setDefaultValues();
 		GameEngine.getInstance().addObserver(this);
@@ -36,9 +37,13 @@ public class PowerUp extends Entity
 	private void setDefaultValues()
 	{
 		fallOn = true;
+		Random rand = new Random();
+		speed = 3;
+		value = rand.nextInt(12) + 1;
 		
 		hitBoxDefaultX = 6;
 		hitBoxDefaultY = 6;
+		
 		hitBox = new Rectangle();
 		hitBox.x = hitBoxDefaultX;
 		hitBox.y = hitBoxDefaultY;
@@ -50,18 +55,18 @@ public class PowerUp extends Entity
 	{
 		try
 		{
-			i1 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_68.png"));	//Banana -->
-			i2 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_61.png"));	//Pannocchia -->
-			i3 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_65.png"));	//Carota -->
-			i4 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_70.png"));	//Anguria -->
-			i5 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_66.png"));	//Peperone -->
-			i6 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_71.png"));	//Arancia -->
-			i7 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_63.png"));	//Cipolla -->
-			i8 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_64.png"));	//Melanzana -->
-			i9 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_67.png"));	//Patatine -->
-			i10 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_29.png"));	//Birra -->
-			i11 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_41.png"));	//Pozione viola -->
-			i12 = ImageIO.read(getClass().getResourceAsStream("/sprites/item/image_42.png"));	//Pozione gialla -->
+			i1 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_68.png"));	//Banana -->
+			i2 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_61.png"));	//Pannocchia -->
+			i3 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_65.png"));	//Carota -->
+			i4 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_70.png"));	//Anguria -->
+			i5 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_66.png"));	//Peperone -->
+			i6 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_71.png"));	//Arancia -->
+			i7 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_63.png"));	//Cipolla -->
+			i8 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_64.png"));	//Melanzana -->
+			i9 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_67.png"));	//Patatine -->
+			i10 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_29.png"));	//Birra -->
+			i11 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_41.png"));	//Pozione viola -->
+			i12 = ImageIO.read(getClass().getResourceAsStream("/sprites/items/image_42.png"));	//Pozione gialla -->
 		}
 		catch(Exception e)
 		{
@@ -73,7 +78,45 @@ public class PowerUp extends Entity
 	
 	public void effect()
 	{
-		
+		switch(value)
+		{
+			case 1:
+				Player.getInstance().shotSpeed++;
+				break;
+			case 2: 
+				Player.getInstance().speed++;
+				break;
+			case 3:
+				Player.getInstance().increasePointsMod();
+				break;
+			case 4: 
+				Player.getInstance().decreasePointsMod();
+				break;
+			case 5:
+				Player.getInstance().speed--;
+				break;
+			case 6: 
+				Player.getInstance().setSpeed(Player.getInstance().speed*2);;
+				break;
+			case 7:
+				ProfileManager.getInstance().addCurrentPoints(300*Player.getInstance().pointsMod);
+				break;
+			case 8: 
+				ProfileManager.getInstance().addCurrentPoints(500*Player.getInstance().pointsMod);
+				break;
+			case 9:
+				ProfileManager.getInstance().addCurrentPoints(800*Player.getInstance().pointsMod);
+				break;
+			case 10: 
+				ProfileManager.getInstance().addCurrentPoints(900*Player.getInstance().pointsMod);
+				break;
+			case 11:
+				ProfileManager.getInstance().addCurrentPoints(100*Player.getInstance().pointsMod);
+				break;
+			case 12: 
+				ProfileManager.getInstance().addCurrentPoints(200*Player.getInstance().pointsMod);
+				break;
+		}
 	}
 	
 	@Override
@@ -92,9 +135,11 @@ public class PowerUp extends Entity
 
 	@Override
 	public void die() 
-	{
+	{	
+		effect();
 		powerUp.remove(this);
 		GameEngine.getInstance().deleteObserver(this);	
+		
 	}
 
 	@Override
@@ -104,6 +149,7 @@ public class PowerUp extends Entity
 		
 		switch(value)
 		{
+			
 			case 1:
 				image = i1;
 				break;
@@ -141,10 +187,9 @@ public class PowerUp extends Entity
 				image = i12;
 				break;
 		}
+		
+		
 		g2.drawImage(image, x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
 		
-//		stampa dell'hitbox
-		g2.setColor(Color.RED);
-		g2.drawRect(x + hitBox.x, y + hitBox.y, hitBox.width, hitBox.height);
 	}
 }

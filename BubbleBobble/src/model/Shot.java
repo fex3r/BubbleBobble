@@ -35,14 +35,14 @@ public class Shot extends Entity
 	 * @param y posizione nell'asse y di Shot
 	 * @param direction direzione che ha lo sparo
 	 */
-	public Shot(int x, int y, Directions direction, Entity entity)
+	public Shot(int x, int y, Directions direction, Entity entity,int speed)
 	{
 		owner = entity;
 		shotImage = entity.getShotImage();
 		this.x = x;
 		this.y = y;
 		this.direction = direction;
-		speed = 6;
+		this.speed = speed;
 		shots.add(this); 
 		GameEngine.getInstance().addObserver(this);
 		

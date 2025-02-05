@@ -20,6 +20,7 @@ public abstract class Entity implements Observer
 	Directions oldDirection;
 	protected int spriteCounter = 0;
 	protected int spriteNum = 1;
+	protected int shotSpeed;
 	protected Rectangle hitBox;
 	protected int hitBoxDefaultX;
 	protected int hitBoxDefaultY;
@@ -109,6 +110,7 @@ public abstract class Entity implements Observer
 	 * @param dir
 	 */
 	public void setDirection(Directions dir) { direction = dir; }
+	public void setDirectionDown() {direction = Directions.DOWN;}
 	
 	/**
 	 * Metodo astratto che per i comportamenti di Entity quando muore
@@ -120,7 +122,7 @@ public abstract class Entity implements Observer
 	 */
 	public void shot()
 	{
-		new Shot(getShotPosition(), this.getY(), getShotDirection(), this);
+		new Shot(getShotPosition(), this.getY(), getShotDirection(), this,shotSpeed);
 	}
 	
 	/**

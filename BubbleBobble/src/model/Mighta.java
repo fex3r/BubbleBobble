@@ -48,6 +48,7 @@ public class Mighta extends Enemy
 		fallOn = true;
 		
 		speed = 2;
+		shotSpeed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
 		
@@ -252,12 +253,12 @@ public class Mighta extends Enemy
 		{
 			enemies.remove(this);
 			GameEngine.getInstance().deleteObserver(this);
-			
 		}
 		else 
 		{
-			bubbleStatus = true;
 			new PowerUp(x,y);
+			bubbleStatus = true;
+			
 		}
 	}
 

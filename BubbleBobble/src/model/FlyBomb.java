@@ -214,6 +214,7 @@ public class FlyBomb extends Enemy{
 			esplosionAnimation = true;
 			this.x = this.x-30;
 			this.y = this.y-30;
+			new PowerUp(x,y);
 			
 			hitBox.x = 0;
 			hitBox.y = 0;

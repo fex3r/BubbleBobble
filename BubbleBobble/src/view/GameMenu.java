@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 
 import control.GameEngine;
 import control.KeyHandler;
-import model.LevelManager;
-import model.ProfileManager;
+import control.LevelManager;
+import control.ProfileManager;
 import model.WiewData;
 
 /**

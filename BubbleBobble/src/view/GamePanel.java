@@ -18,12 +18,12 @@ import javax.swing.JPanel;
 
 import control.GameEngine;
 import control.KeyHandler;
+import control.LevelManager;
+import control.ProfileManager;
 import model.Enemy;
 import model.GameMap;
-import model.LevelManager;
 import model.Player;
 import model.PowerUp;
-import model.ProfileManager;
 import model.Shot;
 import model.TornadoDemon;
 import model.TornadoShot;

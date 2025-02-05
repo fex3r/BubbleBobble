@@ -6,8 +6,8 @@ import java.util.Observable;
 
 import model.Enemy;
 import model.Entity;
-import model.LevelManager;
 import model.Player;
+import model.PowerUp;
 import model.Shot;
 import view.GameMenu;
 import view.GamePanel;
@@ -31,10 +31,13 @@ public class GameEngine extends Observable implements Runnable
 	private static boolean gamePause = false;
 	private List<Shot> diedShots;
 	private List<Enemy> diedEnemies;
+	private List<PowerUp> diedPower;
+	private String musicMenu = "/music/cowboy.wav";
 	
 	private GameEngine() {
 		diedShots = new ArrayList<>();
 		diedEnemies = new ArrayList<>();
+		diedPower = new ArrayList<>();
 	}
 	
 	// Singleton pattern
@@ -63,6 +66,7 @@ public class GameEngine extends Observable implements Runnable
 			
 			
 			if(gameState == menuState && !LayoutContainer.getInstance().getCardName().equals(LayoutContainer.MENU_CARD)) {
+				AudioManager.getInstance().play(musicMenu, true);
 				LayoutContainer.getInstance().showCard(LayoutContainer.MENU_CARD);
 				KeyHandler.getInstance().resetKeys();
 			}
@@ -117,14 +121,30 @@ public class GameEngine extends Observable implements Runnable
 				}
 			});
 			
+			Shot.getShots().forEach(shot -> {
+				if(CollisionChecker.checkHit(shot, Player.getInstance())) {
+					Player.getInstance().die();
+				}
+			}
+			);
+			
+			PowerUp.powerUp.forEach(power ->{
+				if(CollisionChecker.checkHit(Player.getInstance(), power)) {
+					diedPower.add(power);
+				}
+			}
+			);
+			
 			
 			
 			
 			diedShots.forEach(Shot::die);
 			diedEnemies.forEach(Enemy::die);
+			diedPower.forEach(PowerUp::die);
 			
 			diedShots.clear();
 			diedEnemies.clear();
+			diedPower.clear();
 			
 			
 			try 

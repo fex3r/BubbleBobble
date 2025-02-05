@@ -244,10 +244,14 @@ public class Banebou extends Enemy
 	{
 		if(bubbleStatus == true) 
 		{
+			
 			enemies.remove(this);
 			GameEngine.getInstance().deleteObserver(this);
 		}
-		else bubbleStatus = true;
+		else {
+			new PowerUp(x,y);
+			bubbleStatus = true;
+		}
 		
 	}
 

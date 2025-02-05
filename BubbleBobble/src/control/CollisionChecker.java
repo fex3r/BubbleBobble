@@ -79,13 +79,13 @@ public class CollisionChecker
 		int rightTopXScaled = rightTopX/WiewData.TILE_SIZE.getValue();
 		int rightTopYScaled = (rightTopY-entity.getSpeed())/WiewData.TILE_SIZE.getValue();
 		
-		
+		if( rightTopYScaled == 0 || leftTopYScaled == 0) 
+		{
+			entity.setHitUp(true);
+		}
 		if(GameMap.solidBlocks.contains((GameMap.getInstance().getValue(rightTopYScaled, rightTopXScaled))) || GameMap.solidBlocks.contains(GameMap.getInstance().getValue(leftTopYScaled, leftTopXScaled)))
 		{
-			if(GameMap.endBlock.contains(GameMap.getInstance().getValue(rightTopYScaled, rightTopXScaled)) || GameMap.endBlock.contains(GameMap.getInstance().getValue(leftTopYScaled, leftTopXScaled))) 
-			{
-				//non lo so 
-			}else entity.setDirection(Directions.DOWN);
+			 entity.setHitUp(true);
 		}
 	}
 	

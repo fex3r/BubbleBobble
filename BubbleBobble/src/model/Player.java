@@ -31,6 +31,7 @@ public final class Player extends Entity
 	private boolean jump;
 	private boolean spriteSparo = false;
 	private int jumpValue = 0;
+	protected int pointsMod = 1;
 	protected BufferedImage standR1,standR2,standL1,standL2,moveR1,moveR2,moveR3,moveL1,moveL2,moveL3,sparoS,sparoD;
 	
 	// costruttore privato Pattern Singleton
@@ -49,12 +50,22 @@ public final class Player extends Entity
 		if(playerInstance == null) playerInstance = new Player();
 		return playerInstance;
 	}
+	/**
+	 * Incrementa il modificatore dei punti 
+	 */
+	public void increasePointsMod() {
+		pointsMod += x;
+	}
+	public void decreasePointsMod() {
+		if(pointsMod > 0) pointsMod--;
+	}
 	
 	/**
 	 * Definisce un nuovo valore al parametro jump
 	 * @param x valora da settare
 	 */
 	public void setJump(boolean x) { jump = x; }
+	public void setSpeed(int x) {speed = x; }
 	
 	/**
 	 * Restituisce il valore di jump
@@ -67,9 +78,10 @@ public final class Player extends Entity
 	 */
 	public void setDefaultValues()
 	{
-		x = 100;
-		y = 100;
+		x = 400;
+		y = 64;
 		speed = 4;
+		shotSpeed = 4;
 		direction = Directions.LEFT;
 		oldDirection = Directions.LEFT;
 		hitBoxDefaultX = 11;
@@ -247,13 +259,13 @@ public final class Player extends Entity
 		//Stampa
 		g2.drawImage(image,x, y, WiewData.TILE_SIZE.getValue(),WiewData.TILE_SIZE.getValue(),null);
 		
-    
+		//System.out.println("x --->"+x+" "+ "y ----->"+y);
 	}
 
 	@Override
 	public void die() 
 	{
-		// TODO Auto-generated method stub
+		System.out.println("sono morto");
 		
 	}
 }
